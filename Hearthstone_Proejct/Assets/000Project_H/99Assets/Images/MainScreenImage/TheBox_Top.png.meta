@@ -1,0 +1,327 @@
+fileFormatVersion: 2
+guid: 04c4004e8ad08b949848e3d867cbf473
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: 0
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CloseTableBox
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 363
+        width: 860
+        height: 638
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6085744ffa860c458e445dae2d77283
+      internalID: 1124127291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TheBox_MyCard
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 215
+        width: 270
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 921d697a396c2db48939d255ecb6d0be
+      internalID: 449484816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TheBox_OpenCard
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 215
+        width: 135
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4651362a2a68da745a4adcd56424d65d
+      internalID: -164140519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TheBox_Outline
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 14
+        width: 479
+        height: 126
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 684bcdb3bfbe75549ae1c1cde85599fd
+      internalID: 898513462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TheBox_Top_0
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 8
+        width: 350
+        height: 345
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -41, y: -163}
+        - {x: -88, y: -149}
+        - {x: -118, y: -126}
+        - {x: -141, y: -97}
+        - {x: -155, y: -68}
+        - {x: -160, y: -36}
+        - {x: -159, y: 8}
+        - {x: -152, y: 56}
+        - {x: -112, y: 118}
+        - {x: -62, y: 152}
+        - {x: -2, y: 168.5}
+        - {x: 71, y: 157.5}
+        - {x: 128, y: 110}
+        - {x: 159, y: 66}
+        - {x: 170, y: 33}
+        - {x: 172, y: 2}
+        - {x: 168, y: -37}
+        - {x: 157, y: -75}
+        - {x: 137, y: -114}
+        - {x: 112, y: -142}
+        - {x: 81, y: -159}
+        - {x: 47, y: -165}
+        - {x: 6, y: -171.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a13036b027dea9488628893db0d4b40
+      internalID: -1730777827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline:
+    - - {x: 219, y: -498}
+      - {x: 196, y: -495}
+      - {x: 165, y: -485}
+      - {x: 140, y: -472}
+      - {x: 116, y: -452}
+      - {x: 94, y: -426}
+      - {x: 78, y: -401}
+      - {x: 70, y: -369}
+      - {x: 67, y: -342}
+      - {x: 67, y: -307}
+      - {x: 78, y: -272}
+      - {x: 89, y: -247}
+      - {x: 104, y: -223}
+      - {x: 127, y: -197}
+      - {x: 156, y: -179}
+      - {x: 191, y: -166}
+      - {x: 228, y: -163}
+      - {x: 270, y: -165}
+      - {x: 303, y: -177}
+      - {x: 336, y: -196}
+      - {x: 360, y: -220}
+      - {x: 381, y: -250}
+      - {x: 397, y: -286}
+      - {x: 400, y: -319}
+      - {x: 400, y: -341}
+      - {x: 398, y: -361}
+      - {x: 393, y: -378}
+      - {x: 386, y: -398}
+      - {x: 374, y: -421}
+      - {x: 358, y: -444}
+      - {x: 337, y: -461}
+      - {x: 316, y: -476}
+      - {x: 292, y: -486}
+      - {x: 267, y: -493}
+      - {x: 243, y: -500}
+    - - {x: -428, y: -152}
+      - {x: -428, y: 496}
+      - {x: 450, y: 496}
+      - {x: 450, y: -152}
+    - - {x: -429, y: -293}
+      - {x: -430, y: -193}
+      - {x: -296, y: -193}
+      - {x: -297, y: -293}
+    - - {x: -287, y: -291}
+      - {x: -287, y: -194}
+      - {x: -20, y: -194}
+      - {x: -20, y: -291}
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      CloseTableBox: 1124127291
+      TheBox_MyCard: 449484816
+      TheBox_OpenCard: -164140519
+      TheBox_Outline: 898513462
+      TheBox_Top_0: -1730777827
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
