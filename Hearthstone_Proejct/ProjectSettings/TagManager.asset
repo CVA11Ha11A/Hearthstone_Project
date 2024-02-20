@@ -47,3 +47,6 @@ TagManager:
   - name: CollectionCanvas
     uniqueID: 2007506245
     locked: 0
+  - name: Card
+    uniqueID: 3088964997
+    locked: 0
