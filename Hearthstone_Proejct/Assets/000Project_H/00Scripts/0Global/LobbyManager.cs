@@ -2,9 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LobbyManager : MonoBehaviour
 {
+    /// <summary>
+    /// 0 : 일반 하수인 1 : 주문
+    /// </summary>
+    public Image[] cardOutlines;
+    /// <summary>
+    /// 0 : 레어 1 : 에픽 2 : 전설
+    /// </summary>
+    public Material[] minionOutLines;
+
     private static LobbyManager instance = default;
     public static LobbyManager Instance 
     {

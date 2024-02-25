@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class Test001 : MonoBehaviour
 {
-    
-    public void IsClick()
+    public int Num;
+    public int TestID;
+
+    public virtual void Test0010()
     {
-        Debug.Log($"클릭인식이 잘되나?");
+
     }
+    
+
 }

@@ -38,6 +38,8 @@ public class MinionCard : MonoBehaviour
     public int cost = default;
 
 
+    public int cardId = default;
+
     protected virtual void Awake()
     {        
         minionTexts = new TextMeshProUGUI[this.transform.GetChild(0).GetChild(1).GetChild(0).childCount];
