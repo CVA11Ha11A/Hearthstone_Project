@@ -8,12 +8,17 @@ public enum CardID
     Norgannon = 1
 }
 
+public enum CardType
+{
+    Minion = 0,
+    Spell = 1,
+    Weapon = 2
+}
 public enum ClassCard
 {
     Common = 0,
     Prist = 1,
     Mage = 2
-
 }
 
 /// <summary>
@@ -26,7 +31,7 @@ public enum M_Clip
     Death,
     Stinger
 }
-public enum M_Text
+public enum C_Text
 {
     Name = 0,
     Empect,

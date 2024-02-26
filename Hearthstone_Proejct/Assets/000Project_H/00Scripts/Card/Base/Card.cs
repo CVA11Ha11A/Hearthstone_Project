@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,8 +8,10 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
+    protected TextMeshProUGUI[] cardTexts = default;
     protected Image cardImage = default;      // 카드의 이미지 -> 주문, 하수인, 무기 공통적으로 필요
-    protected ClassCard ClassCard = default;
+    protected CardType cardType = default;      // 카드가 주문인지 하수인인지 구별해줄 열거형데이터
+    protected ClassCard ClassCard = default;    // 카드가 공통카드인지 직업카드인지 구별해줄 열거형데이터
 
     /// <summary>
     /// 카드들은 고유적인 ID값을 가지며 해당 ID값으로 구별할 것임
@@ -19,15 +22,17 @@ public class Card : MonoBehaviour
 
     public string cardName = default;
     public string empect = default;
-
+        
     protected virtual void Awake()
     {
-        // 상속받은곳에서 구현
+        cardTexts = new TextMeshProUGUI[this.transform.GetChild(0).GetChild(1).GetChild(0).childCount];
+        cardImage = this.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>();        
     }       // Awake()
 
     protected virtual void Start()
     {
-        // 상속받은곳에서 구현
+        CardTextsSetting();
+        
     }       // Start()
 
     public virtual void Empect()
@@ -49,5 +54,51 @@ public class Card : MonoBehaviour
     {
         this.ClassCard = classCard_;
     }
+
+    protected void SetCardType(CardType cardType_)
+    {
+        this.cardType = cardType_;
+    }
+
+    protected void CardTextsSetting()
+    {
+        for (int i = 0; i < cardTexts.Length; i++)
+        {
+            cardTexts[i] = this.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(i).GetComponent<TextMeshProUGUI>();
+        }
+
+        cardTexts[(int)C_Text.Name].gameObject.SetActive(true);
+        cardTexts[(int)C_Text.Empect].gameObject.SetActive(true);
+        cardTexts[(int)C_Text.Cost].gameObject.SetActive(true);
+
+        if (this.cardType == CardType.Minion)
+        {
+            cardTexts[(int)C_Text.Hp].gameObject.SetActive(true);
+            cardTexts[(int)C_Text.Damage].gameObject.SetActive(true);
+        }
+
+        else if (this.cardType == CardType.Spell)
+        {
+            cardTexts[(int)C_Text.Hp].gameObject.SetActive(false);
+            cardTexts[(int)C_Text.Damage].gameObject.SetActive(false);
+        }
+    }       // MinionTextSetting()
+
+
+    /// <summary>
+    /// 텍스트 체력 데미지 코스트 한번에 업데이트 되는 함수
+    /// </summary>
+    protected virtual void UpdateUI()
+    {
+        cardTexts[(int)C_Text.Name].text = cardName;
+        cardTexts[(int)C_Text.Empect].text = empect;
+        cardTexts[(int)C_Text.Cost].text = cost.ToString();
+
+        if (this.cardType == CardType.Spell)
+        {
+            // PASS
+        }
+    }       // UpdateUI()
+
 
 }       // Card ClassEnd
