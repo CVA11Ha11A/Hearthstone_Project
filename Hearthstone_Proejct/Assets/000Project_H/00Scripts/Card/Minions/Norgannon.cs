@@ -12,6 +12,7 @@ public class Norgannon : Minion
         base.Awake();
         SetCardId((int)CardID.Norgannon);
         SetClassCard(ClassCard.Common);
+        SetCardRank(CardRank.M_Legendry);
         cardName = "노르간논";
     }
     

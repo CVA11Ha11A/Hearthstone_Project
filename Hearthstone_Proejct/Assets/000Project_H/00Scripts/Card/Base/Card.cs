@@ -8,10 +8,11 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
-    protected TextMeshProUGUI[] cardTexts = default;
-    protected Image cardImage = default;      // 카드의 이미지 -> 주문, 하수인, 무기 공통적으로 필요
-    protected CardType cardType = default;      // 카드가 주문인지 하수인인지 구별해줄 열거형데이터
+    public TextMeshProUGUI[] cardTexts = default;
+    public Image cardImage = default;      // 카드의 이미지 -> 주문, 하수인, 무기 공통적으로 필요
+    public CardType cardType = default;      // 카드가 주문인지 하수인인지 구별해줄 열거형데이터
     protected ClassCard ClassCard = default;    // 카드가 공통카드인지 직업카드인지 구별해줄 열거형데이터
+    public CardRank cardRank = default;         // 카드의 희소성이 어느정도인지 나타내는 열거형데이터
 
     /// <summary>
     /// 카드들은 고유적인 ID값을 가지며 해당 ID값으로 구별할 것임
@@ -60,6 +61,11 @@ public class Card : MonoBehaviour
         this.cardType = cardType_;
     }
 
+    protected void SetCardRank(CardRank cardRank_)
+    {
+        this.cardRank = cardRank_;
+    }
+
     protected void CardTextsSetting()
     {
         for (int i = 0; i < cardTexts.Length; i++)
@@ -97,6 +103,11 @@ public class Card : MonoBehaviour
         if (this.cardType == CardType.Spell)
         {
             // PASS
+        }
+
+        else
+        {   // CardType = Minion
+            // 미니언에 데이터가 존재하는데 어쩌지 (미니언이 베이스 호출하고 따로 오버라이드 한것을 호출 해야겠네)
         }
     }       // UpdateUI()
 

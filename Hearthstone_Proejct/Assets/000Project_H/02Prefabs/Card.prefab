@@ -556,7 +556,7 @@ GameObject:
   - component: {fileID: 8845808667616125908}
   - component: {fileID: 8845808667616125907}
   m_Layer: 0
-  m_Name: MinionCardLine
+  m_Name: CardLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -776,7 +776,7 @@ GameObject:
   - component: {fileID: 8845808668192610360}
   - component: {fileID: 8845808668192610359}
   m_Layer: 0
-  m_Name: Minion_Mask
+  m_Name: Card_Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1101,7 +1101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8845808668735463222}
   m_Layer: 6
-  m_Name: MinionCard
+  m_Name: Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {       // 싱글턴
 
-    private GameManager instance;
-    public GameManager Instance
+    private static GameManager instance;
+    public static GameManager Instance
     {
         get 
         { 
@@ -24,6 +24,17 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 120;
     }
 
+
+    public GameObject GetTopParent(Transform target_)
+    {        
+        while(target_.parent != null)
+        {
+            target_ = target_.parent;       
+        }
+
+        return target_.gameObject;
+    }
+    
 
 
 }       // GameManager Class

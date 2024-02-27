@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Test001 : MonoBehaviour
 {
+    public GameObject[] test000;
     public int Num;
     public int TestID;
 
