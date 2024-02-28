@@ -4976,6 +4976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a4ec48f01891048a1ca897c69983b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardPrefab: {fileID: 0}
   cardOutLineMaterials: []
   cardMaskImages: []
 --- !u!4 &1875379428
@@ -5577,12 +5578,12 @@ PrefabInstance:
     - target: {fileID: 8845808668735463222, guid: 4bb05a9e3d35d8847909a3bfa20f8b65,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -51.34
+      value: -60.78
       objectReference: {fileID: 0}
     - target: {fileID: 8845808668735463222, guid: 4bb05a9e3d35d8847909a3bfa20f8b65,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.87
+      value: -2.3
       objectReference: {fileID: 0}
     - target: {fileID: 8845808668735463222, guid: 4bb05a9e3d35d8847909a3bfa20f8b65,
         type: 3}

@@ -83,12 +83,13 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    public Material[] cardOutLineMaterials;
-    public Image[] cardMaskImages;
+    public GameObject cardPrefab = default;
+    public Material[] cardOutLineMaterials = default;
+    public Sprite[] cardMaskSprites = default;
 
     private void Awake()
     {
-        cardMaskImages = new Image[2];
+        cardMaskSprites = new Sprite[2];
         cardOutLineMaterials = new Material[4];
         ResourceLoad();
         FirstCardSetting();
@@ -103,14 +104,13 @@ public class CardManager : MonoBehaviour
             cards = new Dictionary<int, Card>
             {
                 { (int)CardID.Norgannon, new Norgannon() }
-            };
+            };            
         }
 
-        Debug.Log(cards[(int)CardID.Norgannon].cardName);
-    }
+    }       // FirstCardSetting()
 
     private void Start()
-    {
+    {     
     }
 
 
@@ -124,7 +124,7 @@ public class CardManager : MonoBehaviour
         {
             SpellSetting(card_);
         }
-    }
+    }       // CardSetting()
 
 
     private void MinionSetting(Card card_)
@@ -143,7 +143,7 @@ public class CardManager : MonoBehaviour
         rect.anchoredPosition3D = costPos;
 
         GameObject temp = GameManager.Instance.GetTopParent(card_.transform);
-        temp.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = cardMaskImages[(int)C_MaskImage.Minion].sprite;
+        temp.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = cardMaskSprites[(int)C_MaskImage.Minion];
         temp.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material = cardOutLineMaterials[(int)GetCardRank(card_)];
 
     }       // MinionSetting()
@@ -154,13 +154,15 @@ public class CardManager : MonoBehaviour
 
     private void ResourceLoad()
     {
-        cardMaskImages[(int)C_MaskImage.Minion] = Resources.Load<Image>("CardManager/MinionMask");
-        cardMaskImages[(int)C_MaskImage.Spell] = Resources.Load<Image>("CardManager/SpellMask_v1");
+        cardMaskSprites[(int)C_MaskImage.Minion] = Resources.Load<Sprite>("CardManager/MinionMask");
+        cardMaskSprites[(int)C_MaskImage.Spell] = Resources.Load<Sprite>("CardManager/SpellMask_v1");
 
         cardOutLineMaterials[(int)C_Material.M_Rare] = Resources.Load<Material>("CardManager/Card_Rare");
         cardOutLineMaterials[(int)C_Material.M_Epic] = Resources.Load<Material>("CardManager/Card_Epic");
         cardOutLineMaterials[(int)C_Material.M_Legendry] = Resources.Load<Material>("CardManager/Card_Legendry");
         cardOutLineMaterials[(int)C_Material.S_Epic] = Resources.Load<Material>("CardManager/Card_Spell");
+
+        cardPrefab = Resources.Load<GameObject>("Card");
 
     }       // ResourceLoad()
 
@@ -184,6 +186,15 @@ public class CardManager : MonoBehaviour
         }
 
     }
+
+    public void InItCardComponent(GameObject targetObj_, CardID cardId_)
+    {        
+        Type testType = cards[(int)cardId_].GetType();
+        targetObj_.AddComponent(testType);
+
+    }       // InItCardComponent()
+
+
 
 }       // CardManager ClassEnd
 

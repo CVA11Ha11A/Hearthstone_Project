@@ -13,14 +13,15 @@ public class Norgannon : Minion
         SetCardId((int)CardID.Norgannon);
         SetClassCard(ClassCard.Common);
         SetCardRank(CardRank.M_Legendry);
+        StatSetting(10, 6, 6);
         cardName = "노르간논";
+        empect = "마법사 티탄";
     }
     
       
     protected override void Start()
     {
-        base.Start();
-        CardManager.cards.Add(this.cardId, this);
+        base.Start();        
     }
 
 

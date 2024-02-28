@@ -24,8 +24,13 @@ public class Minion : Card
     {
         base.Start();
         UpdateUI();
+
     }       // Start()
 
+
+    /// <summary>
+    /// 이것도 AddComponent된 이후에 호출 당해야함
+    /// </summary>
     protected override void UpdateUI()
     {
         base.UpdateUI();
@@ -33,5 +38,11 @@ public class Minion : Card
         cardTexts[(int)C_Text.Damage].text = damage.ToString();
     }
 
+    protected void StatSetting(int hp_, int damage_, int cost_)
+    {
+        this.damage = damage_;
+        this.cost = cost_;
+        this.heath = hp_;
+    }       // StatSetting()
 
 }       // Minion ClassEnd

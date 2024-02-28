@@ -25,15 +25,12 @@ public class Card : MonoBehaviour
     public string empect = default;
         
     protected virtual void Awake()
-    {
-        cardTexts = new TextMeshProUGUI[this.transform.GetChild(0).GetChild(1).GetChild(0).childCount];
-        cardImage = this.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>();        
+    {        
+        GetCardComponents();
     }       // Awake()
 
     protected virtual void Start()
-    {
-        CardTextsSetting();
-        
+    {        
     }       // Start()
 
     public virtual void Empect()
@@ -66,8 +63,11 @@ public class Card : MonoBehaviour
         this.cardRank = cardRank_;
     }
 
-    protected void CardTextsSetting()
+   
+    protected void GetCardComponents()
     {
+        cardTexts = new TextMeshProUGUI[this.transform.GetChild(0).GetChild(1).GetChild(0).childCount];
+        cardImage = this.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>();
         for (int i = 0; i < cardTexts.Length; i++)
         {
             cardTexts[i] = this.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(i).GetComponent<TextMeshProUGUI>();
@@ -100,16 +100,6 @@ public class Card : MonoBehaviour
         cardTexts[(int)C_Text.Empect].text = empect;
         cardTexts[(int)C_Text.Cost].text = cost.ToString();
 
-        if (this.cardType == CardType.Spell)
-        {
-            // PASS
-        }
-
-        else
-        {   // CardType = Minion
-            // 미니언에 데이터가 존재하는데 어쩌지 (미니언이 베이스 호출하고 따로 오버라이드 한것을 호출 해야겠네)
-        }
     }       // UpdateUI()
-
-
+  
 }       // Card ClassEnd
