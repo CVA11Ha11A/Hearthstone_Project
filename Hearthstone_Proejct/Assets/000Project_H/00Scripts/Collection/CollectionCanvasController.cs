@@ -44,11 +44,14 @@ public class CollectionCanvasController : MonoBehaviour
         StartCoroutine(SlidingCanvas());
     }       // CollectionOpen()
 
+    public void CollectionClose()
+    {
+        StartCoroutine(CloseCanvase());
+    }
 
     /// <summary>
     /// 캔버스 포지션을 카메라 쪽으로 서서히 다가오게해주는 함수
-    /// </summary>
-    /// <returns></returns>
+    /// </summary>    
     IEnumerator SlidingCanvas()
     {
         float currentTime = 0;
@@ -100,4 +103,29 @@ public class CollectionCanvasController : MonoBehaviour
 
     }       // OpenBookCover()
 
+    IEnumerator CloseCanvase()
+    {
+        float currentTime = 0;
+        float lerpTime = 2.5f;
+        while (currentTime < lerpTime)
+        {
+            // 현재 시간 업데이트
+            currentTime += Time.deltaTime;
+
+            // 보간 비율 계산
+            float t = currentTime / lerpTime;
+
+            // Lerp 함수 사용하여 새로운 위치 계산
+            Vector3 newPosition = Vector3.Lerp(transform.position, offPosition, t);
+            // 새로운 위치 적용
+            transform.position = newPosition;
+
+            if (transform.position == offPosition)
+            {
+                break;
+            }
+
+            yield return null;
+        }
+    }
 }       // CollectionCanvasController ClassEnd
