@@ -129,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BaconClassSelection_phone-removebg_0
+      name: TopPad
       rect:
         serializedVersion: 2
         x: 5
@@ -276,11 +276,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaconClassSelection_phone-removebg_7
+      name: Shaman_Icon
       rect:
         serializedVersion: 2
         x: 847
-        y: 460
+        y: 462
         width: 113
         height: 115
       alignment: 0
@@ -339,7 +339,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaconClassSelection_phone-removebg_10
+      name: Common_Icon
       rect:
         serializedVersion: 2
         x: 282
@@ -360,7 +360,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaconClassSelection_phone-removebg_11
+      name: Deck_Icon
       rect:
         serializedVersion: 2
         x: 420
@@ -381,7 +381,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaconClassSelection_phone-removebg_12
+      name: Z_Null0
       rect:
         serializedVersion: 2
         x: 633
@@ -402,7 +402,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaconClassSelection_phone-removebg_13
+      name: Z_Null1
       rect:
         serializedVersion: 2
         x: 748
@@ -423,7 +423,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaconClassSelection_phone-removebg_14
+      name: Z_Null2
       rect:
         serializedVersion: 2
         x: 874
@@ -444,7 +444,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaconClassSelection_phone-removebg_15
+      name: Z_Null_04
       rect:
         serializedVersion: 2
         x: 0
@@ -465,10 +465,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BaconClassSelection_phone-removebg_16
+      name: DevilHunter_Icon
       rect:
         serializedVersion: 2
-        x: 284
+        x: 281
         y: 170
         width: 131
         height: 127
@@ -496,23 +496,23 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BaconClassSelection_phone-removebg_0: -493386234
-      BaconClassSelection_phone-removebg_10: -1875188109
-      BaconClassSelection_phone-removebg_11: 829133281
-      BaconClassSelection_phone-removebg_12: 1993771155
-      BaconClassSelection_phone-removebg_13: -720960957
-      BaconClassSelection_phone-removebg_14: -1837606727
-      BaconClassSelection_phone-removebg_15: -1396308702
-      BaconClassSelection_phone-removebg_16: -593416691
-      BaconClassSelection_phone-removebg_7: -981268579
+      Common_Icon: -1875188109
       DarkMage_Icon: 804673006
+      Deck_Icon: 829133281
+      DevilHunter_Icon: -593416691
       Druid_Icon: -943330365
       Hunter_Icon: -1267989668
       Mage_Icon: -1344255029
       Paladin_Icon: 513095310
       Prist_Icon: -1385678736
+      Shaman_Icon: -981268579
       Thief_Icon: -1219187064
+      TopPad: -493386234
       Worrior_Icon: -1915683324
+      Z_Null0: 1993771155
+      Z_Null1: -720960957
+      Z_Null2: -1837606727
+      Z_Null_04: -1396308702
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

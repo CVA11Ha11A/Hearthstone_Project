@@ -20,8 +20,7 @@ public class CollecetionCardGroup : MonoBehaviour
         {
             cardPrefabObj[i] = this.transform.GetChild(i).GetChild(0).gameObject;
         }
-        
-    }
+    }       // GetCardObjs()
 
 
 }       // CollecetionCardGroup ClassEnd
