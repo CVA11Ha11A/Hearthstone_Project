@@ -9,7 +9,10 @@ using UnityEngine.UI;
 
 public enum CardID
 {
-    Norgannon = 1
+    Norgannon = 1,
+    MurksparkEel = 2,
+
+
 }
 
 public enum CardType
@@ -65,6 +68,11 @@ public enum C_MaskImage
     Spell = 1
 }
 
+public enum S_Clip
+{
+    Play = 0,
+}
+
 public class CardManager : MonoBehaviour
 {
     public static Dictionary<int, Card> cards = default;
@@ -89,22 +97,23 @@ public class CardManager : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         cardMaskSprites = new Sprite[2];
         cardOutLineMaterials = new Material[4];
         ResourceLoad();
         FirstCardSetting();
-        instance = this;
         DontDestroyOnLoad(this);
     }
 
     private void FirstCardSetting()
-    {
+    {   // 처음 카드 메니저 컬렉션에 카드들을 새로 할당하는 함수
         if (cards == null)
         {
             cards = new Dictionary<int, Card>
             {
-                { (int)CardID.Norgannon, new Norgannon() }
-            };            
+                { (int)CardID.Norgannon, new Norgannon() },
+                { (int)CardID.MurksparkEel, new MurksparkEel() }
+            };
         }
 
     }       // FirstCardSetting()
@@ -128,7 +137,7 @@ public class CardManager : MonoBehaviour
 
 
     private void MinionSetting(Card card_)
-    {
+    {   // 프리펩을 하수인에 맞도록 셋팅하는 함수
         RectTransform rect = new RectTransform();
         Vector3 namePos = new Vector3(0f, -0.2f, 0f);
         Vector3 nameRotation = new Vector3(0f, 0f, 3f);
@@ -142,9 +151,9 @@ public class CardManager : MonoBehaviour
         rect = card_.cardTexts[(int)C_Text.Cost].GetComponent<RectTransform>();
         rect.anchoredPosition3D = costPos;
 
-        GameObject temp = GameManager.Instance.GetTopParent(card_.transform);
+        GameObject temp = card_.gameObject;        
         temp.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = cardMaskSprites[(int)C_MaskImage.Minion];
-        temp.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material = cardOutLineMaterials[(int)GetCardRank(card_)];
+        temp.transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material = cardOutLineMaterials[(int)GetCardRank(card_)];
 
     }       // MinionSetting()
     private void SpellSetting(Card card_)
@@ -153,7 +162,7 @@ public class CardManager : MonoBehaviour
     }
 
     private void ResourceLoad()
-    {
+    {   // 카드의 이미지 마스크 , 카드 테두리를 가져오는함수
         cardMaskSprites[(int)C_MaskImage.Minion] = Resources.Load<Sprite>("CardManager/MinionMask");
         cardMaskSprites[(int)C_MaskImage.Spell] = Resources.Load<Sprite>("CardManager/SpellMask_v1");
 
@@ -188,9 +197,9 @@ public class CardManager : MonoBehaviour
     }
 
     public void InItCardComponent(GameObject targetObj_, CardID cardId_)
-    {        
-        Type testType = cards[(int)cardId_].GetType();
-        targetObj_.AddComponent(testType);
+    {   // 카드의 프리펩에 카드의 기능을 넣어주는 함수
+        Type cardType = cards[(int)cardId_].GetType();
+        targetObj_.AddComponent(cardType);
 
     }       // InItCardComponent()
 

@@ -16,12 +16,25 @@ public class Norgannon : Minion
         StatSetting(10, 6, 6);
         cardName = "노르간논";
         empect = "마법사 티탄";
+        cardNameEn = "Norgannon";
+        GetCardSprite(cardNameEn);
     }
     
       
     protected override void Start()
     {
-        base.Start();        
+        base.Start();
+        
+        // 사운드 테스트 : Play, Stinger
+        //GameObject test = new GameObject("TEST");
+        //AudioSource testA = test.AddComponent<AudioSource>();
+        //testA.clip = this.clips[(int)M_Clip.Play];
+        //testA.Play();
+        //GameObject test2 = new GameObject("TEST2");
+        //AudioSource testB = test2.AddComponent<AudioSource>();
+        //testB.clip = this.clips[(int)M_Clip.Stinger];
+        //testB.Play();
+
     }
 
 

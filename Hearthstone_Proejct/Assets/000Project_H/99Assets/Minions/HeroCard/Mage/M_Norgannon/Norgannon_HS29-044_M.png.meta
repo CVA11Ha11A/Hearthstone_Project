@@ -129,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HS29-044_M_0
+      name: Norgannon_HS29-044_M
       rect:
         serializedVersion: 2
         x: 75
@@ -137,7 +137,7 @@ TextureImporter:
         width: 360
         height: 490
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -160,7 +160,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      HS29-044_M_0: -137762443
+      Norgannon_HS29-044_M: -137762443
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

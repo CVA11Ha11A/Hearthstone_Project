@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
     public GameObject GetTopParent(Transform target_)
     {        
         while(target_.parent != null)
-        {
-            target_ = target_.parent;       
+        {            
+            target_ = target_.parent;
         }
 
         return target_.gameObject;
