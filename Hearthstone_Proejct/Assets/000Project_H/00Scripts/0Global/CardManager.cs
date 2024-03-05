@@ -7,10 +7,24 @@ using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
+/// <summary>
+/// 카드들은 고유적인 ID값을 가지며 해당 ID값으로 구별할 것임
+/// 하수인 : 1 ~ 9999 , 주문 : 10000 ~ 20000
+/// </summary>
 public enum CardID
 {
+    // 하수인
     Norgannon = 1,
     MurksparkEel = 2,
+    TortollanShellraiser = 3,
+    StubbornGastropod = 4,
+    KoboldLackey = 5,
+    PrincessTalanji = 6,
+    FriendlyBartender = 7,
+    SaroniteTolvir = 8,
+
+    // 주문
+    SurlyMob = 10000
 
 
 }
@@ -70,7 +84,8 @@ public enum C_MaskImage
 
 public enum S_Clip
 {
-    Play = 0,
+    SpellReady = 0,
+    Play = 1
 }
 
 public class CardManager : MonoBehaviour
@@ -111,8 +126,18 @@ public class CardManager : MonoBehaviour
         {
             cards = new Dictionary<int, Card>
             {
+                // 하수인
                 { (int)CardID.Norgannon, new Norgannon() },
-                { (int)CardID.MurksparkEel, new MurksparkEel() }
+                { (int)CardID.MurksparkEel, new MurksparkEel() },
+                { (int)CardID.TortollanShellraiser, new TortollanShellraiser() },
+                { (int)CardID.StubbornGastropod, new StubbornGastropod() },
+                { (int)CardID.KoboldLackey, new KoboldLackey() },
+                { (int)CardID.PrincessTalanji, new PrincessTalanji() },
+                { (int)CardID.FriendlyBartender, new FriendlyBartender() },
+                { (int)CardID.SaroniteTolvir, new SaroniteTolvir() },
+
+                // 주문
+                { (int)CardID.SurlyMob, new SurlyMob() },
             };
         }
 
@@ -138,7 +163,7 @@ public class CardManager : MonoBehaviour
 
     private void MinionSetting(Card card_)
     {   // 프리펩을 하수인에 맞도록 셋팅하는 함수
-        RectTransform rect = new RectTransform();
+        RectTransform rect;
         Vector3 namePos = new Vector3(0f, -0.2f, 0f);
         Vector3 nameRotation = new Vector3(0f, 0f, 3f);
         Vector3 costPos = new Vector3(0.7f, -0.75f, -0.1f);
@@ -151,15 +176,35 @@ public class CardManager : MonoBehaviour
         rect = card_.cardTexts[(int)C_Text.Cost].GetComponent<RectTransform>();
         rect.anchoredPosition3D = costPos;
 
-        GameObject temp = card_.gameObject;        
-        temp.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = cardMaskSprites[(int)C_MaskImage.Minion];
-        temp.transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material = cardOutLineMaterials[(int)GetCardRank(card_)];
+        GameObject cardObj = card_.gameObject;        
+        cardObj.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = cardMaskSprites[(int)C_MaskImage.Minion];
+        cardObj.transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material = cardOutLineMaterials[(int)GetCardRank(card_)];
 
     }       // MinionSetting()
     private void SpellSetting(Card card_)
     {
+        RectTransform rect;
+        Vector3 empectPos = new Vector3(0.09f, 1f, -0.1f);
+        Vector3 namePos = new Vector3(0.09f, -0.08f, -0.1f);
+        Vector3 costPos = new Vector3(1f, -0.6f, -0.1f);
 
-    }
+        rect = card_.cardTexts[(int)C_Text.Name].GetComponent<RectTransform>();
+        rect.anchoredPosition3D = namePos;
+        rect.rotation = Quaternion.Euler(0f, 0f, 0f);
+        // 텍스트 모드 Nomal로 변경해야함
+
+        rect = card_.cardTexts[(int)C_Text.Cost].GetComponent<RectTransform>();
+        rect.anchoredPosition3D = costPos;
+
+        rect = card_.cardTexts[(int)C_Text.Empect].GetComponent<RectTransform>();
+        rect.anchoredPosition3D = empectPos;
+
+        GameObject cardObj = card_.gameObject;
+        cardObj.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = cardMaskSprites[(int)C_MaskImage.Spell];
+        cardObj.transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material = cardOutLineMaterials[(int)GetCardRank(card_)];
+
+
+    }       // SpellSetting()
 
     private void ResourceLoad()
     {   // 카드의 이미지 마스크 , 카드 테두리를 가져오는함수

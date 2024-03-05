@@ -32,9 +32,7 @@ public class Card : MonoBehaviour
 
     protected virtual void Awake()
     {        
-        AwakeInIt();
-        GetCardComponents();
-        CardManager.Instance.CardSetting(this);
+        AwakeInIt();                
     }       // Awake()
 
     private void AwakeInIt()
@@ -44,7 +42,7 @@ public class Card : MonoBehaviour
 
     protected virtual void Start()
     {
-        
+        CardManager.Instance.CardSetting(this);
     }       // Start()
 
     public virtual void Empect()
@@ -80,7 +78,7 @@ public class Card : MonoBehaviour
     }
     #endregion #region Set : ID, ClassCard, CardType, CardRank
 
-    protected void GetCardComponents()
+    protected virtual void GetCardComponents()
     {   // 사용할 컴포넌트를 GetChild를 이용해서 참조하는 함수
         cardTexts = new TextMeshProUGUI[this.transform.GetChild(0).GetChild(1).GetChild(0).childCount];
         cardImage = this.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>();
@@ -93,17 +91,15 @@ public class Card : MonoBehaviour
         cardTexts[(int)C_Text.Empect].gameObject.SetActive(true);
         cardTexts[(int)C_Text.Cost].gameObject.SetActive(true);
 
-        if (this.cardType == CardType.Minion)
-        {
-            cardTexts[(int)C_Text.Hp].gameObject.SetActive(true);
-            cardTexts[(int)C_Text.Damage].gameObject.SetActive(true);
-        }
+        //if (this.cardType == CardType.Minion)
+        //{
+  
+        //}
 
-        else if (this.cardType == CardType.Spell)
-        {
-            cardTexts[(int)C_Text.Hp].gameObject.SetActive(false);
-            cardTexts[(int)C_Text.Damage].gameObject.SetActive(false);
-        }
+        //else if (this.cardType == CardType.Spell)
+        //{
+
+        //}
     }       // MinionTextSetting()
 
     protected void GetCardSprite(string cardName_)
@@ -118,6 +114,7 @@ public class Card : MonoBehaviour
         else
         {
             fixName = "_SP";
+            defaultPath = "SpellTextures/";
         }
         cardImage.sprite = Resources.Load<Sprite>(defaultPath + cardName_ + fixName);
     }       // GetCardSprite()

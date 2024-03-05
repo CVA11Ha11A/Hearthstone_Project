@@ -18,7 +18,8 @@ public class Minion : Card
 
     protected override void Awake()
     {
-        base.Awake();        
+        base.Awake();
+        GetCardComponents();
         SetCardType(CardType.Minion);        
         clips = new AudioClip[Enum.GetValues(typeof (M_Clip)).Length];
         
@@ -70,5 +71,12 @@ public class Minion : Card
         }
         else { /*PASS*/ }
     }       // GetAudioClip()
+
+    protected override void GetCardComponents()
+    {
+        base.GetCardComponents();
+        cardTexts[(int)C_Text.Hp].gameObject.SetActive(true);
+        cardTexts[(int)C_Text.Damage].gameObject.SetActive(true);
+    }       // GetCardComponents()
 
 }       // Minion ClassEnd
