@@ -7,9 +7,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Minion : Card
-{    
-    
-
+{
+    protected M_Ability ability =  default;
+    protected int damageDefault = default;
+    protected int heathDefault = default;
     public int damage = default;
     public int heath = default;
 
@@ -44,11 +45,13 @@ public class Minion : Card
         cardTexts[(int)C_Text.Damage].text = damage.ToString();
     }
 
-    protected void StatSetting(int hp_, int damage_, int cost_)
+    protected void StatSetting(int cost_, int damage_, int hp_)
     {
-        this.damage = damage_;
+        this.damageDefault = damage_;
+        this.damage = this.damageDefault;
+        this.heathDefault = hp_;
+        this.heath = heathDefault;
         this.cost = cost_;
-        this.heath = hp_;
     }       // StatSetting()
 
     protected override void GetAudioClip()

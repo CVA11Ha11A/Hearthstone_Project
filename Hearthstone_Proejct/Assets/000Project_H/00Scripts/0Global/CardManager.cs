@@ -52,6 +52,21 @@ public enum M_Clip
     Death,
     Stinger
 }
+
+// Battlecry : 전투의 함성, Deathratte : 죽음의메아리, Lifesteal : 생명력 흡수, Discover : 발견, Taunt : 도발, Poisonous : 독성
+
+[Flags]
+public enum M_Ability
+{
+    None = 0,
+    Battlecry = 1 << 1,
+    Deathratte = 1 << 2,
+    Lifesteal = 1 << 3,
+    Discover = 1 << 4,
+    Taunt = 1 << 5,
+    Poisonous = 1 << 6
+}
+
 public enum C_Text
 {
     Name = 0,
@@ -110,6 +125,21 @@ public class CardManager : MonoBehaviour
     public Material[] cardOutLineMaterials = default;
     public Sprite[] cardMaskSprites = default;
 
+    #region 카드 사이즈 조절을 위한 Vecotor3들
+    //하수인
+    Vector3 minionNamePos = new Vector3(0f, -0.2f, 0f);
+    Vector3 minionNameRotation = new Vector3(0f, 0f, 3f);
+    Vector3 minionCostPos = new Vector3(0.7f, -0.75f, -0.1f);
+
+    // 주문
+    Vector3 spellEmpectPos = new Vector3(0.09f, 1f, -0.1f);
+    Vector3 spellNamePos = new Vector3(0.09f, -0.08f, -0.1f);
+    Vector3 spellCostPos = new Vector3(1f, -0.6f, -0.1f);
+    Vector3 spellCardMaskScale = new Vector3(1.15f, 0.9f, 1f);
+    Vector3 spellCardImageSclae = new Vector3(1f, 1.2f, 1f);
+    #endregion 카드 사이즈 조절을 위한 Vecotor3들
+
+
     private void Awake()
     {
         instance = this;
@@ -164,17 +194,14 @@ public class CardManager : MonoBehaviour
     private void MinionSetting(Card card_)
     {   // 프리펩을 하수인에 맞도록 셋팅하는 함수
         RectTransform rect;
-        Vector3 namePos = new Vector3(0f, -0.2f, 0f);
-        Vector3 nameRotation = new Vector3(0f, 0f, 3f);
-        Vector3 costPos = new Vector3(0.7f, -0.75f, -0.1f);
 
         //card_.cardTexts[(int)C_Text.Name].fontStyle   // 폰트 스타일을 어디서 바꾸는지 못찾겠음
         rect = card_.cardTexts[(int)C_Text.Name].GetComponent<RectTransform>();
-        rect.anchoredPosition3D = namePos;
-        rect.rotation = Quaternion.Euler(nameRotation);
+        rect.anchoredPosition3D = minionNamePos;
+        rect.rotation = Quaternion.Euler(minionNameRotation);
 
         rect = card_.cardTexts[(int)C_Text.Cost].GetComponent<RectTransform>();
-        rect.anchoredPosition3D = costPos;
+        rect.anchoredPosition3D = minionCostPos;
 
         GameObject cardObj = card_.gameObject;        
         cardObj.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = cardMaskSprites[(int)C_MaskImage.Minion];
@@ -184,26 +211,28 @@ public class CardManager : MonoBehaviour
     private void SpellSetting(Card card_)
     {
         RectTransform rect;
-        Vector3 empectPos = new Vector3(0.09f, 1f, -0.1f);
-        Vector3 namePos = new Vector3(0.09f, -0.08f, -0.1f);
-        Vector3 costPos = new Vector3(1f, -0.6f, -0.1f);
-
+        
         rect = card_.cardTexts[(int)C_Text.Name].GetComponent<RectTransform>();
-        rect.anchoredPosition3D = namePos;
+        rect.anchoredPosition3D = spellNamePos;
         rect.rotation = Quaternion.Euler(0f, 0f, 0f);
         // 텍스트 모드 Nomal로 변경해야함
 
         rect = card_.cardTexts[(int)C_Text.Cost].GetComponent<RectTransform>();
-        rect.anchoredPosition3D = costPos;
+        rect.anchoredPosition3D = spellCostPos;
 
         rect = card_.cardTexts[(int)C_Text.Empect].GetComponent<RectTransform>();
-        rect.anchoredPosition3D = empectPos;
+        rect.anchoredPosition3D = spellEmpectPos;
 
         GameObject cardObj = card_.gameObject;
+
         cardObj.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = cardMaskSprites[(int)C_MaskImage.Spell];
+        rect = cardObj.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<RectTransform>();
+        rect.localScale = spellCardMaskScale;
+
+        rect = rect.transform.GetChild(0).GetComponent<RectTransform>();
+        rect.transform.localScale = spellCardImageSclae;
+
         cardObj.transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material = cardOutLineMaterials[(int)GetCardRank(card_)];
-
-
     }       // SpellSetting()
 
     private void ResourceLoad()

@@ -10,7 +10,7 @@ public class FriendlyBartender : Minion
         SetCardId((int)CardID.FriendlyBartender);
         SetClassCard(ClassCard.Common);
         SetCardRank(CardRank.M_Rare);
-        StatSetting(3, 2, 2);
+        StatSetting(2, 2, 3);
         cardName = "친근한 바텐더";
         empect = "내 턴이 끝날 때, 내 영웅의 생명력을 1 회복시킵니다.";
         cardNameEn = "FriendlyBartender";
