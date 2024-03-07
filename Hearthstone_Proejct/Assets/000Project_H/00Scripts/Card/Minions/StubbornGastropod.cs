@@ -20,8 +20,7 @@ public class StubbornGastropod : Minion
 
     protected override void Start()
     {
-        base.Start();
-
+        base.Start();        
     }
 
 

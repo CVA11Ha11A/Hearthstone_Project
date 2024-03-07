@@ -26,8 +26,9 @@ public class CollectionTopHeroIcon : MonoBehaviour
                 StartCoroutine(SelectOffIcon());
             }
         }
-    }
-    public int iconNumber = default;
+    }    
+
+    public CollectionHeroIcon iconType = default;
 
     private Vector3 adjustVector = default;
     private void Awake()

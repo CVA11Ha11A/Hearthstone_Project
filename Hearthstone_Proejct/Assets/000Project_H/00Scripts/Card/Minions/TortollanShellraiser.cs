@@ -20,8 +20,7 @@ public class TortollanShellraiser : Minion
 
     protected override void Start()
     {
-        base.Start();
-
+        base.Start();        
     }
 
 

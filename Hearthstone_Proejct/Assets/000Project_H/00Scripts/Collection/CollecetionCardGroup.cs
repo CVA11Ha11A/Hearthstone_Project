@@ -8,10 +8,10 @@ public class CollecetionCardGroup : MonoBehaviour
     
     private void Awake()
     {
-        GetCardObjs();
+        AwakeInIt();
     }
 
-    private void GetCardObjs()
+    private void AwakeInIt()
     {
         int cardCount = this.transform.childCount;
         cardPrefabObj = new GameObject[cardCount];
@@ -20,7 +20,11 @@ public class CollecetionCardGroup : MonoBehaviour
         {
             cardPrefabObj[i] = this.transform.GetChild(i).GetChild(0).gameObject;
         }
-    }       // GetCardObjs()
+    }       // AwakeInIt()
 
+    public void OutPutCard()
+    {
+
+    }       // OutPutCard()
 
 }       // CollecetionCardGroup ClassEnd

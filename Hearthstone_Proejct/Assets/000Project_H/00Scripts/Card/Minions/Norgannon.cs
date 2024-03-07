@@ -25,15 +25,6 @@ public class Norgannon : Minion
     {
         base.Start();
         
-        // 사운드 테스트 : Play, Stinger
-        //GameObject test = new GameObject("TEST");
-        //AudioSource testA = test.AddComponent<AudioSource>();
-        //testA.clip = this.clips[(int)M_Clip.Play];
-        //testA.Play();
-        //GameObject test2 = new GameObject("TEST2");
-        //AudioSource testB = test2.AddComponent<AudioSource>();
-        //testB.clip = this.clips[(int)M_Clip.Stinger];
-        //testB.Play();
 
     }
 

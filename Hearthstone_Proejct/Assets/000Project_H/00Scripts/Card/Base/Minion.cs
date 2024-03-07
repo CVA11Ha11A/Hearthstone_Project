@@ -63,7 +63,7 @@ public class Minion : Card
         sb.Clear().Append(this.cardNameEn + "_Attack");
         clips[(int)M_Clip.Attack] = Resources.Load<AudioClip>(defaultAudioPath + sb);
 
-        sb.Clear().Append(this.cardNameEn + "_Attack");
+        sb.Clear().Append(this.cardNameEn + "_Death");
         clips[(int)M_Clip.Death] = Resources.Load<AudioClip>(defaultAudioPath + sb);
 
         sb.Clear();

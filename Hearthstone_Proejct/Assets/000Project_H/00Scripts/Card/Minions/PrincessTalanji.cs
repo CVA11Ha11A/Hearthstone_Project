@@ -20,7 +20,7 @@ public class PrincessTalanji : Minion
 
     protected override void Start()
     {
-        base.Start();
+        base.Start();        
 
     }
 

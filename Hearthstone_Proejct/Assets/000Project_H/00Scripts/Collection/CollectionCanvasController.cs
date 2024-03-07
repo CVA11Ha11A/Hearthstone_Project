@@ -9,7 +9,11 @@ public class CollectionCanvasController : MonoBehaviour
     private Vector3 onPosition = default;
     private Vector3 offPosition = default;
 
-    RectTransform bookCover = default;
+    private RectTransform bookCover = default;
+
+    public CollectionHeroIcon nowPageIcon = default;
+
+    private bool isOpen = false;
 
     private void Awake()
     {
@@ -36,16 +40,19 @@ public class CollectionCanvasController : MonoBehaviour
 
     }       // AwakeInIt()
 
+    #region 컬렉션 오픈 오프 함수
     /// <summary>
     /// 수집품 오픈시 호출될 함수
     /// </summary>
     public void CollectionOpen()
     {
+        isOpen = true;
         StartCoroutine(SlidingCanvas());
     }       // CollectionOpen()
 
     public void CollectionClose()
     {
+        isOpen = false;
         StartCoroutine(CloseCanvase());
     }
 
@@ -128,4 +135,7 @@ public class CollectionCanvasController : MonoBehaviour
             yield return null;
         }
     }
+    #endregion 컬렉션 오픈 오프 함수
+
+
 }       // CollectionCanvasController ClassEnd

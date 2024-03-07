@@ -135,6 +135,59 @@ public class Card : MonoBehaviour
 
     }       // UpdateUI()
 
+    public void TestAudioPlay()
+    {
+        StartCoroutine(TESTAUDIOPLAY());
+    }
 
+    public void TestLegendryAudioTest()
+    {
+        StartCoroutine(TestLC());
+    }
+    IEnumerator TESTAUDIOPLAY()
+    {
+        GameObject[] objs = new GameObject[clips.Length];
+
+        for (int i = 0; i < objs.Length; i++)
+        {
+            objs[i] = new GameObject($"AudioTESTObj {i}");
+
+            AudioSource audio = objs[i].AddComponent<AudioSource>();
+            audio.clip = clips[i];
+
+            audio.Play();
+            yield return new WaitForSeconds(3f);
+        }
+    }
   
+    IEnumerator TestLC()
+    {
+        GameObject[] objs = new GameObject[clips.Length];
+
+        for (int i = 0; i < objs.Length; i++)
+        {
+            objs[i] = new GameObject($"AudioTESTObj {i}");
+        }
+
+        AudioSource ad1 = objs[(int)M_Clip.Stinger].AddComponent<AudioSource>();
+        AudioSource ad2 = objs[(int)M_Clip.Play].AddComponent<AudioSource>();
+        
+        ad1.clip = clips[(int)M_Clip.Stinger];
+        ad2.clip = clips[(int)M_Clip.Play];
+
+        ad1.Play();
+        ad2.Play();
+
+        yield return new WaitForSeconds(5f);
+
+        AudioSource ad4 = objs[(int)M_Clip.Attack].AddComponent<AudioSource>();
+        ad4.clip = clips[(int)M_Clip.Attack];
+        ad4.Play();
+
+        yield return new WaitForSeconds(3f);
+        AudioSource ad3 = objs[(int)M_Clip.Death].AddComponent<AudioSource>();
+        ad3.clip = clips[(int)M_Clip.Death];
+        ad3.Play();
+
+    }
 }       // Card ClassEnd
