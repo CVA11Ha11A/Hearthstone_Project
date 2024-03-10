@@ -2190,7 +2190,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8100a0982894ddc469d395b5df682b84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iconNumber: 0
+  iconType: 0
+  cardClass: 0
 --- !u!1 &651285834
 GameObject:
   m_ObjectHideFlags: 0
@@ -2242,7 +2243,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8100a0982894ddc469d395b5df682b84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iconNumber: 0
+  iconType: 0
+  cardClass: 0
 --- !u!114 &651285837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2821,6 +2823,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 845341802}
   m_CullTransparentMesh: 1
+--- !u!1 &865996233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 865996235}
+  - component: {fileID: 865996234}
+  m_Layer: 0
+  m_Name: TEST
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &865996234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865996233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84ca7a58a20f3ca4db418479248eb36b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &865996235
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865996233}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -44.166737, y: 0.722217, z: 2814.9897}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &879157539
 GameObject:
   m_ObjectHideFlags: 0
@@ -6096,6 +6142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 506ed785899def6428a42b17c149ce61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nowPageIcon: 0
+  cardGroupRoot: {fileID: 0}
 --- !u!1 &1875379426
 GameObject:
   m_ObjectHideFlags: 0

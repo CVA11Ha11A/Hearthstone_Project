@@ -8,12 +8,15 @@ public class CollectionCanvasController : MonoBehaviour
     // On : 수집품이 켜졌을때 도착할 포지션 , Off : 수집품이 켜지지 않은 상태일때 포지션
     private Vector3 onPosition = default;
     private Vector3 offPosition = default;
-
-    private RectTransform bookCover = default;
+    private bool isOpen = false;
 
     public CollectionHeroIcon nowPageIcon = default;
 
-    private bool isOpen = false;
+    #region ClassRoot
+    private RectTransform bookCover = default;
+    public CollecetionCardGroup cardGroupRoot = null;
+    #endregion ClassRoot
+
 
     private void Awake()
     {
@@ -36,7 +39,7 @@ public class CollectionCanvasController : MonoBehaviour
         offPosition.x = -35f;
         this.transform.position = offPosition;
 
-        bookCover = this.gameObject.transform.GetChild(2).GetComponent<RectTransform>();
+        bookCover = this.gameObject.transform.GetChild(2).GetComponent<RectTransform>();        
 
     }       // AwakeInIt()
 

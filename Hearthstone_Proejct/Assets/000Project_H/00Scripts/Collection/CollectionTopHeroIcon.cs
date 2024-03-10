@@ -29,6 +29,7 @@ public class CollectionTopHeroIcon : MonoBehaviour
     }    
 
     public CollectionHeroIcon iconType = default;
+    public ClassCard cardClass = default;
 
     private Vector3 adjustVector = default;
     private void Awake()
@@ -38,7 +39,7 @@ public class CollectionTopHeroIcon : MonoBehaviour
     }
 
     public void IsOnClick()
-    {
+    {   // 버튼이 참조중
         this.transform.parent.GetComponent<SelectCardTheme>().CardThemeCheck(this);
     }       // IsOnClick()
 

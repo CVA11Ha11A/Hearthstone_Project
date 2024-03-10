@@ -56,21 +56,55 @@ public class Minion : Card
 
     protected override void GetAudioClip()
     {   // 오디오 소스를 가져오는 함수        
-        string defaultAudioPath = "Audios/";        
+        string defaultAudioPath = "Audios/";
+        string defaultName = "MinionDefault";
         sb.Clear().Append(this.cardNameEn + "_Play");        
-        clips[(int)M_Clip.Play] = Resources.Load<AudioClip>(defaultAudioPath + sb);
+        if(clips[(int)M_Clip.Play] = Resources.Load<AudioClip>(defaultAudioPath + sb))
+        {
+            clips[(int)M_Clip.Play] = Resources.Load<AudioClip>(defaultAudioPath + sb);
+        }
+        else
+        {
+            sb.Clear().Append(defaultName).Append("_Play");
+            clips[(int)M_Clip.Play] = Resources.Load<AudioClip>(defaultAudioPath + sb);
+        }
 
         sb.Clear().Append(this.cardNameEn + "_Attack");
-        clips[(int)M_Clip.Attack] = Resources.Load<AudioClip>(defaultAudioPath + sb);
+        if(clips[(int)M_Clip.Attack] = Resources.Load<AudioClip>(defaultAudioPath + sb))
+        {
+            clips[(int)M_Clip.Attack] = Resources.Load<AudioClip>(defaultAudioPath + sb);
+        }
+        else
+        {
+            sb.Clear().Append(defaultName).Append("_Attack");
+            clips[(int)M_Clip.Attack] = Resources.Load<AudioClip>(defaultAudioPath + sb);
+        }
 
         sb.Clear().Append(this.cardNameEn + "_Death");
-        clips[(int)M_Clip.Death] = Resources.Load<AudioClip>(defaultAudioPath + sb);
+        if(clips[(int)M_Clip.Death] = Resources.Load<AudioClip>(defaultAudioPath + sb))
+        {            
+            clips[(int)M_Clip.Death] = Resources.Load<AudioClip>(defaultAudioPath + sb);
+        }
+        else
+        {
+            sb.Clear().Append(defaultName).Append("_Death");
+            clips[(int)M_Clip.Death] = Resources.Load<AudioClip>(defaultAudioPath + sb);
+        }
+        
 
         sb.Clear();
         if(this.cardRank == CardRank.M_Legendry)
         {
             sb.Append(this.cardNameEn + "_Stinger");
-            clips[(int)M_Clip.Stinger] = Resources.Load<AudioClip>(defaultAudioPath + sb);
+            if(clips[(int)M_Clip.Stinger] = Resources.Load<AudioClip>(defaultAudioPath + sb))
+            {
+                clips[(int)M_Clip.Stinger] = Resources.Load<AudioClip>(defaultAudioPath + sb);
+            }
+            else
+            {
+                sb.Clear().Append(defaultName).Append("_Stinger");
+                clips[(int)M_Clip.Stinger] = Resources.Load<AudioClip>(defaultAudioPath + sb);
+            }
         }
         else { /*PASS*/ }
     }       // GetAudioClip()

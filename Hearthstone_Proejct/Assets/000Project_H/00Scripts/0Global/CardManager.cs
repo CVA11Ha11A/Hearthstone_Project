@@ -13,6 +13,8 @@ using UnityEngine.UI;
 /// </summary>
 public enum CardID
 {
+    StartPoint = 0,
+
     // 하수인
     Norgannon = 1,
     MurksparkEel = 2,
@@ -24,9 +26,9 @@ public enum CardID
     SaroniteTolvir = 8,
 
     // 주문
-    SurlyMob = 10000
+    SurlyMob = 10000,
 
-
+    EndPoint = int.MaxValue
 }
 
 public enum CardType
@@ -37,9 +39,9 @@ public enum CardType
 }
 public enum ClassCard
 {
-    Common = 0,
+    None = 0,
     Prist = 1,
-    Mage = 2
+    Common = 2,    
 }
 
 /// <summary>
@@ -105,7 +107,7 @@ public enum S_Clip
 
 public class CardManager : MonoBehaviour
 {
-    public static Dictionary<int, Card> cards = default;
+    public static Dictionary<CardID, Card> cards = default;
 
     private static CardManager instance = null;
     public static CardManager Instance
@@ -154,20 +156,20 @@ public class CardManager : MonoBehaviour
     {   // 처음 카드 메니저 컬렉션에 카드들을 새로 할당하는 함수
         if (cards == null)
         {
-            cards = new Dictionary<int, Card>
+            cards = new Dictionary<CardID, Card>
             {
                 // 하수인
-                { (int)CardID.Norgannon, new Norgannon() },
-                { (int)CardID.MurksparkEel, new MurksparkEel() },
-                { (int)CardID.TortollanShellraiser, new TortollanShellraiser() },
-                { (int)CardID.StubbornGastropod, new StubbornGastropod() },
-                { (int)CardID.KoboldLackey, new KoboldLackey() },
-                { (int)CardID.PrincessTalanji, new PrincessTalanji() },
-                { (int)CardID.FriendlyBartender, new FriendlyBartender() },
-                { (int)CardID.SaroniteTolvir, new SaroniteTolvir() },
+                { CardID.Norgannon, new Norgannon() },
+                { CardID.MurksparkEel, new MurksparkEel() },
+                { CardID.TortollanShellraiser, new TortollanShellraiser() },
+                { CardID.StubbornGastropod, new StubbornGastropod() },
+                { CardID.KoboldLackey, new KoboldLackey() },
+                { CardID.PrincessTalanji, new PrincessTalanji() },
+                { CardID.FriendlyBartender, new FriendlyBartender() },
+                { CardID.SaroniteTolvir, new SaroniteTolvir() },
 
                 // 주문
-                { (int)CardID.SurlyMob, new SurlyMob() },
+                { CardID.SurlyMob, new SurlyMob() },
             };
         }
 
@@ -272,7 +274,7 @@ public class CardManager : MonoBehaviour
 
     public void InItCardComponent(GameObject targetObj_, CardID cardId_)
     {   // 카드의 프리펩에 카드의 기능을 넣어주는 함수
-        Type cardType = cards[(int)cardId_].GetType();
+        Type cardType = cards[cardId_].GetType();
         targetObj_.AddComponent(cardType);
 
     }       // InItCardComponent()

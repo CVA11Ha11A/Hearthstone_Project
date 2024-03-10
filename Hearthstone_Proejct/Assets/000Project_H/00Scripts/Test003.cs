@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 enum testEnum
@@ -9,24 +11,24 @@ enum testEnum
 }
 public class Test003 : MonoBehaviour
 {
-    public Dictionary<int, Test001> testDic = new Dictionary<int, Test001>();
-
-    
-    void Start()
+    private void Start()
     {
-        StartCoroutine(TestC((int)testEnum.Test001));        
+        this.gameObject.AddComponent<Test002>();
+        StartCoroutine(TESTC());
+
+        Array array = Enum.GetValues(typeof(CardID));
+
+        for (int i = 0; i < array.Length; i++)
+        {
+            //Debug.Log($"{array.GetValue(i)}\nInt : {(int)array.GetValue(i)}");
+
+        }
     }
 
-    
-    
-    IEnumerator TestC(int cardKey_)
+    IEnumerator TESTC()
     {
         yield return new WaitForSeconds(3);
-
-        testDic[cardKey_].Test0010();
-        Debug.Log($"DicIdValue ID : {cardKey_}");
-        Debug.Log($"Return Num : {testDic[cardKey_].Num}");
-
-        
+        MonoBehaviour desTarget = this.gameObject.GetComponent<Test001>();
+        Destroy(desTarget);
     }
 }
