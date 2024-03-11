@@ -7,8 +7,8 @@ public class MurksparkEel : Minion
     protected override void Awake()
     {
         base.Awake();
-        SetCardId((int)CardID.MurksparkEel);
-        SetClassCard(ClassCard.Common);
+        SetCardId(CardID.MurksparkEel);
+        SetClassCard(ClassCard.Common);        
         SetCardRank(CardRank.M_Rare);        
         StatSetting(2, 2, 3);
         cardName = "수렁불꽃 뱀장어";
@@ -20,7 +20,7 @@ public class MurksparkEel : Minion
 
     protected override void Start()
     {
-        base.Start();        
+        base.Start();
     }
 
 
@@ -30,4 +30,5 @@ public class MurksparkEel : Minion
     }       // Empect()
 
 
-}
+
+}       // ClassEnd

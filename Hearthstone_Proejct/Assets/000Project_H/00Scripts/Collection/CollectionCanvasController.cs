@@ -8,13 +8,33 @@ public class CollectionCanvasController : MonoBehaviour
     // On : 수집품이 켜졌을때 도착할 포지션 , Off : 수집품이 켜지지 않은 상태일때 포지션
     private Vector3 onPosition = default;
     private Vector3 offPosition = default;
+    private bool isFirstOpen = true;
     private bool isOpen = false;
 
-    public CollectionHeroIcon nowPageIcon = default;
-
+    private CollectionHeroIcon nowPageIcon = default;
+    public CollectionHeroIcon NowPageIcon
+    {
+        get
+        {
+            return this.nowPageIcon;
+        }
+        set
+        {
+            if (this.nowPageIcon != value)
+            {
+                nowPageIcon = value;
+                cardGroupRoot.CurrentIndex = 0;
+                if (isOpen == true)
+                {
+                    cardGroupRoot.OutPutCard((ClassCard)this.nowPageIcon);
+                }
+            }
+        }
+    }
     #region ClassRoot
     private RectTransform bookCover = default;
     public CollecetionCardGroup cardGroupRoot = null;
+    public CollectionPage pageRoot = null;
     #endregion ClassRoot
 
 
@@ -39,7 +59,7 @@ public class CollectionCanvasController : MonoBehaviour
         offPosition.x = -35f;
         this.transform.position = offPosition;
 
-        bookCover = this.gameObject.transform.GetChild(2).GetComponent<RectTransform>();        
+        bookCover = this.gameObject.transform.GetChild(2).GetComponent<RectTransform>();
 
     }       // AwakeInIt()
 
@@ -79,7 +99,7 @@ public class CollectionCanvasController : MonoBehaviour
             // 새로운 위치 적용
             transform.position = newPosition;
 
-            if(transform.position == onPosition)
+            if (transform.position == onPosition)
             {
                 break;
             }
@@ -87,7 +107,11 @@ public class CollectionCanvasController : MonoBehaviour
             yield return null;
         }
 
-        StartCoroutine(OpenBookCover());    // 캔버스 도착시 책 커버 열기코루틴 호출
+        if (isFirstOpen == true)
+        {
+            cardGroupRoot.OutPutCard((ClassCard)nowPageIcon);
+            StartCoroutine(OpenBookCover());    // 캔버스 도착시 책 커버 열기코루틴 호출
+        }
 
     }       // SlidingCanvas()
 
@@ -106,7 +130,7 @@ public class CollectionCanvasController : MonoBehaviour
             currentTime += Time.deltaTime;
 
             float t = currentTime / lerpTime;
-            bookCover.transform.rotation = Quaternion.Slerp(defaultQuaternion, goalQuaternion, currentTime);            
+            bookCover.transform.rotation = Quaternion.Slerp(defaultQuaternion, goalQuaternion, currentTime);
             yield return null;
         }
 

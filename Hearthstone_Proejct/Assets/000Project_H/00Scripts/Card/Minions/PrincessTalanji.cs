@@ -7,7 +7,7 @@ public class PrincessTalanji : Minion
     protected override void Awake()
     {
         base.Awake();
-        SetCardId((int)CardID.PrincessTalanji);
+        SetCardId(CardID.PrincessTalanji);
         SetClassCard(ClassCard.Common);
         SetCardRank(CardRank.M_Legendry);
         StatSetting(8, 7, 5);
@@ -20,8 +20,7 @@ public class PrincessTalanji : Minion
 
     protected override void Start()
     {
-        base.Start();        
-
+        base.Start();
     }
 
 
@@ -29,4 +28,7 @@ public class PrincessTalanji : Minion
     {
 
     }       // Empect()
+
+
+
 }       // ClassEnd

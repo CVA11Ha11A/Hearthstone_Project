@@ -10,7 +10,7 @@ public class Norgannon : Minion
     protected override void Awake()
     {
         base.Awake();
-        SetCardId((int)CardID.Norgannon);
+        SetCardId(CardID.Norgannon);
         SetClassCard(ClassCard.Common);
         SetCardRank(CardRank.M_Legendry);
         StatSetting(6, 6, 10);
@@ -23,9 +23,8 @@ public class Norgannon : Minion
       
     protected override void Start()
     {
-        base.Start();
-        
-
+        base.Start();        
+        TestLegendryAudioTest();
     }
 
 
@@ -33,6 +32,7 @@ public class Norgannon : Minion
     {
 
     }       // Empect()
+
 
 
 

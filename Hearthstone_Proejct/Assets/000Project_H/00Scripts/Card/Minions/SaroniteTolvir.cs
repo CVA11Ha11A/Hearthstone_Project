@@ -8,7 +8,7 @@ public class SaroniteTolvir : Minion
     {
         base.Awake();
         this.ability = M_Ability.Taunt;
-        SetCardId((int)CardID.SaroniteTolvir);
+        SetCardId(CardID.SaroniteTolvir);
         SetClassCard(ClassCard.Common);
         SetCardRank(CardRank.M_Rare);
         StatSetting(4, 3, 5);
@@ -21,8 +21,7 @@ public class SaroniteTolvir : Minion
 
     protected override void Start()
     {
-        base.Start();        
-
+        base.Start();
     }
 
 
@@ -30,4 +29,7 @@ public class SaroniteTolvir : Minion
     {
 
     }       // Empect()
+
+
+
 }       // ClassEnd

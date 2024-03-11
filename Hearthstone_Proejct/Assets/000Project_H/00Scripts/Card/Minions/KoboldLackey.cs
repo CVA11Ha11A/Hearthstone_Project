@@ -7,7 +7,7 @@ public class KoboldLackey : Minion
     protected override void Awake()
     {
         base.Awake();
-        SetCardId((int)CardID.KoboldLackey);
+        SetCardId(CardID.KoboldLackey);
         SetClassCard(ClassCard.Common);
         SetCardRank(CardRank.M_Rare);
         StatSetting(1, 1, 1);
@@ -21,7 +21,6 @@ public class KoboldLackey : Minion
     protected override void Start()
     {
         base.Start();
-
     }
 
 
@@ -29,4 +28,7 @@ public class KoboldLackey : Minion
     {
 
     }       // Empect()
+
+
+
 }       // ClassEnd

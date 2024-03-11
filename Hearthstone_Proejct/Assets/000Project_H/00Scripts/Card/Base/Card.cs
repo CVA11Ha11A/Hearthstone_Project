@@ -15,14 +15,14 @@ public class Card : MonoBehaviour
     public Image cardImage = default;            // 카드의 이미지 -> 주문, 하수인, 무기 공통적으로 필요         Base Awake에서 초기화
     protected AudioClip[] clips = default;       // 카드의 사운드
     public CardType cardType = default;          // 카드가 주문인지 하수인인지 구별해줄 열거형데이터             Minion, Spell Awake에서 초기화
-    protected ClassCard classCard = default;     // 카드가 공통카드인지 직업카드인지 구별해줄 열거형데이터        최종 카드 스크립트에서 초기화
+    public ClassCard classCard = default;     // 카드가 공통카드인지 직업카드인지 구별해줄 열거형데이터        최종 카드 스크립트에서 초기화
     public CardRank cardRank = default;          // 카드의 희소성이 어느정도인지 나타내는 열거형데이터           최종 카드 스크립트에서 초기화
 
     /// <summary>
     /// 카드들은 고유적인 ID값을 가지며 해당 ID값으로 구별할 것임
     /// 하수인 : 1 ~ 9999 , 주문 : 10000 ~ 20000
     /// </summary>
-    public int cardId = default;                // 카드의 ID                                               최종 카드 스크립트에서 초기화
+    public CardID cardId = default;                // 카드의 ID                                               최종 카드 스크립트에서 초기화
     public int cost = default;                  // 카드의 코스트                                            최종 카드 스크립트에서 초기화
                                                    
     public string cardName = default;           // 카드의 이름                                              최종 카드 스크립트에서 초기화
@@ -31,7 +31,7 @@ public class Card : MonoBehaviour
 
 
     protected virtual void Awake()
-    {        
+    {       
         AwakeInIt();                
     }       // Awake()
 
@@ -57,7 +57,7 @@ public class Card : MonoBehaviour
     /// </summary>
     /// <param name="cardId_"></param>
     /// 
-    protected void SetCardId(int cardId_)
+    protected void SetCardId(CardID cardId_)
     {
         this.cardId = cardId_;
     }       // SetCardId()
@@ -189,5 +189,10 @@ public class Card : MonoBehaviour
         ad3.clip = clips[(int)M_Clip.Death];
         ad3.Play();
 
+    }
+
+    protected virtual void AddCard(CardID cardId_, Type class_)
+    {
+        // 이렇게 하면 의미가 없나? Type이라서?
     }
 }       // Card ClassEnd

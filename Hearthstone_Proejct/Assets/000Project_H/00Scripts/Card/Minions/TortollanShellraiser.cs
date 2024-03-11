@@ -7,7 +7,7 @@ public class TortollanShellraiser : Minion
     protected override void Awake()
     {
         base.Awake();
-        SetCardId((int)CardID.TortollanShellraiser);
+        SetCardId(CardID.TortollanShellraiser);
         SetClassCard(ClassCard.Common);
         SetCardRank(CardRank.M_Rare);
         StatSetting(4, 2, 6);
@@ -18,9 +18,10 @@ public class TortollanShellraiser : Minion
     }
 
 
+
     protected override void Start()
     {
-        base.Start();        
+        base.Start();
     }
 
 
@@ -28,5 +29,7 @@ public class TortollanShellraiser : Minion
     {
 
     }       // Empect()
+
+
 
 }       // ClassEnd

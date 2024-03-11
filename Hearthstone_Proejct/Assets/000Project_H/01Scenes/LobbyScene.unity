@@ -255,6 +255,7 @@ GameObject:
   - component: {fileID: 99302374}
   - component: {fileID: 99302376}
   - component: {fileID: 99302375}
+  - component: {fileID: 99302377}
   m_Layer: 5
   m_Name: Pages
   m_TagString: Untagged
@@ -323,6 +324,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 99302373}
   m_CullTransparentMesh: 1
+--- !u!114 &99302377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 99302373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad7a68c5fa95f334f8e69091b4f13f03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nowPage: 0
 --- !u!1001 &116242841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1570,6 +1584,7 @@ MonoBehaviour:
   cardTexts: []
   cardImage: {fileID: 0}
   cardType: 0
+  classCard: 0
   cardRank: 0
   cardId: 0
   cost: 0
@@ -2328,6 +2343,7 @@ MonoBehaviour:
   cardTexts: []
   cardImage: {fileID: 0}
   cardType: 0
+  classCard: 0
   cardRank: 0
   cardId: 0
   cost: 0
@@ -3048,6 +3064,7 @@ MonoBehaviour:
   cardTexts: []
   cardImage: {fileID: 0}
   cardType: 0
+  classCard: 0
   cardRank: 0
   cardId: 0
   cost: 0
@@ -3728,6 +3745,7 @@ MonoBehaviour:
   cardTexts: []
   cardImage: {fileID: 0}
   cardType: 0
+  classCard: 0
   cardRank: 0
   cardId: 0
   cost: 0
@@ -3900,7 +3918,7 @@ GameObject:
   - component: {fileID: 1160684119}
   - component: {fileID: 1160684121}
   - component: {fileID: 1160684120}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: BookCover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4051,7 +4069,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1199757884}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: BookCoverCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4106,6 +4124,7 @@ MonoBehaviour:
   cardTexts: []
   cardImage: {fileID: 0}
   cardType: 0
+  classCard: 0
   cardRank: 0
   cardId: 0
   cost: 0
@@ -4346,6 +4365,7 @@ MonoBehaviour:
   cardTexts: []
   cardImage: {fileID: 0}
   cardType: 0
+  classCard: 0
   cardRank: 0
   cardId: 0
   cost: 0
@@ -4889,6 +4909,7 @@ MonoBehaviour:
   cardTexts: []
   cardImage: {fileID: 0}
   cardType: 0
+  classCard: 0
   cardRank: 0
   cardId: 0
   cost: 0
@@ -5494,6 +5515,7 @@ MonoBehaviour:
   cardTexts: []
   cardImage: {fileID: 0}
   cardType: 0
+  classCard: 0
   cardRank: 0
   cardId: 0
   cost: 0
@@ -5529,6 +5551,7 @@ MonoBehaviour:
   cardTexts: []
   cardImage: {fileID: 0}
   cardType: 0
+  classCard: 0
   cardRank: 0
   cardId: 0
   cost: 0
@@ -6142,8 +6165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 506ed785899def6428a42b17c149ce61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nowPageIcon: 0
   cardGroupRoot: {fileID: 0}
+  pageRoot: {fileID: 0}
 --- !u!1 &1875379426
 GameObject:
   m_ObjectHideFlags: 0
@@ -6658,6 +6681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c605885da66d2a458e6b0312334f363, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardPrefabObj: []
 --- !u!114 &2104303766
 MonoBehaviour:
   m_ObjectHideFlags: 0

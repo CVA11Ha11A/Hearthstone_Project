@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Reflection;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -41,7 +43,7 @@ public enum ClassCard
 {
     None = 0,
     Prist = 1,
-    Common = 2,    
+    Common = 2,
 }
 
 /// <summary>
@@ -107,7 +109,7 @@ public enum S_Clip
 
 public class CardManager : MonoBehaviour
 {
-    public static Dictionary<CardID, Card> cards = default;
+    public static Dictionary<CardID, Card> cards = default;    
 
     private static CardManager instance = null;
     public static CardManager Instance
@@ -128,6 +130,8 @@ public class CardManager : MonoBehaviour
     public Sprite[] cardMaskSprites = default;
 
     #region 카드 사이즈 조절을 위한 Vecotor3들
+    // 초기화용
+    Vector3 initVector3 = new Vector3(999f, 999f, 999f);
     //하수인
     Vector3 minionNamePos = new Vector3(0f, -0.2f, 0f);
     Vector3 minionNameRotation = new Vector3(0f, 0f, 3f);
@@ -142,6 +146,8 @@ public class CardManager : MonoBehaviour
     #endregion 카드 사이즈 조절을 위한 Vecotor3들
 
 
+
+
     private void Awake()
     {
         instance = this;
@@ -154,8 +160,10 @@ public class CardManager : MonoBehaviour
 
     private void FirstCardSetting()
     {   // 처음 카드 메니저 컬렉션에 카드들을 새로 할당하는 함수
+
         if (cards == null)
-        {
+        {       
+            //cards = new Dictionary<CardID, Card> ();
             cards = new Dictionary<CardID, Card>
             {
                 // 하수인
@@ -171,12 +179,15 @@ public class CardManager : MonoBehaviour
                 // 주문
                 { CardID.SurlyMob, new SurlyMob() },
             };
+
+
+
         }
 
     }       // FirstCardSetting()
 
     private void Start()
-    {     
+    {
     }
 
 
@@ -205,7 +216,7 @@ public class CardManager : MonoBehaviour
         rect = card_.cardTexts[(int)C_Text.Cost].GetComponent<RectTransform>();
         rect.anchoredPosition3D = minionCostPos;
 
-        GameObject cardObj = card_.gameObject;        
+        GameObject cardObj = card_.gameObject;
         cardObj.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = cardMaskSprites[(int)C_MaskImage.Minion];
         cardObj.transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material = cardOutLineMaterials[(int)GetCardRank(card_)];
 
@@ -213,7 +224,7 @@ public class CardManager : MonoBehaviour
     private void SpellSetting(Card card_)
     {
         RectTransform rect;
-        
+
         rect = card_.cardTexts[(int)C_Text.Name].GetComponent<RectTransform>();
         rect.anchoredPosition3D = spellNamePos;
         rect.rotation = Quaternion.Euler(0f, 0f, 0f);

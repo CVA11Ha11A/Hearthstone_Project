@@ -7,7 +7,7 @@ public class SurlyMob : Spell
     protected override void Awake()
     {
         base.Awake();
-        SetCardId((int)CardID.SurlyMob);
+        SetCardId(CardID.SurlyMob);
         SetClassCard(ClassCard.Common);
         SetCardRank(CardRank.S_Epic);
         StatSetting(cost_: 2);
@@ -21,7 +21,6 @@ public class SurlyMob : Spell
     protected override void Start()
     {
         base.Start();
-
     }
 
 
@@ -29,4 +28,7 @@ public class SurlyMob : Spell
     {
 
     }       // Empect()
+
+
+
 }       // ClassEnd

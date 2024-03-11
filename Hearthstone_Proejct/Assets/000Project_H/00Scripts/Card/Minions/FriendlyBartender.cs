@@ -7,7 +7,7 @@ public class FriendlyBartender : Minion
     protected override void Awake()
     {
         base.Awake();
-        SetCardId((int)CardID.FriendlyBartender);
+        SetCardId(CardID.FriendlyBartender);
         SetClassCard(ClassCard.Common);
         SetCardRank(CardRank.M_Rare);
         StatSetting(2, 2, 3);
@@ -20,8 +20,7 @@ public class FriendlyBartender : Minion
 
     protected override void Start()
     {
-        base.Start();        
-
+        base.Start();
     }
 
 
@@ -29,4 +28,7 @@ public class FriendlyBartender : Minion
     {
 
     }       // Empect()
+
+
+
 }       // ClassEnd

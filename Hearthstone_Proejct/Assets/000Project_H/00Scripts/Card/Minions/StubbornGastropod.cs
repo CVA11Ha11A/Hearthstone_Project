@@ -7,7 +7,7 @@ public class StubbornGastropod : Minion
     protected override void Awake()
     {
         base.Awake();
-        SetCardId((int)CardID.StubbornGastropod);
+        SetCardId(CardID.StubbornGastropod);
         SetClassCard(ClassCard.Common);
         SetCardRank(CardRank.M_Rare);
         StatSetting(2, 1, 2);
@@ -18,9 +18,10 @@ public class StubbornGastropod : Minion
     }
 
 
+
     protected override void Start()
     {
-        base.Start();        
+        base.Start();
     }
 
 
@@ -28,4 +29,7 @@ public class StubbornGastropod : Minion
     {
 
     }       // Empect()
+
+
+
 }       // ClassEnd

@@ -5,9 +5,29 @@ using UnityEngine;
 
 public class CollecetionCardGroup : MonoBehaviour
 {
-    private GameObject[] cardPrefabObj = default;
+    public GameObject[] cardPrefabObj = default;
 
+    private const int START_INDEX = 1;
     private int currentIndex = default;
+    public int CurrentIndex
+    {
+        get
+        {
+            if (currentIndex == default || currentIndex == 0)
+            {
+                currentIndex = START_INDEX;
+            }
+            return currentIndex;
+        }
+        set
+        {
+            if (currentIndex != value)
+            {
+                currentIndex = value;
+            }
+        }
+    }
+    private Array cardIdEnumArr = default;
 
     private void Awake()
     {
@@ -19,33 +39,64 @@ public class CollecetionCardGroup : MonoBehaviour
         GameManager.Instance.GetTopParent(this.transform).GetComponent<CollectionCanvasController>().cardGroupRoot = this;
         int cardCount = this.transform.childCount;
         cardPrefabObj = new GameObject[cardCount];
+        cardIdEnumArr = Enum.GetValues(typeof(CardID));
 
-        for (int i = 0; i < cardCount - 1; i++)
+        for (int i = 0; i < cardCount; i++)
         {
             cardPrefabObj[i] = this.transform.GetChild(i).GetChild(0).gameObject;
         }
+
+
     }       // AwakeInIt()
 
     public void OutPutCard(ClassCard targetClass_)
     {
-        MonoBehaviour desRoot = null;
+        Debug.Log($"Tartget : {targetClass_}");
+        MonoBehaviour desRoot = null;        
         for (int i = 0; i < cardPrefabObj.Length; i++)
-        {
+        {            
             if (cardPrefabObj[i].GetComponent<Card>() == true)
             {
                 desRoot = cardPrefabObj[i].GetComponent<Card>();
                 Destroy(desRoot);
             }
+
+            CardID addCardId = SelectOutputCard(targetClass_);
+
+            if(addCardId != CardID.EndPoint)
+            {
+                cardPrefabObj[i].SetActive(true);
+                CardManager.Instance.InItCardComponent(cardPrefabObj[i], addCardId);
+            }
+            else
+            {
+                cardPrefabObj[i].SetActive(false);
+            }
         }
+        
     }       // OutPutCard()
 
-    private void SelectOutputCard(ClassCard targetClass_)
+    private CardID SelectOutputCard(ClassCard targetClass_)
     {
+        CardID cardId_ = (CardID)cardIdEnumArr.GetValue(CurrentIndex);
 
-        //CardManager.cards[(CardID)currentIndex]
+        for (int i = CurrentIndex; i < cardIdEnumArr.Length; i++)
+        {
+            if(cardId_ == CardID.EndPoint)
+            {
+                return CardID.EndPoint;
+            }
+            
+            if (CardManager.cards[cardId_].classCard == targetClass_)
+            {
+                return cardId_;
+            }
+            CurrentIndex++;
+            cardId_ = (CardID)cardIdEnumArr.GetValue(CurrentIndex);
+        }
 
-        Array array = Enum.GetValues(typeof(CardID));
 
+        return CardID.EndPoint;
     }
 
 }       // CollecetionCardGroup ClassEnd

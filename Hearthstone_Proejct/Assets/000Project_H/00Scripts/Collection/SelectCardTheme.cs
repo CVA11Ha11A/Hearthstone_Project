@@ -25,7 +25,7 @@ public class SelectCardTheme : MonoBehaviour
 
     void Start()
     {
-
+        StartInIt();        
     }
 
     private void AwakeInIt()
@@ -42,9 +42,15 @@ public class SelectCardTheme : MonoBehaviour
         }
         heroIconList[0].IsClick = true;
         nowPage = heroIconList[0].iconType;
-        collectionCanvasController = GameManager.Instance.GetTopParent(this.transform).GetComponent<CollectionCanvasController>();
-        collectionCanvasController.nowPageIcon = nowPage;
+
     }       // AwakeInIt()
+
+    private void StartInIt()
+    {
+        collectionCanvasController = GameManager.Instance.GetTopParent(this.transform).GetComponent<CollectionCanvasController>();
+        collectionCanvasController.NowPageIcon = nowPage;
+    }
+
     public void CardThemeCheck(CollectionTopHeroIcon clickComponent_)
     {
         for (int i = 0; i < heroIconList.Count; i++)
@@ -53,7 +59,7 @@ public class SelectCardTheme : MonoBehaviour
             {
                 heroIconList[i].IsClick = true;
                 nowPage = heroIconList[i].iconType;
-                collectionCanvasController.nowPageIcon = nowPage;                
+                collectionCanvasController.NowPageIcon = nowPage;
             }
             else
             {
