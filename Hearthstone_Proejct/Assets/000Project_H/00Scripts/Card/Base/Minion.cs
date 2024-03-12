@@ -14,16 +14,18 @@ public class Minion : Card
     public int damage = default;
     public int heath = default;
 
-    
-    
+    public Minion()
+    {
+        SetCardType(CardType.Minion);        
+        clips = new AudioClip[Enum.GetValues(typeof(M_Clip)).Length];
+    }
+
 
     protected override void Awake()
     {
         base.Awake();
         GetCardComponents();
-        SetCardType(CardType.Minion);        
-        clips = new AudioClip[Enum.GetValues(typeof (M_Clip)).Length];
-        
+                        
     }       // Awake()
 
     protected override void Start()
@@ -58,7 +60,7 @@ public class Minion : Card
     {   // 오디오 소스를 가져오는 함수        
         string defaultAudioPath = "Audios/";
         string defaultName = "MinionDefault";
-        sb.Clear().Append(this.cardNameEn + "_Play");        
+        sb.Clear().Append(this.cardNameEn + "_Play");
         if(clips[(int)M_Clip.Play] = Resources.Load<AudioClip>(defaultAudioPath + sb))
         {
             clips[(int)M_Clip.Play] = Resources.Load<AudioClip>(defaultAudioPath + sb);

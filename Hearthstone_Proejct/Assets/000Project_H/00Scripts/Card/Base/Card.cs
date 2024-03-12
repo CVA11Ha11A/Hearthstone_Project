@@ -29,16 +29,17 @@ public class Card : MonoBehaviour
     public string empect = default;             // 카드의 효과                                              최종 카드 스크립트에서 초기화
     public string cardNameEn = default;         // 카드의 영문 이름 (영문이름 == Class이름)                   최종 카드 스크립트에서 초기화
 
+    public Card()
+    {
+        sb = new StringBuilder();
+    }
 
     protected virtual void Awake()
     {       
-        AwakeInIt();                
+        
     }       // Awake()
+    
 
-    private void AwakeInIt()
-    {       // Awake 에서 초기화 되어야할 종속성이 존재 하지 않은 것
-        sb = new StringBuilder();
-    }       // AwakeInIt()
 
     protected virtual void Start()
     {
@@ -135,6 +136,7 @@ public class Card : MonoBehaviour
 
     }       // UpdateUI()
 
+    #region AudioTestMethod
     public void TestAudioPlay()
     {
         StartCoroutine(TESTAUDIOPLAY());
@@ -191,8 +193,6 @@ public class Card : MonoBehaviour
 
     }
 
-    protected virtual void AddCard(CardID cardId_, Type class_)
-    {
-        // 이렇게 하면 의미가 없나? Type이라서?
-    }
+    #endregion AudioTestMethod
+
 }       // Card ClassEnd

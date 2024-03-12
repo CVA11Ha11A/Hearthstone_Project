@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class KoboldLackey : Minion
 {
-    protected override void Awake()
+    public KoboldLackey()
     {
-        base.Awake();
         SetCardId(CardID.KoboldLackey);
         SetClassCard(ClassCard.Common);
         SetCardRank(CardRank.M_Rare);
@@ -14,6 +13,11 @@ public class KoboldLackey : Minion
         cardName = "코볼트 졸개";
         empect = "전투의 함성: 피해를 2줍니다.";
         cardNameEn = "KoboldLackey";
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();                                                        
         GetCardSprite(cardNameEn);
     }
 

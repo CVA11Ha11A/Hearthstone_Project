@@ -5,13 +5,16 @@ using UnityEngine;
 
 public class Spell : Card
 {
+    public Spell()
+    {
+        SetCardType(CardType.Spell);
+        clips = new AudioClip[Enum.GetValues(typeof(S_Clip)).Length];
+    }
+
     protected override void Awake()
     {
         base.Awake();
-        GetCardComponents();
-        SetCardType(CardType.Spell);
-        clips = new AudioClip[Enum.GetValues(typeof(S_Clip)).Length];
-
+        GetCardComponents();        
     }       // Awake()
 
     protected override void Start()

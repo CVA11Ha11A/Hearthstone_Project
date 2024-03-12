@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class SurlyMob : Spell
 {
-    protected override void Awake()
-    {
-        base.Awake();
+    public SurlyMob()
+    {                
         SetCardId(CardID.SurlyMob);
         SetClassCard(ClassCard.Common);
         SetCardRank(CardRank.S_Epic);
@@ -14,6 +13,11 @@ public class SurlyMob : Spell
         cardName = "신경질적인 군중";
         empect = "무작위 적 하수인을 처치합니다.";
         cardNameEn = "SurlyMob";
+    }
+    protected override void Awake()
+    {
+        base.Awake();
+
         GetCardSprite(cardNameEn);
     }
 

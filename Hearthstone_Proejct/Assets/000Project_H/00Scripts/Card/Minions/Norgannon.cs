@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 public class Norgannon : Minion
 {
+    public Norgannon()
+    {        
+        SetCardType(CardType.Minion);
 
-    protected override void Awake()
-    {
-        base.Awake();
         SetCardId(CardID.Norgannon);
         SetClassCard(ClassCard.Common);
         SetCardRank(CardRank.M_Legendry);
@@ -17,6 +17,19 @@ public class Norgannon : Minion
         cardName = "노르간논";
         empect = "마법사 티탄";
         cardNameEn = "Norgannon";
+    }
+    protected override void Awake()
+    {
+        base.Awake();
+        #region LEGACY (Awake -> Ctor)
+        //SetCardId(CardID.Norgannon);
+        //SetClassCard(ClassCard.Common);
+        //SetCardRank(CardRank.M_Legendry);
+        //StatSetting(6, 6, 10);
+        //cardName = "노르간논";
+        //empect = "마법사 티탄";
+        //cardNameEn = "Norgannon";
+        #endregion LEGACY (Awake -> Ctor)
         GetCardSprite(cardNameEn);
     }
     
@@ -24,7 +37,7 @@ public class Norgannon : Minion
     protected override void Start()
     {
         base.Start();        
-        TestLegendryAudioTest();
+        //TestLegendryAudioTest();
     }
 
 

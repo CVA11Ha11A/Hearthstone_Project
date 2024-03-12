@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class SaroniteTolvir : Minion
 {
-    protected override void Awake()
+    public SaroniteTolvir()
     {
-        base.Awake();
         this.ability = M_Ability.Taunt;
         SetCardId(CardID.SaroniteTolvir);
         SetClassCard(ClassCard.Common);
@@ -15,6 +14,11 @@ public class SaroniteTolvir : Minion
         cardName = "사로나이트 톨비르";
         empect = "도발, 이 하수인이 공격받을 때마다 카드를 뽑습니다.";
         cardNameEn = "SaroniteTolvir";
+    }
+    protected override void Awake()
+    {
+        base.Awake();
+        
         GetCardSprite(cardNameEn);        
     }
 

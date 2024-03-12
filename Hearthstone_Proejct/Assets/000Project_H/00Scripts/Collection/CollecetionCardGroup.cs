@@ -15,6 +15,7 @@ public class CollecetionCardGroup : MonoBehaviour
         {
             if (currentIndex == default || currentIndex == 0)
             {
+                DEB.Log($"CurrentIndex는 1이상이여야만해 CurrentIndex : {CurrentIndex}\n대충 무언가 잘못계산했다는 의미" );
                 currentIndex = START_INDEX;
             }
             return currentIndex;
@@ -23,7 +24,12 @@ public class CollecetionCardGroup : MonoBehaviour
         {
             if (currentIndex != value)
             {
+                //DEB.Log($"CurrentIndex 변경 : {currentIndex}");
                 currentIndex = value;
+            }
+            if (currentIndex < START_INDEX)
+            {
+                currentIndex = START_INDEX;
             }
         }
     }
@@ -50,11 +56,10 @@ public class CollecetionCardGroup : MonoBehaviour
     }       // AwakeInIt()
 
     public void OutPutCard(ClassCard targetClass_)
-    {
-        Debug.Log($"Tartget : {targetClass_}");
-        MonoBehaviour desRoot = null;        
+    {        
+        MonoBehaviour desRoot = null;
         for (int i = 0; i < cardPrefabObj.Length; i++)
-        {            
+        {
             if (cardPrefabObj[i].GetComponent<Card>() == true)
             {
                 desRoot = cardPrefabObj[i].GetComponent<Card>();
@@ -62,8 +67,8 @@ public class CollecetionCardGroup : MonoBehaviour
             }
 
             CardID addCardId = SelectOutputCard(targetClass_);
-
-            if(addCardId != CardID.EndPoint)
+            
+            if (addCardId != CardID.EndPoint)
             {
                 cardPrefabObj[i].SetActive(true);
                 CardManager.Instance.InItCardComponent(cardPrefabObj[i], addCardId);
@@ -73,26 +78,27 @@ public class CollecetionCardGroup : MonoBehaviour
                 cardPrefabObj[i].SetActive(false);
             }
         }
-        
+
     }       // OutPutCard()
 
     private CardID SelectOutputCard(ClassCard targetClass_)
     {
-        CardID cardId_ = (CardID)cardIdEnumArr.GetValue(CurrentIndex);
+        CardID cardId_ = default;
 
         for (int i = CurrentIndex; i < cardIdEnumArr.Length; i++)
         {
-            if(cardId_ == CardID.EndPoint)
+            cardId_ = (CardID)cardIdEnumArr.GetValue(CurrentIndex);
+           
+            if (cardId_ == CardID.EndPoint)
             {
                 return CardID.EndPoint;
             }
-            
+
             if (CardManager.cards[cardId_].classCard == targetClass_)
             {
+                CurrentIndex++;
                 return cardId_;
-            }
-            CurrentIndex++;
-            cardId_ = (CardID)cardIdEnumArr.GetValue(CurrentIndex);
+            }            
         }
 
 

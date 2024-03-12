@@ -133,10 +133,12 @@ public class CardManager : MonoBehaviour
     // 초기화용
     Vector3 initVector3 = new Vector3(999f, 999f, 999f);
     //하수인
+    Vector3 minionEmpectPos = new Vector3(0.0f, 1f, -0.1f);
     Vector3 minionNamePos = new Vector3(0f, -0.2f, 0f);
     Vector3 minionNameRotation = new Vector3(0f, 0f, 3f);
     Vector3 minionCostPos = new Vector3(0.7f, -0.75f, -0.1f);
-
+    Vector3 minionMaskScale = new Vector3(1.82f, 1.82f, 1.82f);
+    Vector3 minionCardImageSclae = new Vector3(0.5f, 0.5f, 0.5f);
     // 주문
     Vector3 spellEmpectPos = new Vector3(0.09f, 1f, -0.1f);
     Vector3 spellNamePos = new Vector3(0.09f, -0.08f, -0.1f);
@@ -216,8 +218,16 @@ public class CardManager : MonoBehaviour
         rect = card_.cardTexts[(int)C_Text.Cost].GetComponent<RectTransform>();
         rect.anchoredPosition3D = minionCostPos;
 
+        rect = card_.cardTexts[(int)C_Text.Empect].GetComponent<RectTransform>();
+        rect.anchoredPosition3D = minionEmpectPos;
+
         GameObject cardObj = card_.gameObject;
         cardObj.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = cardMaskSprites[(int)C_MaskImage.Minion];
+        rect = cardObj.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<RectTransform>();
+        rect.localScale = minionMaskScale;
+
+        rect = rect.transform.GetChild(0).GetComponent<RectTransform>();
+        rect.transform.localScale = minionCardImageSclae;
         cardObj.transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material = cardOutLineMaterials[(int)GetCardRank(card_)];
 
     }       // MinionSetting()

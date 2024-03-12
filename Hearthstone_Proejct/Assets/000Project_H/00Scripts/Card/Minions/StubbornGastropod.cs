@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class StubbornGastropod : Minion
 {
-    protected override void Awake()
+    public StubbornGastropod()
     {
-        base.Awake();
         SetCardId(CardID.StubbornGastropod);
         SetClassCard(ClassCard.Common);
         SetCardRank(CardRank.M_Rare);
@@ -14,6 +13,12 @@ public class StubbornGastropod : Minion
         cardName = "완강한 복족이";
         empect = "도발, 독성";
         cardNameEn = "StubbornGastropod";
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+       
         GetCardSprite(cardNameEn);
     }
 
