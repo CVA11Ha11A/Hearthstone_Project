@@ -6,6 +6,7 @@ using UnityEngine;
 public class CollecetionCardGroup : MonoBehaviour
 {
     public GameObject[] cardPrefabObj = default;
+    private CollectionCanvasController controllerRoot = null;
 
     private const int START_INDEX = 1;
     private int currentIndex = default;
@@ -42,7 +43,8 @@ public class CollecetionCardGroup : MonoBehaviour
 
     private void AwakeInIt()
     {
-        GameManager.Instance.GetTopParent(this.transform).GetComponent<CollectionCanvasController>().cardGroupRoot = this;
+        controllerRoot = GameManager.Instance.GetTopParent(this.transform).GetComponent<CollectionCanvasController>();
+        controllerRoot.cardGroupRoot = this;
         int cardCount = this.transform.childCount;
         cardPrefabObj = new GameObject[cardCount];
         cardIdEnumArr = Enum.GetValues(typeof(CardID));
@@ -74,8 +76,9 @@ public class CollecetionCardGroup : MonoBehaviour
                 CardManager.Instance.InItCardComponent(cardPrefabObj[i], addCardId);
             }
             else
-            {
+            {                
                 cardPrefabObj[i].SetActive(false);
+                controllerRoot.pageRoot.isNextMove = false;
             }
         }
 

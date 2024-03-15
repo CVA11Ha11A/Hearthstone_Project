@@ -14,10 +14,5 @@ public class LobbyCanvasController : MonoBehaviour
         //this.transform.position = moveV3;
     }
 
-    void Start()
-    {
-        
-    }
-
 
 }       // LobbyCanvasController Class

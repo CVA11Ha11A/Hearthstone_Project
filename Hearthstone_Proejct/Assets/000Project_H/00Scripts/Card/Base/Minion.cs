@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[Serializable]
 public class Minion : Card
 {
     protected M_Ability ability =  default;

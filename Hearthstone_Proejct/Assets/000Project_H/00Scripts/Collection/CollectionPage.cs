@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CollectionPage : MonoBehaviour
@@ -33,14 +34,16 @@ public class CollectionPage : MonoBehaviour
 
     private CollectionCanvasController canvasControllerRoot = null;
 
+    public bool isNextMove = true;    
+
     private void Awake()
     {
         sb = new StringBuilder();
         canvasControllerRoot = GameManager.Instance.GetTopParent(this.transform).GetComponent<CollectionCanvasController>();
         canvasControllerRoot.pageRoot = this;
 
-        pageTextRoot = this.transform.GetChild(2).transform.GetComponent<TextMeshProUGUI>();    
-        
+        pageTextRoot = this.transform.GetChild(2).transform.GetComponent<TextMeshProUGUI>();
+
     }
     void Start()
     {
@@ -51,22 +54,30 @@ public class CollectionPage : MonoBehaviour
     private void UpdatePageText()
     {
         sb.Clear();
-        sb.Append(defaultText).Append(NowPage);        
+        sb.Append(defaultText).Append(NowPage);
         pageTextRoot.text = sb.ToString();
     }       // UpdatePageText()
 
     public void NextMoveToPage()
     {
-        NowPage++;
-        canvasControllerRoot.cardGroupRoot.OutPutCard((ClassCard)canvasControllerRoot.NowPageIcon);
+        if (isNextMove == true)
+        {
+            NowPage++;
+            canvasControllerRoot.cardGroupRoot.OutPutCard((ClassCard)canvasControllerRoot.NowPageIcon);
+        }
+        else { /*PASS*/ }
+
     }
 
     public void PreviousMoveToPage()
     {
-        NowPage--;
-        DEB.Log($"ChildCount : {canvasControllerRoot.cardGroupRoot.transform.childCount}\n CurrentIndex : {canvasControllerRoot.cardGroupRoot.CurrentIndex}");
-        canvasControllerRoot.cardGroupRoot.CurrentIndex -= canvasControllerRoot.cardGroupRoot.transform.childCount +1;
-        canvasControllerRoot.cardGroupRoot.OutPutCard((ClassCard)canvasControllerRoot.NowPageIcon);
+        if(NowPage != MIN_PAGE) 
+        {
+            NowPage--;
+            canvasControllerRoot.cardGroupRoot.CurrentIndex -= canvasControllerRoot.cardGroupRoot.transform.childCount + 1;
+            canvasControllerRoot.cardGroupRoot.OutPutCard((ClassCard)canvasControllerRoot.NowPageIcon);
+            isNextMove = true;
+        }
     }
 
 

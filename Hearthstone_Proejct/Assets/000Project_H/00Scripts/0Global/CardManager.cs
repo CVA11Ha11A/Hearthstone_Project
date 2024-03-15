@@ -190,6 +190,11 @@ public class CardManager : MonoBehaviour
 
     private void Start()
     {
+        
+        
+            
+
+        
     }
 
 

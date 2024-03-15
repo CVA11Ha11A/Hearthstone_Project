@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-
+[Serializable]
 public class Card : MonoBehaviour
 {
     protected StringBuilder sb = default;       // 연산에 필요한 string을 저장해두며 사용할 sb  (!코루틴엔 절대 사용 금지!)

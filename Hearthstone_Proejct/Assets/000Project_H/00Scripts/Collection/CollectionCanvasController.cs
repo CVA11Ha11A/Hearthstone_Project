@@ -26,6 +26,7 @@ public class CollectionCanvasController : MonoBehaviour
                 cardGroupRoot.CurrentIndex = 0;
                 if (isOpen == true)
                 {
+                    pageRoot.isNextMove = true;
                     cardGroupRoot.OutPutCard((ClassCard)this.nowPageIcon);
                 }
             }
