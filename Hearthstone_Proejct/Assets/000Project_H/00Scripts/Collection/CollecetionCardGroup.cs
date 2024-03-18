@@ -16,7 +16,7 @@ public class CollecetionCardGroup : MonoBehaviour
         {
             if (currentIndex == default || currentIndex == 0)
             {
-                DEB.Log($"CurrentIndex는 1이상이여야만해 CurrentIndex : {CurrentIndex}\n대충 무언가 잘못계산했다는 의미" );
+                DE.Log($"CurrentIndex는 1이상이여야만해 CurrentIndex : {CurrentIndex}\n대충 무언가 잘못계산했다는 의미" );
                 currentIndex = START_INDEX;
             }
             return currentIndex;
@@ -25,7 +25,7 @@ public class CollecetionCardGroup : MonoBehaviour
         {
             if (currentIndex != value)
             {
-                //DEB.Log($"CurrentIndex 변경 : {currentIndex}");
+                //DE.Log($"CurrentIndex 변경 : {currentIndex}");
                 currentIndex = value;
             }
             if (currentIndex < START_INDEX)

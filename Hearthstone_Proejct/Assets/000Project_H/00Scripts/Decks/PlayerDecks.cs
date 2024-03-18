@@ -29,7 +29,7 @@ public class PlayerDecks : MonoBehaviour
         {
             string loadData = File.ReadAllText(this.filePath);
             decksList = JsonUtility.FromJson<List<Deck>>(loadData);
-            DEB.Log($"불러와졌나? : {decksList}");
+            DE.Log($"불러와졌나? : {decksList}");
         }
         else
         {
@@ -41,7 +41,7 @@ public class PlayerDecks : MonoBehaviour
     {
         string saveData = JsonUtility.ToJson(decksList);
         File.WriteAllText(filePath, saveData);
-        DEB.Log($"저장완료 : {decksList}");        
+        DE.Log($"저장완료 : {decksList}");        
     }       // SaveDecks()
 
 }       // ClassEnd

@@ -50,3 +50,6 @@ TagManager:
   - name: Card
     uniqueID: 3088964997
     locked: 0
+  - name: NewDeckSelcetClassCanvas
+    uniqueID: 1685646667
+    locked: 0

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class DEB
+public class DE
 {
     public static void Log(string log_)
     {

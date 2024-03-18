@@ -72,7 +72,7 @@ public class CollectionCanvasController : MonoBehaviour
     {
         isOpen = true;
         StartCoroutine(SlidingCanvas());
-    }       // CollectionOpen()
+    }       // CanvasOpen()
 
     public void CollectionClose()
     {
@@ -114,7 +114,7 @@ public class CollectionCanvasController : MonoBehaviour
             StartCoroutine(OpenBookCover());    // 캔버스 도착시 책 커버 열기코루틴 호출
         }
 
-    }       // SlidingCanvas()
+    }       // OpenCanvas()
 
     IEnumerator OpenBookCover()
     {
