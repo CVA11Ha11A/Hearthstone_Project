@@ -9,6 +9,7 @@ public class LobbyCanvasController : MonoBehaviour
 
     private void Awake()
     {        
+        LobbyManager.Instance.mainCanvasRoot = this;
         originV3 = this.transform.position;
         moveV3 = new Vector3(300f, 300f, -300f);
         //this.transform.position = moveV3;

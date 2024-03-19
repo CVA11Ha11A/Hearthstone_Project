@@ -15,6 +15,12 @@ public class LobbyManager : MonoBehaviour
     /// </summary>
     public Material[] minionOutLines;
 
+    #region LobbySceneCanvasRoots
+    public LobbyCanvasController mainCanvasRoot = null;
+    public CollectionCanvasController collectionCanvasRoot = null;
+    public NewDeckCanvasTransformController newDeckCanvasRoot = null;
+    #endregion LobbySceneCanvasRoots
+
     private static LobbyManager instance = default;
     public static LobbyManager Instance 
     {
@@ -118,5 +124,12 @@ public class LobbyManager : MonoBehaviour
         }
     }
     #endregion 컬렉션 오픈 오프 함수
+
+    private void OnDestroy()
+    {
+        newDeckCanvasRoot = null;
+        mainCanvasRoot = null;
+        collectionCanvasRoot = null;
+    }
 
 }       // LobbyManager ClassEnd

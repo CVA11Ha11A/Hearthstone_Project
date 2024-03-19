@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+public enum CollectionState
+{
+    None = 0,
+    Looking = 1,
+    DeckBuild = 2
+}
 public class CollectionCanvasController : MonoBehaviour
 {
     // On : 수집품이 켜졌을때 도착할 포지션 , Off : 수집품이 켜지지 않은 상태일때 포지션
@@ -32,6 +38,19 @@ public class CollectionCanvasController : MonoBehaviour
             }
         }
     }
+
+    private CollectionState nowState = default;
+    public CollectionState NowState
+    {
+        get { return this.nowState; }
+        set
+        {
+            if (this.nowState != value)
+            {
+                this.nowState = value;
+            }
+        }
+    }
     #region ClassRoot
     private RectTransform bookCover = default;
     public CollecetionCardGroup cardGroupRoot = null;
@@ -54,6 +73,7 @@ public class CollectionCanvasController : MonoBehaviour
 
     private void AwakeInIt()
     {
+        LobbyManager.Instance.collectionCanvasRoot = this;
         onPosition = this.transform.position;
         onPosition.x = 0f;
         offPosition = onPosition;
@@ -61,6 +81,8 @@ public class CollectionCanvasController : MonoBehaviour
         this.transform.position = offPosition;
 
         bookCover = this.gameObject.transform.GetChild(2).GetComponent<RectTransform>();
+
+        NowState = CollectionState.Looking;
 
     }       // AwakeInIt()
 
