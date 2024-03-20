@@ -43,7 +43,7 @@ public enum ClassCard
 {
     None = 0,
     Prist = 1,
-    Common = 2,
+    Common,
 }
 
 /// <summary>
@@ -128,6 +128,7 @@ public class CardManager : MonoBehaviour
     public GameObject cardPrefab = default;
     public Material[] cardOutLineMaterials = default;
     public Sprite[] cardMaskSprites = default;
+    public Sprite[] classSprites = default;
 
     #region 카드 사이즈 조절을 위한 Vecotor3들
     // 초기화용
@@ -152,12 +153,18 @@ public class CardManager : MonoBehaviour
 
     private void Awake()
     {
+        const int CARD_MASK_SPRITE_COUNT = 2;
+        const int CARD_OUTLINE_MATERIAL_COUNT = 4;
+
         instance = this;
-        cardMaskSprites = new Sprite[2];
-        cardOutLineMaterials = new Material[4];
+        cardMaskSprites = new Sprite[CARD_MASK_SPRITE_COUNT];
+        cardOutLineMaterials = new Material[CARD_OUTLINE_MATERIAL_COUNT];
+        classSprites = new Sprite[Enum.GetValues(typeof(ClassCard)).Length];        
         ResourceLoad();
         FirstCardSetting();
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(this);        
+
+
     }
 
     private void FirstCardSetting()
@@ -188,14 +195,7 @@ public class CardManager : MonoBehaviour
 
     }       // FirstCardSetting()
 
-    private void Start()
-    {
-        
-        
-            
-
-        
-    }
+  
 
 
     public void CardSetting(Card card_)
@@ -274,6 +274,9 @@ public class CardManager : MonoBehaviour
         cardOutLineMaterials[(int)C_Material.S_Epic] = Resources.Load<Material>("CardManager/Card_Spell");
 
         cardPrefab = Resources.Load<GameObject>("Card");
+
+        classSprites[(int)ClassCard.Prist - 1] = Resources.Load<Sprite>("ClassSprites/Anduin");
+        // TODO : 제이나 제작뒤 여기에 제이나 리소스 추가
 
     }       // ResourceLoad()
 

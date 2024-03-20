@@ -11,6 +11,7 @@ public class NewDeckCanvasTransformController : MonoBehaviour
     private float canvasMoveTime = default;
 
     public event Action BackButtonEvent;
+    public event Action<ClassCard, bool> startDeckBuildButtonEvent; // 선택버튼 누를경우 발생할 이벤트 
 
     private void Awake()
     {
@@ -31,17 +32,17 @@ public class NewDeckCanvasTransformController : MonoBehaviour
 
         LobbyManager.Instance.CanvasClose(this.transform, defaultPos, canvasMoveTime);
         BackButtonEvent?.Invoke();
-
+        this.transform.GetChild(2).GetComponent<DeckBuildSelectingClass>().lastChoiceClass = ClassCard.None;
     }       // BackButtonOnClickMethod()
 
     public void SelectButtonOnClickMethod()
-    {   // 영웅 선택 버튼을 누를경우
-        //현재 선택된 영웅을 알아와야겠지
+    {   // 영웅 선택 버튼을 누를경우        
         if (this.transform.GetChild(2).GetComponent<DeckBuildSelectingClass>().lastChoiceClass != ClassCard.None)
         {
             LobbyManager.Instance.CanvasClose(this.transform, defaultPos, canvasMoveTime);
             LobbyManager.Instance.collectionCanvasRoot.NowState = CollectionState.DeckBuild;
-
+            startDeckBuildButtonEvent?.Invoke(this.transform.GetChild(2).GetComponent<DeckBuildSelectingClass>().lastChoiceClass, true);
+            this.transform.GetChild(2).GetComponent<DeckBuildSelectingClass>().lastChoiceClass = ClassCard.None;
         }
         else { /*PASS*/ }
     }       // SelectButtonOnClickMethod()

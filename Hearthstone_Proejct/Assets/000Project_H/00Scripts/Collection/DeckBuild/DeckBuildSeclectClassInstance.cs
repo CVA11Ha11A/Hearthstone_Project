@@ -22,8 +22,7 @@ public class DeckBuildSeclectClassInstance : MonoBehaviour
 
     private void InstanceSelectClassPrefab()
     {
-        int instanceCount = Enum.GetValues(typeof(ClassCard)).Length;
-        DE.Log($"ClassCard Length : {instanceCount}");
+        int instanceCount = Enum.GetValues(typeof(ClassCard)).Length;       
         
         for (int i = 1; i < instanceCount; i++)
         {

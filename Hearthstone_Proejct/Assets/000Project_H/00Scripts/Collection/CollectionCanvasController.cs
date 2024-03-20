@@ -49,6 +49,11 @@ public class CollectionCanvasController : MonoBehaviour
             {
                 this.nowState = value;
             }
+            if(this.nowState == CollectionState.DeckBuild)
+            {
+                // 덱 빌드로 변경 되었을때 실행돼어야하는것들 실행
+
+            }
         }
     }
     #region ClassRoot
@@ -187,5 +192,8 @@ public class CollectionCanvasController : MonoBehaviour
     }
     #endregion 컬렉션 오픈 오프 함수
 
+    #region 덱 생성State 함수들
 
+
+    #endregion 덱 생성State 함수들
 }       // CollectionCanvasController ClassEnd
