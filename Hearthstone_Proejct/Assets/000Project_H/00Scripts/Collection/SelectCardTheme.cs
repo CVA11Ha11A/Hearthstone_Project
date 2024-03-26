@@ -52,7 +52,7 @@ public class SelectCardTheme : MonoBehaviour
     }
 
     public void CardThemeCheck(CollectionTopHeroIcon clickComponent_)
-    {
+    {       // 버튼 호출용
         for (int i = 0; i < heroIconList.Count; i++)
         {
             if (heroIconList[i] == clickComponent_)
@@ -67,6 +67,23 @@ public class SelectCardTheme : MonoBehaviour
             }
         }
     }       // CardThemeCheck()
+
+    public void ChangeCardTheme(ClassCard getParam_)
+    {   // 외부에서 입력한 직업을 보내주었을때 내부에 있는것들 체크후 변경해주는 함수 (외부 호출용)
+        for (int i = 0; i < heroIconList.Count; i++)
+        {
+            if (heroIconList[i].cardClass == getParam_)
+            {
+                heroIconList[i].IsClick = true;
+                nowPage = heroIconList[i].iconType;
+                collectionCanvasController.NowPageIcon = nowPage;
+            }
+            else
+            {
+                heroIconList[i].IsClick = false;
+            }
+        }
+    }       // ChangeCardTheme
 
 
 

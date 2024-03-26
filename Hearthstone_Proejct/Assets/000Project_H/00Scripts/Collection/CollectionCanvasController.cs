@@ -52,10 +52,12 @@ public class CollectionCanvasController : MonoBehaviour
             if(this.nowState == CollectionState.DeckBuild)
             {
                 // 덱 빌드로 변경 되었을때 실행돼어야하는것들 실행
-
+                this.transform.GetComponent<CollectionCanvasCardInteraction>().enabled = true;
             }
         }
     }
+
+    public ClassCard selectedBuildClass = default;
     #region ClassRoot
     private RectTransform bookCover = default;
     public CollecetionCardGroup cardGroupRoot = null;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class NewDeckCanvasTransformController : MonoBehaviour
@@ -38,10 +39,16 @@ public class NewDeckCanvasTransformController : MonoBehaviour
     public void SelectButtonOnClickMethod()
     {   // 영웅 선택 버튼을 누를경우        
         if (this.transform.GetChild(2).GetComponent<DeckBuildSelectingClass>().lastChoiceClass != ClassCard.None)
-        {
-            LobbyManager.Instance.CanvasClose(this.transform, defaultPos, canvasMoveTime);
+        {            
+            DeckBuildSelectingClass deckBuildSelectingClassRoot = this.transform.GetChild(2).GetComponent<DeckBuildSelectingClass>();                        
+            LobbyManager.Instance.CanvasClose(this.transform, defaultPos, canvasMoveTime);    
+            
             LobbyManager.Instance.collectionCanvasRoot.NowState = CollectionState.DeckBuild;
-            startDeckBuildButtonEvent?.Invoke(this.transform.GetChild(2).GetComponent<DeckBuildSelectingClass>().lastChoiceClass, true);
+            LobbyManager.Instance.collectionCanvasRoot.cardGroupRoot.OutPutCard(deckBuildSelectingClassRoot.lastChoiceClass);            
+            GameManager.Instance.GetTopParent(LobbyManager.Instance.collectionCanvasRoot.transform).transform.
+                GetChild(1).GetChild(0).GetComponent<SelectCardTheme>().ChangeCardTheme(deckBuildSelectingClassRoot.lastChoiceClass);            
+
+            startDeckBuildButtonEvent?.Invoke(deckBuildSelectingClassRoot.lastChoiceClass, true);
             this.transform.GetChild(2).GetComponent<DeckBuildSelectingClass>().lastChoiceClass = ClassCard.None;
         }
         else { /*PASS*/ }

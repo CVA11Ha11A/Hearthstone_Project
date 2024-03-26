@@ -52,7 +52,7 @@ public class DeckListComponent : MonoBehaviour
         decks[decks.Length].gameObject.SetActive(false);
     }       // CreateDeckButtonControll()
 
-    public void DeckBuildStateDeckCreateButtonSet(ClassCard selectClass_ , bool isDeckBuildMode_)
+    public void DeckBuildStateDeckCreateButtonSet(ClassCard selectClass_, bool isDeckBuildMode_)
     {   // 덱 생성 모드가 됬을 경우 버튼의 움직임
         GameObject buttonParent = decks[^1];
         GameObject classImageObj = decks[^1].transform.GetChild(0).GetChild(0).gameObject;
@@ -61,21 +61,21 @@ public class DeckListComponent : MonoBehaviour
         UnityEngine.UI.Image classImage = classImageObj.GetComponent<UnityEngine.UI.Image>();
         classImage.sprite = CardManager.Instance.classSprites[(int)selectClass_ - 1];
 
-        StartCoroutine(SpinCreateDeckButton(buttonParent,classImageObj,createDeckButtonObj,isDeckBuildMode_));
+        StartCoroutine(SpinCreateDeckButton(buttonParent, classImageObj, createDeckButtonObj, isDeckBuildMode_));
 
     }       // DeckBuildStateDeckCreateButtonSet()
 
-    private IEnumerator SpinCreateDeckButton(GameObject buttonParent_, GameObject classImageObj_ , 
-        GameObject createDeckButtonObj_ ,bool isDeckBuildMode_)
+    private IEnumerator SpinCreateDeckButton(GameObject buttonParent_, GameObject classImageObj_,
+        GameObject createDeckButtonObj_, bool isDeckBuildMode_)
     {   // isDeckBuildMode_ 해당 변수에 따라서 어떤 오브젝트가 SetAsLastSibling될지 결정
         float currentTime = 0f;
         float spinTime = 3f;
 
         Quaternion arrivalQuaternion = default;
-        Quaternion setSiblingQuaterion = Quaternion.Euler(-90f,0f,0f);
+        Quaternion setSiblingQuaterion = Quaternion.Euler(-90f, 0f, 0f);
         bool isSetSibling = false;
 
-        if(isDeckBuildMode_ == true)
+        if (isDeckBuildMode_ == true)
         {
             arrivalQuaternion = Quaternion.Euler(-180f, 0f, 0f);
         }
@@ -90,33 +90,38 @@ public class DeckListComponent : MonoBehaviour
             //decks            
 
             // 보간 비율 계산
-            float t = currentTime/ spinTime;
+            float t = currentTime / spinTime;
 
-            DE.Log($"LocalRoatation : {buttonParent_.transform.localRotation}\nSetSiblingQuaternion : {setSiblingQuaterion}");
+            //DE.Log($"LocalRoatation : {buttonParent_.transform.localRotation}\nSetSiblingQuaternion : {setSiblingQuaterion}");
             // Lerp 함수 사용하여 새로운 위치 계산
-            Quaternion newQuaternion = Quaternion.Slerp(buttonParent_.transform.localRotation, arrivalQuaternion, t);            
+            Quaternion newQuaternion = Quaternion.Slerp(buttonParent_.transform.localRotation, arrivalQuaternion, t);
             // 새로운 위치 적용
             buttonParent_.transform.localRotation = newQuaternion;
 
-            if (buttonParent_.transform.localRotation.w <= setSiblingQuaterion.w &&isSetSibling == false &&
+            if (buttonParent_.transform.localRotation.w <= setSiblingQuaterion.w && isSetSibling == false &&
                 isDeckBuildMode_ == true)
-            {                
+            {
                 isSetSibling = true;
-                classImageObj_.transform.SetAsLastSibling();    
+                classImageObj_.transform.SetAsLastSibling();
             }
-            else if(buttonParent_.transform.localRotation.w >= setSiblingQuaterion.w && isSetSibling == false &&
+            else if (buttonParent_.transform.localRotation.w >= setSiblingQuaterion.w && isSetSibling == false &&
                 isDeckBuildMode_ == false)
-            {             
+            {
                 isSetSibling = true;
                 createDeckButtonObj_.transform.SetAsLastSibling();
             }
-                        
+
             yield return null;
         }
+
+        // TODO : 덱에 넣었을때 정렬에 이상이 없을 경우 직업의 이미지가 돌아가고 올라가는것 까지 추가
     }
 
     private void OnDestroy()
     {
+#if DEVELOP_TIME
+        return;
+#endif
         LobbyManager.Instance.newDeckCanvasRoot.startDeckBuildButtonEvent -= DeckBuildStateDeckCreateButtonSet;
     }
 }       // DeckListComponent ClassEnd
