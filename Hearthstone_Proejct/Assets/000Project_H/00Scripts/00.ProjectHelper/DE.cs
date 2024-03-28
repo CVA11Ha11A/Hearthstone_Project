@@ -11,4 +11,11 @@ public class DE
         Debug.Log($"{log_}");
 #endif
     }
+
+    public static void DrawRay(Vector3 start_, Vector3 dir_, Color color_, float duration_)
+    {
+#if DEVELOP_TIME
+        Debug.DrawRay(start_, dir_, color_, duration_);
+#endif
+    }
 }

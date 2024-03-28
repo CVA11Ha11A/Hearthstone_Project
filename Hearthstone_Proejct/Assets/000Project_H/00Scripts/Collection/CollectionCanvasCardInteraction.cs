@@ -17,7 +17,10 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
     private Ray ray = default;
     private RaycastHit hitInfo = default;
 
-    private GameObject instanceCard = null;    
+    private GameObject instanceCard = null;
+
+    private CollectionDeckCardList deckCardListRoot = null;
+    
 
     private void Awake()
     {
@@ -87,10 +90,14 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
             Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y,
                 Camera.main.nearClipPlane));
 
+            DE.DrawRay(mouseWorldPosition, Vector3.forward * 300f, Color.red, 5000f);            
             if (Physics.Raycast(mouseWorldPosition, Vector3.forward, rayMaxDistance, deckCardListLayerMask))
             {
-                   // TODO : 제작해야함
+                DE.Log("여기 들어오나?");
+                GetDeckCardListRoot();      // 루트가 null이면 가져오는 함수
+                deckCardListRoot.AddToCard(lastChoiceCard);
             }            
+
             Destroy(instanceCard.GetComponent<Card>());
             instanceCard.gameObject.SetActive(false);
         }
@@ -113,6 +120,16 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
 
     #endregion Interface Methods
 
-
+    private void GetDeckCardListRoot()
+    {
+        if(deckCardListRoot == null)
+        {
+            deckCardListRoot = LobbyManager.Instance.collectionCanvasRoot.deckCardListRoot;
+        }
+        else
+        {
+            return;
+        }
+    }       // GetDeckCardListRoot()
 
 }       // ClassEnd

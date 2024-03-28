@@ -47,6 +47,7 @@ SpriteAtlas:
     - {fileID: 102900000, guid: 21cecb80c7908134cb32e628b8a957f0, type: 3}
     - {fileID: 102900000, guid: ddcb587bee660be4a94ff97fcc099063, type: 3}
     - {fileID: 102900000, guid: a8a35aba58b6dce44b84fe95b956edce, type: 3}
+    - {fileID: 102900000, guid: 0aed4a51ec36991489c05facbded2d22, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -65,6 +66,7 @@ SpriteAtlas:
   - {fileID: -137762443, guid: 26c566b53dfc0b8418fe0514ba7f2e69, type: 3}
   - {fileID: 21300000, guid: 59ffdfb55058799458bf89b5b053bb0a, type: 3}
   - {fileID: 21300000, guid: 32fb5df61a29abc4580c9d46ce0091ef, type: 3}
+  - {fileID: 21300000, guid: f79a1538775269b46a8286922a76dfef, type: 3}
   - {fileID: -497606648, guid: 14e50c0ae8d89e04aa078c4fba64db9d, type: 3}
   - {fileID: 1556324056, guid: 3f5ebe4ba1263ac488228b3db20fd102, type: 3}
   - {fileID: -1119942156, guid: b3324c4f7384498459572c3304b50a80, type: 3}
@@ -82,6 +84,7 @@ SpriteAtlas:
   - Norgannon_HS
   - Galosy
   - SRal
+  - Cost
   - KoboldLackey_HS_0
   - MurksparkEel_HS
   - SurlyMob_SP_0

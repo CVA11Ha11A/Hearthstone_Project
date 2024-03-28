@@ -62,6 +62,7 @@ public class CollectionCanvasController : MonoBehaviour
     private RectTransform bookCover = default;
     public CollecetionCardGroup cardGroupRoot = null;
     public CollectionPage pageRoot = null;
+    public CollectionDeckCardList deckCardListRoot = null;
     #endregion ClassRoot
 
 

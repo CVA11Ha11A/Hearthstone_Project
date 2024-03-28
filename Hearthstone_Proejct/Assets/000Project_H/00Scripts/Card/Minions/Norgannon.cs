@@ -28,7 +28,7 @@ public class Norgannon : Minion
         //SetClassCard(ClassCard.Common);
         //SetCardRank(CardRank.M_Legendry);
         //StatSetting(6, 6, 10);
-        //cardName = "노르간논";
+        //CardName = "노르간논";
         //empect = "마법사 티탄";
         //cardNameEn = "Norgannon";
         #endregion LEGACY (Awake -> Ctor)
