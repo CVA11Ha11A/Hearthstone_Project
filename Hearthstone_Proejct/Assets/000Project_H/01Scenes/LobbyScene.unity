@@ -12085,6 +12085,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1982845552}
   - component: {fileID: 1982845553}
+  - component: {fileID: 1982845555}
   - component: {fileID: 1982845554}
   m_Layer: 7
   m_Name: Content_CardList
@@ -12179,6 +12180,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90669e861f4d05547a90df7cd7fe5245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &1982845555
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982845551}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 110, y: 360, z: 1}
+  m_Center: {x: 55, y: -180, z: 0}
 --- !u!224 &1990539901 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8980549999892050988, guid: e646f9863a4701c44bee821d34240cbf,
