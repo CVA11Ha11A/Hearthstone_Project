@@ -12,7 +12,7 @@ public class NewDeckCanvasTransformController : MonoBehaviour
     private float canvasMoveTime = default;
 
     public event Action BackButtonEvent;
-    public event Action<ClassCard, bool> startDeckBuildButtonEvent; // 선택버튼 누를경우 발생할 이벤트 
+    public event Action<ClassCard, bool> startDeckBuildButtonEvent; // 선택버튼 누를경우 발생할 이벤트 DeckListComponent가 체이닝
 
     private void Awake()
     {
@@ -43,10 +43,14 @@ public class NewDeckCanvasTransformController : MonoBehaviour
             DeckBuildSelectingClass deckBuildSelectingClassRoot = this.transform.GetChild(2).GetComponent<DeckBuildSelectingClass>();                        
             LobbyManager.Instance.CanvasClose(this.transform, defaultPos, canvasMoveTime);    
             
+            // Setting
             LobbyManager.Instance.collectionCanvasRoot.NowState = CollectionState.DeckBuild;
             LobbyManager.Instance.collectionCanvasRoot.cardGroupRoot.OutPutCard(deckBuildSelectingClassRoot.lastChoiceClass);            
             GameManager.Instance.GetTopParent(LobbyManager.Instance.collectionCanvasRoot.transform).transform.
-                GetChild(1).GetChild(0).GetComponent<SelectCardTheme>().ChangeCardTheme(deckBuildSelectingClassRoot.lastChoiceClass);            
+                GetChild(1).GetChild(0).GetComponent<SelectCardTheme>().ChangeCardTheme(deckBuildSelectingClassRoot.lastChoiceClass);
+            LobbyManager.Instance.collectionCanvasRoot.deckCardListRoot.selectClass = deckBuildSelectingClassRoot.lastChoiceClass;
+
+            LobbyManager.Instance.collectionCanvasRoot.deckCardListRoot.isCreatDeck = true;
 
             startDeckBuildButtonEvent?.Invoke(deckBuildSelectingClassRoot.lastChoiceClass, true);
             this.transform.GetChild(2).GetComponent<DeckBuildSelectingClass>().lastChoiceClass = ClassCard.None;

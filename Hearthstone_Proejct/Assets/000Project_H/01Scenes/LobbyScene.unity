@@ -3152,6 +3152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd659060c38e3d42a888307198af989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  decksList: []
 --- !u!1001 &592041776
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8429,7 +8430,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1827231279}
         m_TargetAssemblyTypeName: CollectionCanvasController, Assembly-CSharp
-        m_MethodName: CollectionClose
+        m_MethodName: BackButtonEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9159,7 +9160,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 1685646667
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!224 &1418249124
 RectTransform:
@@ -11251,7 +11252,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 2007506245
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &1827231278
 RectTransform:
@@ -12180,6 +12181,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90669e861f4d05547a90df7cd7fe5245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardList: []
+  selectClass: 0
+  isCreatDeck: 0
+  isFixDeck: 0
+  fixIndex: 0
 --- !u!65 &1982845555
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12302,6 +12308,7 @@ MonoBehaviour:
   mainCanvasRoot: {fileID: 0}
   collectionCanvasRoot: {fileID: 0}
   newDeckCanvasRoot: {fileID: 0}
+  playerDeckRoot: {fileID: 0}
 --- !u!4 &2008639473
 Transform:
   m_ObjectHideFlags: 0

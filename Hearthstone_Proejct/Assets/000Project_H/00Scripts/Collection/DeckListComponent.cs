@@ -16,6 +16,8 @@ public class DeckListComponent : MonoBehaviour
     void Start()
     {
         LobbyManager.Instance.newDeckCanvasRoot.startDeckBuildButtonEvent += DeckBuildStateDeckCreateButtonSet;
+        GameManager.Instance.GetTopParent(this.transform).transform.GetComponent<CollectionCanvasController>().
+            BackButtonClassImageSpinEvent += LookingStateDeckCreateButtonSet;
     }
 
     // Update is called once per frame
@@ -65,6 +67,15 @@ public class DeckListComponent : MonoBehaviour
 
     }       // DeckBuildStateDeckCreateButtonSet()
 
+    public void LookingStateDeckCreateButtonSet(bool isLookingMode_)
+    {
+        GameObject buttonParent = decks[^1];
+        GameObject classImageObj = decks[^1].transform.GetChild(0).GetChild(1).gameObject;
+        GameObject createDeckButtonObj = decks[^1].transform.GetChild(0).GetChild(0).gameObject;        
+        StartCoroutine(SpinCreateDeckButton(buttonParent, classImageObj, createDeckButtonObj, isLookingMode_));
+    }       // LookingStateDeckCreateButtonSet()
+
+
     private IEnumerator SpinCreateDeckButton(GameObject buttonParent_, GameObject classImageObj_,
         GameObject createDeckButtonObj_, bool isDeckBuildMode_)
     {   // isDeckBuildMode_ 해당 변수에 따라서 어떤 오브젝트가 SetAsLastSibling될지 결정
@@ -98,22 +109,23 @@ public class DeckListComponent : MonoBehaviour
             // 새로운 위치 적용
             buttonParent_.transform.localRotation = newQuaternion;
 
-            if (buttonParent_.transform.localRotation.w <= setSiblingQuaterion.w && isSetSibling == false &&
-                isDeckBuildMode_ == true)
+            if (isDeckBuildMode_ == true &&
+                buttonParent_.transform.localRotation.w <= setSiblingQuaterion.w && isSetSibling == false)
             {
+                //DE.Log("이미지가 LastSibling으로");
                 isSetSibling = true;
                 classImageObj_.transform.SetAsLastSibling();
             }
-            else if (buttonParent_.transform.localRotation.w >= setSiblingQuaterion.w && isSetSibling == false &&
-                isDeckBuildMode_ == false)
+            else if (isDeckBuildMode_ == false &&
+                buttonParent_.transform.localRotation.w <= setSiblingQuaterion.w && isSetSibling == false)
             {
+                //DE.Log("버튼이 LastSibling으로");
                 isSetSibling = true;
                 createDeckButtonObj_.transform.SetAsLastSibling();
             }
 
             yield return null;
-        }
-
+        }        
         // TODO : 덱에 넣었을때 정렬에 이상이 없을 경우 직업의 이미지가 돌아가고 올라가는것 까지 추가
     }
 
@@ -123,5 +135,7 @@ public class DeckListComponent : MonoBehaviour
         return;
 #endif
         LobbyManager.Instance.newDeckCanvasRoot.startDeckBuildButtonEvent -= DeckBuildStateDeckCreateButtonSet;
+        GameManager.Instance.GetTopParent(this.transform).transform.GetComponent<CollectionCanvasController>().
+            BackButtonClassImageSpinEvent -= LookingStateDeckCreateButtonSet;
     }
 }       // DeckListComponent ClassEnd

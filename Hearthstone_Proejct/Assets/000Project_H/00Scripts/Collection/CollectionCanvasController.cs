@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -49,7 +50,7 @@ public class CollectionCanvasController : MonoBehaviour
             {
                 this.nowState = value;
             }
-            if(this.nowState == CollectionState.DeckBuild)
+            if (this.nowState == CollectionState.DeckBuild)
             {
                 // 덱 빌드로 변경 되었을때 실행돼어야하는것들 실행
                 this.transform.GetComponent<CollectionCanvasCardInteraction>().enabled = true;
@@ -65,6 +66,7 @@ public class CollectionCanvasController : MonoBehaviour
     public CollectionDeckCardList deckCardListRoot = null;
     #endregion ClassRoot
 
+    public event Action<bool> BackButtonClassImageSpinEvent;        // DeckListComponent가 체이닝
 
     private void Awake()
     {
@@ -199,4 +201,48 @@ public class CollectionCanvasController : MonoBehaviour
 
 
     #endregion 덱 생성State 함수들
+
+    #region 버튼 함수
+    public void BackButtonEvent()
+    {       // 뒤로가기 버튼 누를경우 실행될 함수
+        if (this.NowState == CollectionState.Looking)
+        {
+            CollectionClose();
+        }
+        else if (this.NowState == CollectionState.DeckBuild)
+        {
+            // 1. 현제 댁 만들고 있는 상황을 저장            
+            // 2. 켄버스를 원래대로 (영웅 이미지 다시 돌리기) , 덱 리스트를 보여주는것
+            // 3. State 를 Looking으로 변경
+
+            int loopCount = deckCardListRoot.GetCurrentIndex();
+            Deck newDeck = new Deck();
+            CardID cardId = default;
+            for (int i = 0; i < loopCount - 1; i++)
+            {
+                cardId = deckCardListRoot.cardList[i].GetComponent<DeckInCard>().datas.cardId;
+                newDeck.AddCardInDeck(cardId);
+            }
+            newDeck.SetDeckClass(deckCardListRoot.selectClass);
+            if (deckCardListRoot.isCreatDeck == true && deckCardListRoot.isFixDeck == false)
+            {
+                LobbyManager.Instance.playerDeckRoot.decksList.Add(newDeck);                
+            }
+            else if(deckCardListRoot.isCreatDeck == false && deckCardListRoot.isFixDeck == true)
+            {
+                LobbyManager.Instance.playerDeckRoot.decksList[deckCardListRoot.fixIndex] = newDeck;
+            }
+
+            LobbyManager.Instance.playerDeckRoot.SaveDecks();
+
+            deckCardListRoot.ClearCurrentIndex();
+            deckCardListRoot.SetActiveFlaseToChilds();
+
+            BackButtonClassImageSpinEvent?.Invoke(false);
+
+            this.NowState = CollectionState.Looking;
+
+        }
+    }       // BackButtonEvent()
+    #endregion 버튼 함수
 }       // CollectionCanvasController ClassEnd

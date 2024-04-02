@@ -90,10 +90,9 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
             Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y,
                 Camera.main.nearClipPlane));
 
-            DE.DrawRay(mouseWorldPosition, Vector3.forward * 300f, Color.red, 5000f);            
+            //DE.DrawRay(mouseWorldPosition, Vector3.forward * 300f, Color.red, 5000f);            
             if (Physics.Raycast(mouseWorldPosition, Vector3.forward, rayMaxDistance, deckCardListLayerMask))
-            {
-                DE.Log("여기 들어오나?");
+            {               
                 GetDeckCardListRoot();      // 루트가 null이면 가져오는 함수
                 deckCardListRoot.AddToCard(lastChoiceCard);
             }            

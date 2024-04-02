@@ -5,14 +5,21 @@ using UnityEngine;
 
 public class CollectionDeckCardList : MonoBehaviour
 {
-    GameObject[] cardList = null;
-    private int currentIndex = default;      // Initalize == 0 
+    public GameObject[] cardList = null;
 
+    public ClassCard selectClass = default;
+    private int currentIndex = default;      // Initalize == 0 
     private DeckInCard deckInCardRoot = null;
+
+    public bool isCreatDeck = default;
+    public bool isFixDeck = default;        // 덱 저장할때 해당 bool값 2개를 확인해서 리스트를 수정할지 아니면 추가할지 결정될것
+    public int fixIndex = default;          // 수정시 변경되어야할 PlayerDeckList의 인덱스 
 
     private void Awake()
     {
         GameManager.Instance.GetTopParent(this.transform).GetComponent<CollectionCanvasController>().deckCardListRoot = this;
+        isFixDeck   = false;
+        isCreatDeck = false;
 
         cardList = new GameObject[this.transform.childCount];
         for (int i = 0; i < cardList.Length; i++)
@@ -23,7 +30,7 @@ public class CollectionDeckCardList : MonoBehaviour
 
     }       // Awake()
 
-    private void SetActiveFlaseToChilds()
+    public void SetActiveFlaseToChilds()
     {
         for (int i = 0; i < cardList.Length; i++)
         {
@@ -83,6 +90,15 @@ public class CollectionDeckCardList : MonoBehaviour
         currentIndex++;        
 
     }       // AddToCard()
+
+    public int GetCurrentIndex()
+    {
+        return this.currentIndex;
+    }
+    public void ClearCurrentIndex()
+    {
+        this.currentIndex = 0;
+    }
 
 
 

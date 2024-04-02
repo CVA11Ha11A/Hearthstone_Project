@@ -20,6 +20,7 @@ public class LobbyManager : MonoBehaviour
     public CollectionCanvasController collectionCanvasRoot = null;
     public NewDeckCanvasTransformController newDeckCanvasRoot = null;
     #endregion LobbySceneCanvasRoots
+    public PlayerDecks playerDeckRoot = null;
 
     private static LobbyManager instance = default;
     public static LobbyManager Instance 
