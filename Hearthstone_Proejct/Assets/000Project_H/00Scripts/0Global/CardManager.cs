@@ -276,6 +276,7 @@ public class CardManager : MonoBehaviour
         cardPrefab = Resources.Load<GameObject>("Card");
 
         classSprites[(int)ClassCard.Prist - 1] = Resources.Load<Sprite>("ClassSprites/Anduin");
+        DE.Log($"이미지 리소스 Load해옴");
         // TODO : 제이나 제작뒤 여기에 제이나 리소스 추가
 
     }       // ResourceLoad()

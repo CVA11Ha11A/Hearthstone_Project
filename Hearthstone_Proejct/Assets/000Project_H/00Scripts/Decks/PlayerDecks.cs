@@ -25,6 +25,11 @@ public class PlayerDecks : MonoBehaviour
         LoadDecks();
     }
 
+    private void Start()
+    {
+        LobbyManager.Instance.collectionCanvasRoot.deckListComponentRoot.UpdateOutputDeckList();
+    }
+
     private void LoadDecks()
     {        
         if (File.Exists(filePath) == true)

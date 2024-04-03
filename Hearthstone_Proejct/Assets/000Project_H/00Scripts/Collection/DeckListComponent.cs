@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DeckListComponent : MonoBehaviour
 {       // 컬렉션 창에서 플레이어의 덱 리스트들을 관리해줄 컴포넌트
     GameObject[] decks = default;
     private void Awake()
     {
+        GameManager.Instance.GetTopParent(this.transform).transform.GetComponent<CollectionCanvasController>().deckListComponentRoot = this;
         // GetDecksObjs() 였던것
         int childCount = this.gameObject.transform.childCount;
         decks = new GameObject[childCount];
@@ -24,53 +26,23 @@ public class DeckListComponent : MonoBehaviour
         LobbyManager.Instance.newDeckCanvasRoot.startDeckBuildButtonEvent += DeckBuildStateDeckCreateButtonSet;
         GameManager.Instance.GetTopParent(this.transform).transform.GetComponent<CollectionCanvasController>().
             BackButtonClassImageSpinEvent += LookingStateDeckCreateButtonSet;
+
+
     }       // Start()
 
     #region Deck내부 동작 관련
 
     public void UpdateOutputDeckList()
     {       // 이함수는 덱이 존재할시 1대1 매핑을 위한 함수
-        int loopCount = this.transform.childCount - 1;
-        for (int i = 0; i < loopCount; i++)
-        {
-            if (decks[i].transform.childCount == 1)
-            {   // 댁 내부에 자식 Count가 0일경우     ! 1 인 이유는 내부에 UI를 모아둔 Object가 1개 존재하기 떄문
-                for (int createObjCount = 0; createObjCount < 30; createObjCount++)
-                {
-                    GameObject tempObj = new GameObject("Card");
-                    tempObj.transform.SetParent(decks[i].transform);
-                }
-            }
+        for(int i = 0; i < LobbyManager.Instance.playerDeckRoot.decks.deckList.Count; i++)
+        {   // 현재 저장되어있는 덱의 갯수 만큼 순회
+            
+            decks[i].SetActive(true);            
+            decks[i].transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite =
+                CardManager.Instance.classSprites[(int)LobbyManager.Instance.playerDeckRoot.decks.deckList[i].deckClass -1];
+        } 
 
-            for(int j = 1; j < 31; j++)
-            {
-                if(decks[i].transform.GetChild(j).GetComponent<Card>() == true)
-                {
-                    Destroy(decks[i].transform.GetChild(j).GetComponent<Card>());
-                }
-                else
-                {
-                    CardManager.Instance.InItCardComponent(decks[i].transform.GetChild(j).gameObject,
-                        LobbyManager.Instance.playerDeckRoot.decks.deckList[i].cardList[j]);                    
-                }
-            }
-        }
-
-
-    }       // UpdateOutputDeckList()
-    public void UpdateOutputDeckList(int targetIndex)
-    {       // 이함수는 덱이 존재할시 1대1 매핑을 위한 함수        
-
-        if (decks[targetIndex].transform.childCount == 1)
-        {   // 댁 내부에 자식 Count가 0일경우     ! 1 인 이유는 내부에 UI를 모아둔 Object가 1개 존재하기 떄문
-            for (int createObjCount = 0; createObjCount < 30; createObjCount++)
-            {
-                GameObject tempObj = new GameObject("Card");
-                tempObj.transform.SetParent(decks[targetIndex].transform);
-            }
-        }
-
-    }       // UpdateOutputDeckList()
+    }       // UpdateOutputDeckList()    
 
     #endregion Deck내부 동작 관련
 

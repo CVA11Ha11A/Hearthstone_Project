@@ -16,7 +16,7 @@ public class Deck : IDeckFunction
 
     public CardID[] cardList = default;
 
-    public ClassCard deckCalss = default; // 직업
+    public ClassCard deckClass = default; // 직업
 
     public Deck()
     {
@@ -48,7 +48,7 @@ public class Deck : IDeckFunction
 
     public void SetDeckClass(ClassCard heroClass_)
     {
-        this.deckCalss = heroClass_;
+        this.deckClass = heroClass_;
     }       // SetDeckClass()
     #endregion InterfaceMethod
 

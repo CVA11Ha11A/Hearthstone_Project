@@ -181,7 +181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 837fd94ca2803c54fb61a3ce56a7c93e, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11573,7 +11573,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 837fd94ca2803c54fb61a3ce56a7c93e, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13895,6 +13895,7 @@ MonoBehaviour:
   cardGroupRoot: {fileID: 0}
   pageRoot: {fileID: 0}
   deckCardListRoot: {fileID: 0}
+  deckListComponentRoot: {fileID: 0}
 --- !u!114 &1827231280
 MonoBehaviour:
   m_ObjectHideFlags: 0

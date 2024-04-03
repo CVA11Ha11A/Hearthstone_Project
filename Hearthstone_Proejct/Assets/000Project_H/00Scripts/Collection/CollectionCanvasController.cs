@@ -64,6 +64,7 @@ public class CollectionCanvasController : MonoBehaviour
     public CollecetionCardGroup cardGroupRoot = null;
     public CollectionPage pageRoot = null;
     public CollectionDeckCardList deckCardListRoot = null;
+    public DeckListComponent deckListComponentRoot = null;
     #endregion ClassRoot
 
     public event Action<bool> BackButtonClassImageSpinEvent;        // DeckListComponent가 체이닝
