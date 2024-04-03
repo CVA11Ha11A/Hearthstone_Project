@@ -307,7 +307,11 @@ public class CardManager : MonoBehaviour
         targetObj_.AddComponent(cardType);
 
     }       // InItCardComponent()
-
+    public void InItCardComponent(Transform target_, CardID cardId_)
+    {
+        Type cardType = cards[cardId_].GetType();
+        target_.gameObject.AddComponent(cardType);
+    }
 
 
 }       // CardManager ClassEnd

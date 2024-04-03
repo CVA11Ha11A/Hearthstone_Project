@@ -226,11 +226,11 @@ public class CollectionCanvasController : MonoBehaviour
             newDeck.SetDeckClass(deckCardListRoot.selectClass);
             if (deckCardListRoot.isCreatDeck == true && deckCardListRoot.isFixDeck == false)
             {
-                LobbyManager.Instance.playerDeckRoot.decksList.Add(newDeck);                
+                LobbyManager.Instance.playerDeckRoot.decks.deckList.Add(newDeck);
             }
             else if(deckCardListRoot.isCreatDeck == false && deckCardListRoot.isFixDeck == true)
             {
-                LobbyManager.Instance.playerDeckRoot.decksList[deckCardListRoot.fixIndex] = newDeck;
+                LobbyManager.Instance.playerDeckRoot.decks.deckList[deckCardListRoot.fixIndex] = newDeck;
             }
 
             LobbyManager.Instance.playerDeckRoot.SaveDecks();

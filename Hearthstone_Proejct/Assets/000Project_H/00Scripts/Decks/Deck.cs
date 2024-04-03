@@ -5,26 +5,18 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 
 
-[Serializable]
-public class Deck : MonoBehaviour, IDeckFunction
+[System.Serializable]
+public class Deck : IDeckFunction
 {       // 덱이 가지고 있어야하는것들만 가지고 있을것
 
-    private const int MAXCOUNT = 30;
+    public const int MAXCOUNT = 30;
 
-    private int currentIndex = default;
-    private int count = default;
+    public int currentIndex = default;
+    public int count = default;
 
-    private CardID[] cardList = default;
-#if DEVELOP_TIME
-    public CardID[] DEVELOP_Cards
-    {
-        get
-        {
-            return this.cardList;
-        }
-    }
-#endif
-    private ClassCard deckCalss = default; // 직업
+    public CardID[] cardList = default;
+
+    public ClassCard deckCalss = default; // 직업
 
     public Deck()
     {
