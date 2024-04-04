@@ -86,4 +86,14 @@ public class DeckInCard : MonoBehaviour
         cardImageRoot.sprite = datas.cardSprite;
     }
 
+    public void OnEnable()
+    {
+        this.transform.GetChild(0).GetComponent<Image>().raycastTarget = true;
+    }
+
+    private void OnDisable()
+    {
+        this.transform.GetChild(0).GetComponent<Image>().raycastTarget = false;
+    }
+
 }       // ClassEnd

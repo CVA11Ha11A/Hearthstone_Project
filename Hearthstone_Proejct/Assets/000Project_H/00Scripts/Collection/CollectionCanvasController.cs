@@ -50,11 +50,7 @@ public class CollectionCanvasController : MonoBehaviour
             {
                 this.nowState = value;
             }
-            if (this.nowState == CollectionState.DeckBuild)
-            {
-                // 덱 빌드로 변경 되었을때 실행돼어야하는것들 실행
-                this.transform.GetComponent<CollectionCanvasCardInteraction>().enabled = true;
-            }
+            SetterCollectionStateBehavior();
         }
     }
 
@@ -199,7 +195,22 @@ public class CollectionCanvasController : MonoBehaviour
     #endregion 컬렉션 오픈 오프 함수
 
     #region 덱 생성State 함수들
-
+    private void SetterCollectionStateBehavior()
+    {
+        if (this.nowState == CollectionState.DeckBuild)
+        {
+            // 덱 빌드로 변경 되었을때 실행돼어야하는것들 실행
+            this.transform.GetComponent<CollectionCanvasCardInteraction>().enabled = true;
+        }
+        else if (this.NowState == CollectionState.Looking)
+        {
+            this.transform.GetComponent<CollectionCanvasCardInteraction>().enabled = false;
+        }
+        if (deckCardListRoot != null)
+        {
+            deckCardListRoot.CardListTransformSet(this.NowState);
+        }
+    }       // SetterCollectionStateBehavior()
 
     #endregion 덱 생성State 함수들
 
@@ -217,30 +228,34 @@ public class CollectionCanvasController : MonoBehaviour
             // 3. State 를 Looking으로 변경
 
             int loopCount = deckCardListRoot.GetCurrentIndex();
-            Deck newDeck = new Deck();
+            Deck newDeck = newDeck = new Deck();            
             CardID cardId = default;
             for (int i = 0; i < loopCount - 1; i++)
             {
                 cardId = deckCardListRoot.cardList[i].GetComponent<DeckInCard>().datas.cardId;
                 newDeck.AddCardInDeck(cardId);
             }
-            newDeck.SetDeckClass(deckCardListRoot.selectClass);
             if (deckCardListRoot.isCreatDeck == true && deckCardListRoot.isFixDeck == false)
-            {
+            {                
+                newDeck.SetDeckClass(deckCardListRoot.selectClass);
                 LobbyManager.Instance.playerDeckRoot.decks.deckList.Add(newDeck);
+                deckCardListRoot.isCreatDeck = false;
             }
-            else if(deckCardListRoot.isCreatDeck == false && deckCardListRoot.isFixDeck == true)
+            else if (deckCardListRoot.isCreatDeck == false && deckCardListRoot.isFixDeck == true)
             {
+                newDeck.SetDeckClass(LobbyManager.Instance.playerDeckRoot.decks.deckList[deckCardListRoot.fixIndex].deckClass);
                 LobbyManager.Instance.playerDeckRoot.decks.deckList[deckCardListRoot.fixIndex] = newDeck;
+                deckCardListRoot.isFixDeck = false;
             }
 
             LobbyManager.Instance.playerDeckRoot.SaveDecks();
+            LobbyManager.Instance.playerDeckRoot.LoadDecks();
 
             deckCardListRoot.ClearCurrentIndex();
             deckCardListRoot.SetActiveFlaseToChilds();
 
             BackButtonClassImageSpinEvent?.Invoke(false);
-
+            deckListComponentRoot.UpdateOutputDeckList();
             this.NowState = CollectionState.Looking;
 
         }

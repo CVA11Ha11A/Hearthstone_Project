@@ -1022,6 +1022,7 @@ GameObject:
   - component: {fileID: 160671938}
   - component: {fileID: 160671940}
   - component: {fileID: 160671939}
+  - component: {fileID: 160671941}
   m_Layer: 5
   m_Name: Deck08
   m_TagString: Untagged
@@ -1102,6 +1103,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160671937}
   m_CullTransparentMesh: 1
+--- !u!114 &160671941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160671937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc23121b87984a479bc5781c842e366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &170339410 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8980549999892050988, guid: e646f9863a4701c44bee821d34240cbf,
@@ -2698,21 +2711,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 445662056}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9769cc648cf6f5468ac51bdfc1bba27, type: 3}
+  m_Script: {fileID: 11500000, guid: b5fc32e76d8e7884691515a2d7800275, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardTexts: []
   cardImage: {fileID: 0}
   cardType: 0
-  classCard: 0
-  cardRank: 0
-  cardId: 0
-  cost: 0
-  cardName: 
-  empect: 
-  cardNameEn: 
-  damage: 0
-  heath: 0
+  classCard: 2
+  cardRank: 2
+  cardId: 6
+  cost: 8
+  cardName: "\uACF5\uC8FC \uD0C8\uB780\uC9C0"
+  empect: "\uC804\uD22C\uC758 \uD568\uC131: \uB0B4 \uC190\uC5D0\uC11C \uAC8C\uC784\uC774
+    \uC2DC\uC791\uB410\uC744 \uB54C \uB0B4 \uB371\uC5D0 \uC5C6\uB358 \uBAA8\uB4E0
+    \uD558\uC218\uC778\uC744 \uC18C\uD658\uD569\uB2C8\uB2E4."
+  cardNameEn: PrincessTalanji
+  damage: 7
+  heath: 5
 --- !u!1 &453543902
 GameObject:
   m_ObjectHideFlags: 0
@@ -4109,6 +4124,7 @@ GameObject:
   - component: {fileID: 607058454}
   - component: {fileID: 607058456}
   - component: {fileID: 607058455}
+  - component: {fileID: 607058457}
   m_Layer: 5
   m_Name: Deck07
   m_TagString: Untagged
@@ -4189,6 +4205,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 607058453}
   m_CullTransparentMesh: 1
+--- !u!114 &607058457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607058453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc23121b87984a479bc5781c842e366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &620162307
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4945,21 +4973,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 672500696}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae6c31d77ea27d648931b7bd65049f99, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a628d363f8e81b45b3e584c13831e18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardTexts: []
   cardImage: {fileID: 0}
   cardType: 0
-  classCard: 0
+  classCard: 2
   cardRank: 0
-  cardId: 0
-  cost: 0
-  cardName: 
-  empect: 
-  cardNameEn: 
-  damage: 0
-  heath: 0
+  cardId: 7
+  cost: 2
+  cardName: "\uCE5C\uADFC\uD55C \uBC14\uD150\uB354"
+  empect: "\uB0B4 \uD134\uC774 \uB05D\uB0A0 \uB54C, \uB0B4 \uC601\uC6C5\uC758 \uC0DD\uBA85\uB825\uC744
+    1 \uD68C\uBCF5\uC2DC\uD0B5\uB2C8\uB2E4."
+  cardNameEn: FriendlyBartender
+  damage: 2
+  heath: 3
 --- !u!1 &680014268
 GameObject:
   m_ObjectHideFlags: 0
@@ -5674,6 +5703,7 @@ GameObject:
   - component: {fileID: 763237941}
   - component: {fileID: 763237943}
   - component: {fileID: 763237942}
+  - component: {fileID: 763237944}
   m_Layer: 5
   m_Name: Deck05
   m_TagString: Untagged
@@ -5754,6 +5784,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763237940}
   m_CullTransparentMesh: 1
+--- !u!114 &763237944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763237940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc23121b87984a479bc5781c842e366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &772044534 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8980549999892050988, guid: e646f9863a4701c44bee821d34240cbf,
@@ -7018,21 +7060,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 896511627}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b3843640303ef4883456fbc8a24911, type: 3}
+  m_Script: {fileID: 11500000, guid: 57d455fbce4e1da49a70f7ef27f9124a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardTexts: []
   cardImage: {fileID: 0}
-  cardType: 0
-  classCard: 0
-  cardRank: 0
-  cardId: 0
-  cost: 0
-  cardName: 
-  empect: 
-  cardNameEn: 
-  damage: 0
-  heath: 0
+  cardType: 1
+  classCard: 2
+  cardRank: 3
+  cardId: 10000
+  cost: 2
+  cardName: "\uC2E0\uACBD\uC9C8\uC801\uC778 \uAD70\uC911"
+  empect: "\uBB34\uC791\uC704 \uC801 \uD558\uC218\uC778\uC744 \uCC98\uCE58\uD569\uB2C8\uB2E4."
+  cardNameEn: SurlyMob
 --- !u!1 &916631149
 GameObject:
   m_ObjectHideFlags: 0
@@ -8566,21 +8606,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1095269259}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60a6a6e2735982445a0df4c4e15b3923, type: 3}
+  m_Script: {fileID: 11500000, guid: ae6c31d77ea27d648931b7bd65049f99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardTexts: []
   cardImage: {fileID: 0}
   cardType: 0
-  classCard: 0
-  cardRank: 0
-  cardId: 0
-  cost: 0
-  cardName: 
-  empect: 
-  cardNameEn: 
-  damage: 0
-  heath: 0
+  classCard: 2
+  cardRank: 2
+  cardId: 1
+  cost: 6
+  cardName: "\uB178\uB974\uAC04\uB17C"
+  empect: "\uB9C8\uBC95\uC0AC \uD2F0\uD0C4"
+  cardNameEn: Norgannon
+  damage: 6
+  heath: 10
 --- !u!1 &1095556526
 GameObject:
   m_ObjectHideFlags: 0
@@ -9202,6 +9242,7 @@ GameObject:
   - component: {fileID: 1164426415}
   - component: {fileID: 1164426417}
   - component: {fileID: 1164426416}
+  - component: {fileID: 1164426418}
   m_Layer: 5
   m_Name: Deck09
   m_TagString: Untagged
@@ -9282,6 +9323,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1164426414}
   m_CullTransparentMesh: 1
+--- !u!114 &1164426418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164426414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc23121b87984a479bc5781c842e366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1166553580 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8980549999892050988, guid: e646f9863a4701c44bee821d34240cbf,
@@ -9358,21 +9411,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1212401863}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ca2f365944564f4a92f0c1cdbe3af8b, type: 3}
+  m_Script: {fileID: 11500000, guid: c9769cc648cf6f5468ac51bdfc1bba27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardTexts: []
   cardImage: {fileID: 0}
   cardType: 0
-  classCard: 0
+  classCard: 2
   cardRank: 0
-  cardId: 0
-  cost: 0
-  cardName: 
-  empect: 
-  cardNameEn: 
-  damage: 0
-  heath: 0
+  cardId: 5
+  cost: 1
+  cardName: "\uCF54\uBCFC\uD2B8 \uC878\uAC1C"
+  empect: "\uC804\uD22C\uC758 \uD568\uC131: \uD53C\uD574\uB97C 2\uC90D\uB2C8\uB2E4."
+  cardNameEn: KoboldLackey
+  damage: 1
+  heath: 1
 --- !u!1 &1216156757
 GameObject:
   m_ObjectHideFlags: 0
@@ -9673,21 +9726,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1227956705}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 279b95866fbeff14c8dbca62cdc99268, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ca2f365944564f4a92f0c1cdbe3af8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardTexts: []
   cardImage: {fileID: 0}
   cardType: 0
-  classCard: 0
+  classCard: 2
   cardRank: 0
-  cardId: 0
-  cost: 0
-  cardName: 
-  empect: 
-  cardNameEn: 
-  damage: 0
-  heath: 0
+  cardId: 2
+  cost: 2
+  cardName: "\uC218\uB801\uBD88\uAF43 \uBC40\uC7A5\uC5B4"
+  empect: "\uC804\uD22C\uC758 \uD568\uC131: \uB0B4 \uB301\uC5D0 \uBE44\uC6A9\uC774
+    \uC9DD\uC218\uC778 \uCE74\uB4DC\uB9CC \uC788\uC73C\uBA74, \uD53C\uD574\uB97C
+    2\uC90D\uB2C8\uB2E4."
+  cardNameEn: MurksparkEel
+  damage: 2
+  heath: 3
 --- !u!1001 &1229141765
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10232,21 +10287,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1274683112}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5fc32e76d8e7884691515a2d7800275, type: 3}
+  m_Script: {fileID: 11500000, guid: d5b3843640303ef4883456fbc8a24911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardTexts: []
   cardImage: {fileID: 0}
   cardType: 0
-  classCard: 0
+  classCard: 2
   cardRank: 0
-  cardId: 0
-  cost: 0
-  cardName: 
-  empect: 
-  cardNameEn: 
-  damage: 0
-  heath: 0
+  cardId: 8
+  cost: 4
+  cardName: "\uC0AC\uB85C\uB098\uC774\uD2B8 \uD1A8\uBE44\uB974"
+  empect: "\uB3C4\uBC1C, \uC774 \uD558\uC218\uC778\uC774 \uACF5\uACA9\uBC1B\uC744
+    \uB54C\uB9C8\uB2E4 \uCE74\uB4DC\uB97C \uBF51\uC2B5\uB2C8\uB2E4."
+  cardNameEn: SaroniteTolvir
+  damage: 3
+  heath: 5
 --- !u!1001 &1285705639
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10585,6 +10641,7 @@ GameObject:
   - component: {fileID: 1353343986}
   - component: {fileID: 1353343988}
   - component: {fileID: 1353343987}
+  - component: {fileID: 1353343989}
   m_Layer: 5
   m_Name: Deck04
   m_TagString: Untagged
@@ -10665,6 +10722,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1353343985}
   m_CullTransparentMesh: 1
+--- !u!114 &1353343989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353343985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc23121b87984a479bc5781c842e366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1364017125
 GameObject:
   m_ObjectHideFlags: 0
@@ -12195,6 +12264,7 @@ GameObject:
   - component: {fileID: 1535456690}
   - component: {fileID: 1535456692}
   - component: {fileID: 1535456693}
+  - component: {fileID: 1535456694}
   m_Layer: 5
   m_Name: Deck01
   m_TagString: Untagged
@@ -12275,6 +12345,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1535456694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535456689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc23121b87984a479bc5781c842e366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1543262059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12606,6 +12688,7 @@ GameObject:
   - component: {fileID: 1634452060}
   - component: {fileID: 1634452062}
   - component: {fileID: 1634452061}
+  - component: {fileID: 1634452063}
   m_Layer: 5
   m_Name: Deck03
   m_TagString: Untagged
@@ -12686,6 +12769,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1634452059}
   m_CullTransparentMesh: 1
+--- !u!114 &1634452063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634452059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc23121b87984a479bc5781c842e366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1641169551 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8845808668735463221, guid: 2a334e566e25d3e4ba776d0cd1ef466c,
@@ -12707,21 +12802,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1641169551}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a628d363f8e81b45b3e584c13831e18, type: 3}
+  m_Script: {fileID: 11500000, guid: 60a6a6e2735982445a0df4c4e15b3923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardTexts: []
   cardImage: {fileID: 0}
   cardType: 0
-  classCard: 0
+  classCard: 2
   cardRank: 0
-  cardId: 0
-  cost: 0
-  cardName: 
-  empect: 
-  cardNameEn: 
-  damage: 0
-  heath: 0
+  cardId: 4
+  cost: 2
+  cardName: "\uC644\uAC15\uD55C \uBCF5\uC871\uC774"
+  empect: "\uB3C4\uBC1C, \uB3C5\uC131"
+  cardNameEn: StubbornGastropod
+  damage: 1
+  heath: 2
 --- !u!1 &1650931142
 GameObject:
   m_ObjectHideFlags: 0
@@ -12786,19 +12881,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1663067186}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57d455fbce4e1da49a70f7ef27f9124a, type: 3}
+  m_Script: {fileID: 11500000, guid: 279b95866fbeff14c8dbca62cdc99268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardTexts: []
   cardImage: {fileID: 0}
   cardType: 0
-  classCard: 0
+  classCard: 2
   cardRank: 0
-  cardId: 0
-  cost: 0
-  cardName: 
-  empect: 
-  cardNameEn: 
+  cardId: 3
+  cost: 4
+  cardName: "\uD1A0\uB974\uD1A8\uB780 \uAECD\uC9C8\uBC29\uD328\uBCD1"
+  empect: "\uB3C4\uBC1C, \uC8FD\uC74C\uC758 \uBA54\uC544\uB9AC:\uBB34\uC791\uC704
+    \uC544\uAD70 \uD558\uC218\uC778\uC5D0\uAC8C +1/ +1\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  cardNameEn: TortollanShellraiser
+  damage: 2
+  heath: 6
 --- !u!1001 &1687727691
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13405,6 +13503,7 @@ GameObject:
   - component: {fileID: 1789766424}
   - component: {fileID: 1789766426}
   - component: {fileID: 1789766425}
+  - component: {fileID: 1789766427}
   m_Layer: 5
   m_Name: Deck02
   m_TagString: Untagged
@@ -13485,6 +13584,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1789766423}
   m_CullTransparentMesh: 1
+--- !u!114 &1789766427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789766423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc23121b87984a479bc5781c842e366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1790196643
 GameObject:
   m_ObjectHideFlags: 0
@@ -15543,6 +15654,7 @@ GameObject:
   - component: {fileID: 2055495571}
   - component: {fileID: 2055495573}
   - component: {fileID: 2055495572}
+  - component: {fileID: 2055495574}
   m_Layer: 5
   m_Name: Deck06
   m_TagString: Untagged
@@ -15623,6 +15735,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2055495570}
   m_CullTransparentMesh: 1
+--- !u!114 &2055495574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055495570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc23121b87984a479bc5781c842e366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2065849114
 GameObject:
   m_ObjectHideFlags: 0

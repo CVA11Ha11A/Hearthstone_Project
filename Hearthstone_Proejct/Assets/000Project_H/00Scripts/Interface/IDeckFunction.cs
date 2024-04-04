@@ -7,7 +7,7 @@ public interface IDeckFunction
     public void AddCardInDeck(CardID addCardId_);
     #region AddCardInDeck 가이드
     // 가이드 
-    //if (currentIndex == MAXCOUNT - 1)
+    //if (currentIndex == MAX_CARD_COUNT - 1)
     //{
     //    return;
     //}

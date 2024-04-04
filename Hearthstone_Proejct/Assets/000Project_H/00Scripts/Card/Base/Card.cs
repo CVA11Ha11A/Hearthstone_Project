@@ -116,9 +116,26 @@ public class Card : MonoBehaviour
         {
             fixName = "_SP";
             defaultPath = "SpellTextures/";
-        }
+        }        
         cardImage.sprite = Resources.Load<Sprite>(defaultPath + cardName_ + fixName);
     }       // GetCardSprite()
+
+    public Sprite GetCardSprite()
+    {   // 외부에서 Cards에게 스프라이트 요청할때 사용하는 스프라이트 얻는 함수
+        string defaultPath = default;
+        string fixName = default;
+        if (this.cardType == CardType.Minion)
+        {
+            fixName = "_HS";
+            defaultPath = "MinionTextures/";
+        }
+        else
+        {
+            fixName = "_SP";
+            defaultPath = "SpellTextures/";
+        }
+        return Resources.Load<Sprite>(defaultPath + this.cardNameEn + fixName);
+    }
 
     protected virtual void GetAudioClip()    
     {   // 오디오 클립을 리소스 폴더에서 가져오는 함수

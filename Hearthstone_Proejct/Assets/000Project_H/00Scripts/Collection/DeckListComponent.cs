@@ -26,42 +26,55 @@ public class DeckListComponent : MonoBehaviour
         LobbyManager.Instance.newDeckCanvasRoot.startDeckBuildButtonEvent += DeckBuildStateDeckCreateButtonSet;
         GameManager.Instance.GetTopParent(this.transform).transform.GetComponent<CollectionCanvasController>().
             BackButtonClassImageSpinEvent += LookingStateDeckCreateButtonSet;
-
-
     }       // Start()
 
     #region Deck내부 동작 관련
 
     public void UpdateOutputDeckList()
-    {       // 이함수는 덱이 존재할시 1대1 매핑을 위한 함수
-        for(int i = 0; i < LobbyManager.Instance.playerDeckRoot.decks.deckList.Count; i++)
+    {       // 이함수는 덱이 존재할시 1대1 매핑을 위한 함수        
+        for (int i = 0; i < LobbyManager.Instance.playerDeckRoot.decks.deckList.Count; i++)
         {   // 현재 저장되어있는 덱의 갯수 만큼 순회
-            
-            decks[i].SetActive(true);            
+
+            decks[i].SetActive(true);        
             decks[i].transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite =
-                CardManager.Instance.classSprites[(int)LobbyManager.Instance.playerDeckRoot.decks.deckList[i].deckClass -1];
-        } 
-
-    }       // UpdateOutputDeckList()    
-
-    #endregion Deck내부 동작 관련
-
-    /// <summary>
-    /// 덱의 갯수가 변동될때마다 실행해야됨
-    /// </summary>
-    private void CreateDeckButtonControll()
-    {        // ? 04.03 이게 뭐지?
-        for (int i = 0; i < decks.Length - 1; i++)
-        {
-            if (decks[i].gameObject.activeSelf == false)
-            {
-                decks[decks.Length].gameObject.SetActive(true);
-                return;
-            }
+                CardManager.Instance.classSprites[(int)LobbyManager.Instance.playerDeckRoot.decks.deckList[i].deckClass - 1];
         }
 
-        decks[decks.Length].gameObject.SetActive(false);
-    }       // CreateDeckButtonControll()
+    }       // UpdateOutputDeckList()
+
+    public void onlyCreateButton()
+    {   // 제작 버튼을 제외한 덱은 Off하는함수
+        int childCount = this.gameObject.transform.childCount;
+
+        for (int i = 0; i < childCount - 1; i++)
+        {
+            decks[i].gameObject.SetActive(false);
+        }
+    }       // onlyCreateButton()
+
+    public void DeckOnClick(DeckListChild onClickDeckRoot_)
+    {   // 자식 오브젝트 버튼이 눌릴시 자식 컴포넌트가 Call할 함수
+        int targetIndex = onClickDeckRoot_.transform.GetSiblingIndex(); // 해당 Index는 PlayerDeck 속 Index와 동일하게 사용가능
+        for (int i = 0; i < decks.Length; i++)
+        {   // 1. 타겟을 제외한 덱은 끄기
+            if (targetIndex != i)
+            {
+                decks[i].gameObject.SetActive(false);
+            }
+            else { /*PASS*/ }
+        }
+        // TopParent를 구해오는것보다 LobbyManager의 Root를 타는것이 더 빠를거라고 생각
+        // 동일한 루트를 타고 3가지 일을 하는데 이정도면 루트를 캐싱하는게 더 빠를듯?
+        LobbyManager.Instance.collectionCanvasRoot.NowState = CollectionState.DeckBuild;
+        CollectionDeckCardList deckCardListRoot = LobbyManager.Instance.collectionCanvasRoot.deckCardListRoot;
+        deckCardListRoot.isFixDeck = true;
+        deckCardListRoot.fixIndex = targetIndex;
+        // TODO : 현재 덱에 존재하는 카드들을 output해줘야함
+        deckCardListRoot.DeckOutPut(targetIndex);
+    }       // DeckOnClick()
+    #endregion Deck내부 동작 관련
+
+
 
 
     #region 버튼 움직이는 함수들

@@ -135,7 +135,6 @@ GameObject:
   - component: {fileID: 306993251}
   - component: {fileID: 306993250}
   - component: {fileID: 306993249}
-  - component: {fileID: 306993253}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -214,32 +213,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 306993248}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -8.31, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &306993253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 306993248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67265d96f1778664ba06055030b062cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  testList: 
-  testroot:
-    testSirial: 
-  testArr: 
-  TestSet: 0
-  SaveGo: 0
-  LoadGo: 1
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,3 +502,103 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1316480079 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8845808668735463221, guid: 2a334e566e25d3e4ba776d0cd1ef466c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2142756624}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1316480082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316480079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5b3843640303ef4883456fbc8a24911, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardTexts: []
+  cardImage: {fileID: 0}
+  cardType: 0
+  classCard: 2
+  cardRank: 0
+  cardId: 8
+  cost: 4
+  cardName: "\uC0AC\uB85C\uB098\uC774\uD2B8 \uD1A8\uBE44\uB974"
+  empect: "\uB3C4\uBC1C, \uC774 \uD558\uC218\uC778\uC774 \uACF5\uACA9\uBC1B\uC744
+    \uB54C\uB9C8\uB2E4 \uCE74\uB4DC\uB97C \uBF51\uC2B5\uB2C8\uB2E4."
+  cardNameEn: SaroniteTolvir
+  damage: 3
+  heath: 5
+--- !u!1001 &2142756624
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8845808668735463221, guid: 2a334e566e25d3e4ba776d0cd1ef466c,
+        type: 3}
+      propertyPath: m_Name
+      value: Card
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845808668735463222, guid: 2a334e566e25d3e4ba776d0cd1ef466c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845808668735463222, guid: 2a334e566e25d3e4ba776d0cd1ef466c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845808668735463222, guid: 2a334e566e25d3e4ba776d0cd1ef466c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845808668735463222, guid: 2a334e566e25d3e4ba776d0cd1ef466c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845808668735463222, guid: 2a334e566e25d3e4ba776d0cd1ef466c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845808668735463222, guid: 2a334e566e25d3e4ba776d0cd1ef466c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845808668735463222, guid: 2a334e566e25d3e4ba776d0cd1ef466c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845808668735463222, guid: 2a334e566e25d3e4ba776d0cd1ef466c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845808668735463222, guid: 2a334e566e25d3e4ba776d0cd1ef466c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845808668735463222, guid: 2a334e566e25d3e4ba776d0cd1ef466c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845808668735463222, guid: 2a334e566e25d3e4ba776d0cd1ef466c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2a334e566e25d3e4ba776d0cd1ef466c, type: 3}

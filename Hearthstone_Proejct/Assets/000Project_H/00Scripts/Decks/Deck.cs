@@ -9,18 +9,18 @@ using UnityEngine;
 public class Deck : IDeckFunction
 {       // 덱이 가지고 있어야하는것들만 가지고 있을것
 
-    public const int MAXCOUNT = 30;
+    public const int MAX_CARD_COUNT = 30;
 
     public int currentIndex = default;
     public int count = default;
 
     public CardID[] cardList = default;
 
-    public ClassCard deckClass = default; // 직업
+    public ClassCard deckClass = default; // 직업 
 
     public Deck()
     {
-        cardList = new CardID[MAXCOUNT];
+        cardList = new CardID[MAX_CARD_COUNT];
     }
     
 
@@ -36,7 +36,7 @@ public class Deck : IDeckFunction
     #region InterfaceMethod
     public void AddCardInDeck(CardID addCardId_)
     {
-        if (currentIndex == MAXCOUNT - 1)
+        if (currentIndex == MAX_CARD_COUNT - 1)
         {
             return;
         }

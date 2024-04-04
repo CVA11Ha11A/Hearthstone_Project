@@ -30,13 +30,13 @@ public class PlayerDecks : MonoBehaviour
         LobbyManager.Instance.collectionCanvasRoot.deckListComponentRoot.UpdateOutputDeckList();
     }
 
-    private void LoadDecks()
+    public void LoadDecks()
     {        
         if (File.Exists(filePath) == true)
         {
             string loadData = File.ReadAllText(this.filePath);
             decks = JsonUtility.FromJson<PlayerDeckData>(loadData);                       
-            DE.Log($"Load 해옴 : {loadData}");
+            //DE.Log($"Load 해옴 : {loadData}");
         }
         else
         {
@@ -48,7 +48,7 @@ public class PlayerDecks : MonoBehaviour
     {
         string saveData = JsonUtility.ToJson(decks);
         File.WriteAllText(filePath, saveData);
-        DE.Log($"Save 함 : {saveData}");
+        //DE.Log($"Save 함 : {saveData}");
         
 
     }       // SaveDecks()
