@@ -230,7 +230,7 @@ public class CollectionCanvasController : MonoBehaviour
             int loopCount = deckCardListRoot.GetCurrentIndex();
             Deck newDeck = newDeck = new Deck();            
             CardID cardId = default;
-            for (int i = 0; i < loopCount - 1; i++)
+            for (int i = 0; i < loopCount; i++)
             {
                 cardId = deckCardListRoot.cardList[i].GetComponent<DeckInCard>().datas.cardId;
                 newDeck.AddCardInDeck(cardId);

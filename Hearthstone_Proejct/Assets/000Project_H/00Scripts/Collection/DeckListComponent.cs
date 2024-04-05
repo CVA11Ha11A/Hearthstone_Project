@@ -39,6 +39,7 @@ public class DeckListComponent : MonoBehaviour
             decks[i].transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite =
                 CardManager.Instance.classSprites[(int)LobbyManager.Instance.playerDeckRoot.decks.deckList[i].deckClass - 1];
         }
+        decks[^1].SetActive(true);
 
     }       // UpdateOutputDeckList()
 

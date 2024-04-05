@@ -11,7 +11,7 @@ public class DeckInCardData
     public CardID cardId = default;
     public string cardName = default;
     public int cardCost = default;
-    
+
 }
 
 public class DeckInCard : MonoBehaviour
@@ -70,7 +70,7 @@ public class DeckInCard : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     [Obsolete("필드 데이터 -> 클래스 참조 데이터")]
@@ -78,12 +78,19 @@ public class DeckInCard : MonoBehaviour
     {   // 2024.03.29 수정 [Obsolete 추가]
         //this.cardId = cardId_;
     }       // SetCardId()
-    
+
     public void UpdateUI()
     {
         costTextRoot.text = datas.cardCost.ToString();
         cardNameRoot.text = datas.cardName.ToString();
         cardImageRoot.sprite = datas.cardSprite;
+    }
+    public void ClearData()
+    {
+        this.datas.cardId = default;
+        this.datas.cardCost = default;
+        this.datas.cardName = null;
+        this.datas.cardSprite = null;
     }
 
     public void OnEnable()

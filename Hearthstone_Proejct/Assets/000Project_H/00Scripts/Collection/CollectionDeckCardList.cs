@@ -19,7 +19,7 @@ public class CollectionDeckCardList : MonoBehaviour
     private RectTransform moveObj = null;
     private Vector3 onOutputV3 = default;       // ScrollView의 Transform을 조정시켜줄 Vector3
     private Vector3 offOutputV3 = default;      // ScrollView의 Transform을 조정시켜줄 Vector3
-        
+
     private void Awake()
     {
         GameManager.Instance.GetTopParent(this.transform).GetComponent<CollectionCanvasController>().deckCardListRoot = this;
@@ -27,9 +27,9 @@ public class CollectionDeckCardList : MonoBehaviour
         moveObj = this.transform.parent.parent.GetComponent<RectTransform>();
         onOutputV3 = moveObj.anchoredPosition3D;
         offOutputV3 = onOutputV3;
-        offOutputV3.x = 80f;             
+        offOutputV3.x = 80f;
 
-        isFixDeck   = false;
+        isFixDeck = false;
         isCreatDeck = false;
 
         cardList = new GameObject[this.transform.childCount];
@@ -46,7 +46,7 @@ public class CollectionDeckCardList : MonoBehaviour
     {
         for (int i = 0; i < cardList.Length; i++)
         {
-            cardList[i].gameObject.SetActive(false);            
+            cardList[i].gameObject.SetActive(false);
         }
     }       // SetActiveFlaseToChilds()
 
@@ -68,7 +68,7 @@ public class CollectionDeckCardList : MonoBehaviour
         deckInCardRoot.datas.cardName = addCard_.cardName;
         //deckInCardRoot.datas.cardSprite = addCard_.cardImage.sprite;
         //TEST
-        if(addCard_.cardImage != null)
+        if (addCard_.cardImage != null)
         {
             deckInCardRoot.datas.cardSprite = addCard_.cardImage.sprite;
         }
@@ -84,11 +84,11 @@ public class CollectionDeckCardList : MonoBehaviour
         DeckInCard cardIRoot = default;
         DeckInCard cardJRoot = default;
         for (int i = 0; i < currentIndex; i++)
-        {  
+        {
             cardIRoot = cardList[i].GetComponent<DeckInCard>();
 
             for (int j = i + 1; j <= currentIndex; j++)
-            {                
+            {
 
                 cardJRoot = cardList[j].GetComponent<DeckInCard>();
                 if (cardIRoot.datas.cardCost > cardJRoot.datas.cardCost)
@@ -108,16 +108,31 @@ public class CollectionDeckCardList : MonoBehaviour
         }
         #endregion UpdataUI
 
-        currentIndex++;        
+        currentIndex++;
 
     }       // AddToCard()
+
+    // 덱속 카드를 제거해주는 함수
+    public void RemoveToCard(CardID removeCardId_)
+    {
+        DeckInCard deckInCardRoot = null;
+        for (int i = 0; i < cardList.Length; i++)
+        {
+            deckInCardRoot = cardList[i].GetComponent<DeckInCard>();
+            if (deckInCardRoot.datas.cardId == removeCardId_)
+            {
+                deckInCardRoot.ClearData();
+                currentIndex--;
+            }
+        }
+    }   // RemoveToCard()
 
     public void DeckOutPut(int targetDeckIndex_)
     {   // 플레이어가 선택한 덱의 인덱스를 참조해서 덱의 현재 존재하는 카드들을 출력해주는 함수
         // DeckListCompoent.DeckOnClick() 가 호출할거임
         PlayerDeckData playerDeckRoot = LobbyManager.Instance.playerDeckRoot.decks;
         int deckMaxCard = playerDeckRoot.deckList[targetDeckIndex_].count;
-        for(int i = 0; i < deckMaxCard; i++)
+        for (int i = 0; i < deckMaxCard; i++)
         {
             AddToCard(CardManager.cards[playerDeckRoot.deckList[targetDeckIndex_].cardList[i]]);
         }
@@ -127,11 +142,11 @@ public class CollectionDeckCardList : MonoBehaviour
     public void CardListTransformSet(CollectionState collectionState_)
     {
         //return;
-        if(collectionState_ == CollectionState.Looking)
-        {            
-             moveObj.anchoredPosition3D = offOutputV3;
+        if (collectionState_ == CollectionState.Looking)
+        {
+            moveObj.anchoredPosition3D = offOutputV3;
         }
-        else if(collectionState_ == CollectionState.DeckBuild)
+        else if (collectionState_ == CollectionState.DeckBuild)
         {
             moveObj.anchoredPosition3D = onOutputV3;
         }

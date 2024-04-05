@@ -4,14 +4,18 @@ using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.EventSystems;
 
 public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPointerUpHandler, IBeginDragHandler, IPointerDownHandler
 {       // DeckBuild State일떄 켜주어서 플레이어와 카드의 상호작용을 할 수 있게 해주는 클래스
     
-    public LayerMask cardLayerMask = default;
-    public LayerMask deckCardListLayerMask = default;
-    public Card lastChoiceCard = null;
+    public LayerMask cardLayerMask = default;           // 컬렉션의 카드인지 판별할 레이어
+    public LayerMask deckCardListLayerMask = default;   // 덱인지 판별한 레이어
+    public LayerMask deckInCardLayerMask = default;     // 덱속 카드인지 판별할 레이어
+    public LayerMask collectionBackGroundLayerMask = default; // 컬렉션의 배경인지 판별할 레이어
+    public Card lastChoiceCard = null;      // TODO : CardId로 바꾸는게 좋을듯
+    public CardID lastChoiceCardID = default;
 
     private float rayMaxDistance = default;
     private Ray ray = default;
@@ -27,6 +31,7 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
         rayMaxDistance = 300f;
         cardLayerMask = 1 << 6;        
         deckCardListLayerMask = 1 << 7;
+        deckInCardLayerMask = 1 << 8;
         this.enabled = false;
     }
 
@@ -57,6 +62,10 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
         if (Physics.Raycast(mouseWorldPosition, Vector3.forward, out hitInfo, rayMaxDistance, cardLayerMask))
         {
             lastChoiceCard = hitInfo.collider.GetComponent<Card>();
+        }
+        if(Physics.Raycast(mouseWorldPosition, Vector3.forward, out hitInfo, rayMaxDistance, deckInCardLayerMask))
+        {
+            lastChoiceCardID = hitInfo.collider.GetComponent<DeckInCard>().datas.cardId;
         }
 
     }       // OnPointerDown()
@@ -95,11 +104,22 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
             {               
                 GetDeckCardListRoot();      // 루트가 null이면 가져오는 함수
                 deckCardListRoot.AddToCard(lastChoiceCard);
-            }            
+            }
+            if (Physics.Raycast(mouseWorldPosition, Vector3.forward, rayMaxDistance, collectionBackGroundLayerMask))
+            {
+                // TODO : 현제 DeckInCardList에서 같은 아이디를 가진 무언가를 하나 빼서 초기화시켜야함
+                if(lastChoiceCardID == default)
+                {
+                    return;
+                }
+                deckCardListRoot.RemoveToCard(lastChoiceCardID);
+            }
 
-            Destroy(instanceCard.GetComponent<Card>());
+
+                Destroy(instanceCard.GetComponent<Card>());
             instanceCard.gameObject.SetActive(false);
         }
+        lastChoiceCardID = default;
         lastChoiceCard = null;
     }
 
@@ -112,6 +132,11 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
         {
             instanceCard.gameObject.SetActive(true);
             instanceCard.AddComponent(lastChoiceCard.GetType());
+        }
+        else if(lastChoiceCardID != default)
+        {
+            instanceCard.gameObject.SetActive(true);
+            instanceCard.AddComponent(CardManager.cards[lastChoiceCardID].GetType());
         }
 
     }       // OnBeginDrag()
