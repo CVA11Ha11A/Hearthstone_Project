@@ -56,6 +56,7 @@ public class DeckListComponent : MonoBehaviour
     public void DeckOnClick(DeckListChild onClickDeckRoot_)
     {   // 자식 오브젝트 버튼이 눌릴시 자식 컴포넌트가 Call할 함수
         int targetIndex = onClickDeckRoot_.transform.GetSiblingIndex(); // 해당 Index는 PlayerDeck 속 Index와 동일하게 사용가능
+        GameManager.Instance.GetTopParent(this.transform).transform.GetComponent<CollectionCanvasCardInteraction>().LastRefDeckIndex = targetIndex;
         for (int i = 0; i < decks.Length; i++)
         {   // 1. 타겟을 제외한 덱은 끄기
             if (targetIndex != i)

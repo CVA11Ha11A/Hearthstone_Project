@@ -7,19 +7,20 @@ using UnityEngine.UI;
 
 public class DeckInCardData
 {
-    public Sprite cardSprite = default;
+    public Sprite cardSprite = null;
+    public string cardName = null;
     public CardID cardId = default;
-    public string cardName = default;
     public int cardCost = default;
 
 }
 
+
 public class DeckInCard : MonoBehaviour
 {
+    public DeckInCardData datas = null;
     public Image cardImageRoot = null;
     private TextMeshProUGUI costTextRoot = null;
-    private TextMeshProUGUI cardNameRoot = null;
-    public DeckInCardData datas = default;
+    private TextMeshProUGUI cardNameRoot = null;    
 
     #region LEGACY
     //private CardID cardId = default;                // 중요한 것이기에 Private로 감춤
@@ -80,19 +81,48 @@ public class DeckInCard : MonoBehaviour
     }       // SetCardId()
 
     public void UpdateUI()
-    {
+    {   // 업데이트 되어야하는 UI를 최신화 하는 함수
         costTextRoot.text = datas.cardCost.ToString();
         cardNameRoot.text = datas.cardName.ToString();
-        cardImageRoot.sprite = datas.cardSprite;
+        if (datas.cardSprite != null)
+        {
+            cardImageRoot.sprite = datas.cardSprite;
+        }
+        else
+        {
+            datas.cardSprite = CardManager.cards[this.datas.cardId].GetCardSprite();
+            cardImageRoot.sprite = datas.cardSprite;
+        }
     }
     public void ClearData()
-    {
+    {   // datas의 데이터를 기본값으로 설정하는 함수
         this.datas.cardId = default;
         this.datas.cardCost = default;
         this.datas.cardName = null;
         this.datas.cardSprite = null;
     }
-
+    public void CopyToPaste(DeckInCard copyTarget_)
+    {   // 타겟을 매개로 보내면 실행한 곳에 카피할 데이터를 붙여넣는 함수
+        this.datas.cardId = copyTarget_.datas.cardId;
+        this.datas.cardCost = copyTarget_.datas.cardCost;
+        this.datas.cardName = copyTarget_.datas.cardName;
+        this.datas.cardSprite = copyTarget_.datas.cardSprite;
+    }
+    public void CopyToPaste(DeckInCard copyTarget_, ref string pasteName_ ,ref string copyName_ )
+    {   // 타겟을 매개로 보내면 실행한 곳에 카피할 데이터를 붙여넣는 함수
+        DE.Log($"copyTarget_.datas.cardName : {copyTarget_.datas.cardName}");
+        this.datas.cardId = copyTarget_.datas.cardId;
+        this.datas.cardCost = copyTarget_.datas.cardCost;
+        pasteName_ = copyName_;
+        this.datas.cardSprite = copyTarget_.datas.cardSprite;
+    }
+    public void InItDatas(CardID initCardId_)
+    {
+        this.datas.cardId = initCardId_;
+        this.datas.cardCost = CardManager.cards[initCardId_].cost;
+        this.datas.cardName = CardManager.cards[initCardId_].cardName;
+        this.datas.cardSprite = CardManager.cards[initCardId_].GetCardSprite();
+    }
     public void OnEnable()
     {
         this.transform.GetChild(0).GetComponent<Image>().raycastTarget = true;

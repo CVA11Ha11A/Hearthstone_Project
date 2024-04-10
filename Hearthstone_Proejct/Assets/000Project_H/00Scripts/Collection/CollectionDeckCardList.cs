@@ -2,6 +2,7 @@ using Photon.Pun.Demo.Cockpit;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class CollectionDeckCardList : MonoBehaviour
@@ -23,6 +24,7 @@ public class CollectionDeckCardList : MonoBehaviour
     private void Awake()
     {
         GameManager.Instance.GetTopParent(this.transform).GetComponent<CollectionCanvasController>().deckCardListRoot = this;
+        GameManager.Instance.GetTopParent(this.transform).GetComponent<CollectionCanvasCardInteraction>().deckCardListRoot = this;
 
         moveObj = this.transform.parent.parent.GetComponent<RectTransform>();
         onOutputV3 = moveObj.anchoredPosition3D;
@@ -67,46 +69,49 @@ public class CollectionDeckCardList : MonoBehaviour
         deckInCardRoot.datas.cardCost = addCard_.cost;
         deckInCardRoot.datas.cardName = addCard_.cardName;
         //deckInCardRoot.datas.cardSprite = addCard_.cardImage.sprite;
-        //TEST
-        if (addCard_.cardImage != null)
-        {
-            deckInCardRoot.datas.cardSprite = addCard_.cardImage.sprite;
-        }
-        else
-        {
-            deckInCardRoot.datas.cardSprite = addCard_.GetCardSprite();
-        }
+        
+        // LEGACY
+        //if (addCard_.cardImage != null)
+        //{
+        //    deckInCardRoot.datas.cardSprite = addCard_.cardImage.sprite;
+        //}
+        //else
+        //{
+        //    deckInCardRoot.datas.cardSprite = addCard_.GetCardSprite();
+        //}
+        deckInCardRoot.datas.cardSprite = addCard_.GetCardSprite();
 
 
         #endregion CardSetting
+        SortingObjectList();
+        UpdateUis();
 
-        #region SortCardList
-        DeckInCard cardIRoot = default;
-        DeckInCard cardJRoot = default;
-        for (int i = 0; i < currentIndex; i++)
-        {
-            cardIRoot = cardList[i].GetComponent<DeckInCard>();
-
-            for (int j = i + 1; j <= currentIndex; j++)
-            {
-
-                cardJRoot = cardList[j].GetComponent<DeckInCard>();
-                if (cardIRoot.datas.cardCost > cardJRoot.datas.cardCost)
-                {
-                    DeckInCardData tempRoot = cardIRoot.datas;
-                    cardIRoot.datas = cardJRoot.datas;
-                    cardJRoot.datas = tempRoot;
-                }
-            }
-        }
-        #endregion SortCardList
-
-        #region UpdataUI
-        for (int i = 0; i <= currentIndex; i++)
-        {
-            cardList[i].GetComponent<DeckInCard>().UpdateUI();
-        }
-        #endregion UpdataUI
+        #region SortCardList_LEGACY
+        //DeckInCard cardIRoot = default;
+        //DeckInCard cardJRoot = default;
+        //for (int i = 0; i < currentIndex; i++)
+        //{
+        //    cardIRoot = cardList[i].GetComponent<DeckInCard>();
+        //
+        //    for (int j = i + 1; j <= currentIndex; j++)
+        //    {
+        //
+        //        cardJRoot = cardList[j].GetComponent<DeckInCard>();
+        //        if (cardIRoot.datas.cardCost > cardJRoot.datas.cardCost)
+        //        {
+        //            DeckInCardData tempRoot = cardIRoot.datas;
+        //            cardIRoot.datas = cardJRoot.datas;
+        //            cardJRoot.datas = tempRoot;
+        //        }
+        //    }
+        //}
+        #endregion SortCardList_LEGACY
+        #region UpdataUILEGACY
+        //for (int i = 0; i <= currentIndex; i++)
+        //{
+        //    cardList[i].GetComponent<DeckInCard>().UpdateUI();
+        //}
+        #endregion UpdataUILEGACY
 
         currentIndex++;
 
@@ -116,15 +121,74 @@ public class CollectionDeckCardList : MonoBehaviour
     public void RemoveToCard(CardID removeCardId_)
     {
         DeckInCard deckInCardRoot = null;
+        DeckInCard pullDeckInCardRoot1 = null;
+        DeckInCard pullDeckInCardRoot2 = null;
+        int nullIndex = default;
+        string exceptionStr = "";
+
         for (int i = 0; i < cardList.Length; i++)
         {
-            deckInCardRoot = cardList[i].GetComponent<DeckInCard>();
+            // 1. List에서 GetComponent가 가능하면 i번째의 컴포넌트를 가져온다.
+            if (cardList[i].GetComponent<DeckInCard>())
+            {
+                deckInCardRoot = cardList[i].GetComponent<DeckInCard>();
+            }
+            else
+            {
+                //DE.Log($"RemoveToCard함수 : {i}번쨰루프중 참조가 안됨");
+                continue;
+            }
+            // 2. 순회하며 제거할 카드와 같을때 들어간다.
             if (deckInCardRoot.datas.cardId == removeCardId_)
             {
-                deckInCardRoot.ClearData();
                 currentIndex--;
+                pullDeckInCardRoot1 = cardList[i].GetComponent<DeckInCard>();
+                pullDeckInCardRoot1.ClearData();
+                // TODO : target카드를 빼고 그 뒤부터 앞으로 땅기기 
+                for (int j = i; j < cardList.Length - 1; j++)
+                {
+                    pullDeckInCardRoot1 = cardList[i].GetComponent<DeckInCard>();
+                    pullDeckInCardRoot2 = cardList[j + 1].GetComponent<DeckInCard>();
+                    // 2 -> 1 로 데이터 변경
+                    pullDeckInCardRoot1.CopyToPaste(pullDeckInCardRoot2,ref pullDeckInCardRoot1.datas.cardName, ref pullDeckInCardRoot2.datas.cardName);
+                    if (pullDeckInCardRoot1.datas.cardName == exceptionStr)
+                    {
+                        nullIndex = j;
+                    }
+                }
+                cardList[currentIndex].SetActive(false);
+                break;
             }
         }
+        DE.Log($"Loop를 몇번하지? : {nullIndex}");
+        SortingObjectList();
+        UpdateUis(nullIndex);
+
+        #region LEGACY
+        //DeckInCard deckInCardRoot = null;
+        //for (int i = 0; i < cardList.Length; i++)
+        //{
+        //    if (cardList[i].GetComponent<DeckInCard>())
+        //    {
+        //        deckInCardRoot = cardList[i].GetComponent<DeckInCard>();
+        //        if (deckInCardRoot.datas.cardId == removeCardId_)
+        //        {
+        //            deckInCardRoot.ClearData();
+        //            currentIndex--;
+        //            break;
+        //        }
+        //    }
+        //}
+        //
+        //#region UpdataUI
+        //for (int i = 0; i <= currentIndex; i++)
+        //{
+        //    cardList[i].GetComponent<DeckInCard>().UpdateUI();
+        //}
+        //#endregion UpdataUI        
+        #endregion LEGACY
+
+
     }   // RemoveToCard()
 
     public void DeckOutPut(int targetDeckIndex_)
@@ -151,6 +215,45 @@ public class CollectionDeckCardList : MonoBehaviour
             moveObj.anchoredPosition3D = onOutputV3;
         }
     }       // CardListTransformSet()
+
+    private void SortingObjectList()
+    {
+        DeckInCard cardIRoot = default;
+        DeckInCard cardJRoot = default;
+        for (int i = 0; i < currentIndex; i++)
+        {
+            cardIRoot = cardList[i].GetComponent<DeckInCard>();
+
+            for (int j = i + 1; j <= currentIndex; j++)
+            {
+
+                cardJRoot = cardList[j].GetComponent<DeckInCard>();
+                if (cardIRoot.datas.cardCost > cardJRoot.datas.cardCost)
+                {
+                    DeckInCardData tempRoot = cardIRoot.datas;
+                    cardIRoot.datas = cardJRoot.datas;
+                    cardJRoot.datas = tempRoot;
+                }
+            }
+        }
+    }       // SortingObjectList()
+
+    private void UpdateUis()
+    {
+        for (int i = 0; i <= currentIndex; i++)
+        {
+            DE.Log($"몇번째 순회에서 참조를 못하지?");
+            DeckInCard temp = cardList[i].GetComponent<DeckInCard>();            
+            cardList[i].GetComponent<DeckInCard>().UpdateUI();
+        }
+    }       // UpdateUis()
+    private void UpdateUis(int maxLoopCount_)
+    {
+        for (int i = 0; i < maxLoopCount_; i++)
+        {
+            cardList[i].GetComponent<DeckInCard>().UpdateUI();
+        }
+    }
 
     public int GetCurrentIndex()
     {
