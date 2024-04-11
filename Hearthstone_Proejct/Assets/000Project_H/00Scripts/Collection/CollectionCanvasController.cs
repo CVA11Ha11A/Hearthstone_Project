@@ -228,15 +228,15 @@ public class CollectionCanvasController : MonoBehaviour
             // 3. State 를 Looking으로 변경
 
             int loopCount = deckCardListRoot.GetCurrentIndex();
-            Deck newDeck = newDeck = new Deck();            
+            Deck newDeck = newDeck = new Deck();
             CardID cardId = default;
             for (int i = 0; i < loopCount; i++)
             {
-                cardId = deckCardListRoot.cardList[i].GetComponent<DeckInCard>().datas.cardId;
+                cardId = deckCardListRoot.cardList[i].GetComponent<DeckInCard>().Datas.cardId;
                 newDeck.AddCardInDeck(cardId);
             }
             if (deckCardListRoot.isCreatDeck == true && deckCardListRoot.isFixDeck == false)
-            {                
+            {
                 newDeck.SetDeckClass(deckCardListRoot.selectClass);
                 LobbyManager.Instance.playerDeckRoot.decks.deckList.Add(newDeck);
                 deckCardListRoot.isCreatDeck = false;
@@ -247,6 +247,9 @@ public class CollectionCanvasController : MonoBehaviour
                 LobbyManager.Instance.playerDeckRoot.decks.deckList[deckCardListRoot.fixIndex] = newDeck;
                 deckCardListRoot.isFixDeck = false;
             }
+
+            //TODO : 여순간에 카드의 빈곳이 존재할 순 있지만 존재하는 카드 ID 앞쪽에 0이 존재하면 안되도록 제작해야함
+            newDeck.PullCardList();
 
             LobbyManager.Instance.playerDeckRoot.SaveDecks();
             LobbyManager.Instance.playerDeckRoot.LoadDecks();
@@ -261,4 +264,5 @@ public class CollectionCanvasController : MonoBehaviour
         }
     }       // BackButtonEvent()
     #endregion 버튼 함수
+
 }       // CollectionCanvasController ClassEnd

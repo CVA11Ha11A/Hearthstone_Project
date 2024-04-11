@@ -4365,7 +4365,7 @@ GameObject:
   - component: {fileID: 476735623}
   - component: {fileID: 476735622}
   - component: {fileID: 476735624}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: PageImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19176,6 +19176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eb36168d4ab56a41b52d67336058356, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDeckClick: 0
   cardLayerMask:
     serializedVersion: 2
     m_Bits: 0
@@ -19190,6 +19191,8 @@ MonoBehaviour:
     m_Bits: 0
   lastChoiceCard: {fileID: 0}
   lastChoiceCardID: 0
+  deckCardListRoot: {fileID: 0}
+  scrollViewRoot: {fileID: 0}
 --- !u!1001 &1836782021
 PrefabInstance:
   m_ObjectHideFlags: 0

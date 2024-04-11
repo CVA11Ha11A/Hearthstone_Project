@@ -38,7 +38,7 @@ public class CollectionDeckCardList : MonoBehaviour
         for (int i = 0; i < cardList.Length; i++)
         {
             cardList[i] = this.transform.GetChild(i).gameObject;
-        }
+        }        
         SetActiveFlaseToChilds();
         CardListTransformSet(CollectionState.Looking);      // 이건 좀 좋지 않은 코드같음 하지만 현재기준 어쩔수 없이 하는 함수 2024.04.04
 
@@ -65,21 +65,10 @@ public class CollectionDeckCardList : MonoBehaviour
         //deckInCardRoot.cardImageRoot.sprite = addCard_.cardImage.sprite;
         #endregion LEGACY
 
-        deckInCardRoot.datas.cardId = addCard_.cardId;
-        deckInCardRoot.datas.cardCost = addCard_.cost;
-        deckInCardRoot.datas.cardName = addCard_.cardName;
-        //deckInCardRoot.datas.cardSprite = addCard_.cardImage.sprite;
-        
-        // LEGACY
-        //if (addCard_.cardImage != null)
-        //{
-        //    deckInCardRoot.datas.cardSprite = addCard_.cardImage.sprite;
-        //}
-        //else
-        //{
-        //    deckInCardRoot.datas.cardSprite = addCard_.GetCardSprite();
-        //}
-        deckInCardRoot.datas.cardSprite = addCard_.GetCardSprite();
+        deckInCardRoot.Datas.cardId = addCard_.cardId;
+        deckInCardRoot.Datas.cardCost = addCard_.cost;
+        deckInCardRoot.Datas.cardName = addCard_.cardName;                
+        deckInCardRoot.Datas.cardSprite = addCard_.GetCardSprite();
 
 
         #endregion CardSetting
@@ -97,11 +86,11 @@ public class CollectionDeckCardList : MonoBehaviour
         //    {
         //
         //        cardJRoot = cardList[j].GetComponent<DeckInCard>();
-        //        if (cardIRoot.datas.cardCost > cardJRoot.datas.cardCost)
+        //        if (cardIRoot.Datas.cardCost > cardJRoot.Datas.cardCost)
         //        {
-        //            DeckInCardData tempRoot = cardIRoot.datas;
-        //            cardIRoot.datas = cardJRoot.datas;
-        //            cardJRoot.datas = tempRoot;
+        //            DeckInCardData tempRoot = cardIRoot.Datas;
+        //            cardIRoot.Datas = cardJRoot.Datas;
+        //            cardJRoot.Datas = tempRoot;
         //        }
         //    }
         //}
@@ -120,50 +109,84 @@ public class CollectionDeckCardList : MonoBehaviour
     // 덱속 카드를 제거해주는 함수
     public void RemoveToCard(CardID removeCardId_)
     {
-        DeckInCard deckInCardRoot = null;
-        DeckInCard pullDeckInCardRoot1 = null;
-        DeckInCard pullDeckInCardRoot2 = null;
-        int nullIndex = default;
-        string exceptionStr = "";
+        #region LEGACY
+        //// 2024.04.12기준 해당 함수에 문제가 있는거 같음 해결해야함
+        //DeckInCard deckInCardRoot = null;
+        //DeckInCard pullDeckInCardRoot1 = null;
+        //DeckInCard pullDeckInCardRoot2 = null;
+        //int nullIndex = default;
+        //string exceptionStr = "";
+        //
+        //for (int i = 0; i < cardList.Length; i++)
+        //{
+        //    // 1. List에서 GetComponent가 가능하면 i번째의 컴포넌트를 가져온다.
+        //    if (cardList[i].GetComponent<DeckInCard>())
+        //    {
+        //        deckInCardRoot = cardList[i].GetComponent<DeckInCard>();
+        //    }
+        //    else
+        //    {
+        //        //DE.Log($"RemoveToCard함수 : {i}번쨰루프중 참조가 안됨");
+        //        continue;
+        //    }
+        //    // 2. 순회하며 제거할 카드와 같을때 들어간다.
+        //    if (deckInCardRoot.Datas.cardId == removeCardId_)
+        //    {
+        //        currentIndex--;
+        //        pullDeckInCardRoot1 = cardList[i].GetComponent<DeckInCard>();
+        //        pullDeckInCardRoot1.ClearData();
+        //        // TODO : target카드를 빼고 그 뒤부터 앞으로 땅기기 
+        //        for (int j = i; j < cardList.Length - 1; j++)
+        //        {
+        //            pullDeckInCardRoot1 = cardList[i].GetComponent<DeckInCard>();
+        //            pullDeckInCardRoot2 = cardList[j + 1].GetComponent<DeckInCard>();
+        //            // 2 -> 1 로 데이터 변경
+        //            pullDeckInCardRoot1.CopyToPaste(pullDeckInCardRoot2, ref pullDeckInCardRoot1.Datas.cardName, ref pullDeckInCardRoot2.Datas.cardName);
+        //            if (pullDeckInCardRoot1.Datas.cardName == exceptionStr)
+        //            {
+        //                nullIndex = j;
+        //            }
+        //        }
+        //        cardList[currentIndex].SetActive(false);
+        //        break;
+        //    }
+        //}
+        #endregion LEGACY
+        // ! cardList == 출력해주는 Object가 들어가 있는 Object[] 개체
 
-        for (int i = 0; i < cardList.Length; i++)
+        DeckInCard outputCardRoot = null;
+        //bool isRemove = false;
+        for(int i = 0; i < currentIndex -1; i++)
         {
-            // 1. List에서 GetComponent가 가능하면 i번째의 컴포넌트를 가져온다.
-            if (cardList[i].GetComponent<DeckInCard>())
+            outputCardRoot = cardList[i].GetComponent<DeckInCard>();
+            if(outputCardRoot.Datas.cardId == removeCardId_)
             {
-                deckInCardRoot = cardList[i].GetComponent<DeckInCard>();
-            }
-            else
-            {
-                //DE.Log($"RemoveToCard함수 : {i}번쨰루프중 참조가 안됨");
-                continue;
-            }
-            // 2. 순회하며 제거할 카드와 같을때 들어간다.
-            if (deckInCardRoot.datas.cardId == removeCardId_)
-            {
-                currentIndex--;
-                pullDeckInCardRoot1 = cardList[i].GetComponent<DeckInCard>();
-                pullDeckInCardRoot1.ClearData();
-                // TODO : target카드를 빼고 그 뒤부터 앞으로 땅기기 
-                for (int j = i; j < cardList.Length - 1; j++)
-                {
-                    pullDeckInCardRoot1 = cardList[i].GetComponent<DeckInCard>();
-                    pullDeckInCardRoot2 = cardList[j + 1].GetComponent<DeckInCard>();
-                    // 2 -> 1 로 데이터 변경
-                    pullDeckInCardRoot1.CopyToPaste(pullDeckInCardRoot2,ref pullDeckInCardRoot1.datas.cardName, ref pullDeckInCardRoot2.datas.cardName);
-                    if (pullDeckInCardRoot1.datas.cardName == exceptionStr)
-                    {
-                        nullIndex = j;
-                    }
-                }
-                cardList[currentIndex].SetActive(false);
-                break;
-            }
-        }
-        DE.Log($"Loop를 몇번하지? : {nullIndex}");
-        SortingObjectList();
-        UpdateUis(nullIndex);
+                DeckInCard swapRoot = cardList[currentIndex -1].GetComponent<DeckInCard>();
+                DE.Log($"Swap 당하는 얘 이름 : {swapRoot.gameObject.name} , CurrentIndex : {currentIndex}");
+                outputCardRoot.Datas.cardId = swapRoot.Datas.cardId;
+                outputCardRoot.Datas.cardCost = swapRoot.Datas.cardCost;
+                outputCardRoot.Datas.cardSprite = swapRoot.Datas.cardSprite;
+                outputCardRoot.Datas.cardName = swapRoot.Datas.cardName;
 
+                swapRoot.Datas.ClearDatas();
+                //SortingObjectList();
+                // TODO : list속 카드의 null값을 찾아서 null이 아닌 카드와 Swap?
+                
+                currentIndex--;
+                // TODO : currentIndex 만큼 Loop하며 정렬
+                SortingObjectList();
+                for (int uiUpdateLoopCount = 0; uiUpdateLoopCount <= currentIndex; uiUpdateLoopCount++)
+                {
+                    //DE.Log($"몇번째 순회에서 참조를 못하지? : {i}\n i 번째의 게임오브젝트 이름 : {cardList[i].gameObject.name}");
+                    cardList[uiUpdateLoopCount].GetComponent<DeckInCard>().UpdateUI();
+                }
+
+            }
+        }        
+        //SortingObjectList();
+        //UpdateUis();
+        
+        //if(isRemove == true) { currentIndex--; }
         #region LEGACY
         //DeckInCard deckInCardRoot = null;
         //for (int i = 0; i < cardList.Length; i++)
@@ -171,7 +194,7 @@ public class CollectionDeckCardList : MonoBehaviour
         //    if (cardList[i].GetComponent<DeckInCard>())
         //    {
         //        deckInCardRoot = cardList[i].GetComponent<DeckInCard>();
-        //        if (deckInCardRoot.datas.cardId == removeCardId_)
+        //        if (deckInCardRoot.Datas.cardId == removeCardId_)
         //        {
         //            deckInCardRoot.ClearData();
         //            currentIndex--;
@@ -198,7 +221,12 @@ public class CollectionDeckCardList : MonoBehaviour
         int deckMaxCard = playerDeckRoot.deckList[targetDeckIndex_].count;
         for (int i = 0; i < deckMaxCard; i++)
         {
-            AddToCard(CardManager.cards[playerDeckRoot.deckList[targetDeckIndex_].cardList[i]]);
+            if (playerDeckRoot.deckList[targetDeckIndex_].cardList[i] != CardID.StartPoint &&
+                playerDeckRoot.deckList[targetDeckIndex_].cardList[i] != CardID.EndPoint)
+            {
+                AddToCard(CardManager.cards[playerDeckRoot.deckList[targetDeckIndex_].cardList[i]]);
+            }
+            else { /*PASS*/ }
         }
 
     }       // DeckOutPut()
@@ -228,11 +256,11 @@ public class CollectionDeckCardList : MonoBehaviour
             {
 
                 cardJRoot = cardList[j].GetComponent<DeckInCard>();
-                if (cardIRoot.datas.cardCost > cardJRoot.datas.cardCost)
+                if (cardIRoot.Datas.cardCost > cardJRoot.Datas.cardCost)
                 {
-                    DeckInCardData tempRoot = cardIRoot.datas;
-                    cardIRoot.datas = cardJRoot.datas;
-                    cardJRoot.datas = tempRoot;
+                    DeckInCardData tempRoot = cardIRoot.Datas;
+                    cardIRoot.Datas = cardJRoot.Datas;
+                    cardJRoot.Datas = tempRoot;
                 }
             }
         }
@@ -241,19 +269,11 @@ public class CollectionDeckCardList : MonoBehaviour
     private void UpdateUis()
     {
         for (int i = 0; i <= currentIndex; i++)
-        {
-            DE.Log($"몇번째 순회에서 참조를 못하지?");
-            DeckInCard temp = cardList[i].GetComponent<DeckInCard>();            
+        {            
+            //DE.Log($"몇번째 순회에서 참조를 못하지? : {i}\n i 번째의 게임오브젝트 이름 : {cardList[i].gameObject.name}");
             cardList[i].GetComponent<DeckInCard>().UpdateUI();
         }
     }       // UpdateUis()
-    private void UpdateUis(int maxLoopCount_)
-    {
-        for (int i = 0; i < maxLoopCount_; i++)
-        {
-            cardList[i].GetComponent<DeckInCard>().UpdateUI();
-        }
-    }
 
     public int GetCurrentIndex()
     {

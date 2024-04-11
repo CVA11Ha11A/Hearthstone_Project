@@ -38,7 +38,7 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
     public CardID lastChoiceCardID = default;
 
     private float rayMaxDistance = default;
-    private Ray ray = default;
+    private Ray ray;
     private RaycastHit hitInfo = default;
 
     private GameObject instanceCard = null;
@@ -100,7 +100,7 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
         }
         if(Physics.Raycast(mouseWorldPosition, Vector3.forward, out hitInfo, rayMaxDistance, deckInCardLayerMask))
         {            
-            lastChoiceCardID = hitInfo.collider.GetComponent<DeckInCard>().datas.cardId;
+            lastChoiceCardID = hitInfo.collider.GetComponent<DeckInCard>().Datas.cardId;
             isDeckClick = true;
         }
 
@@ -149,9 +149,10 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
                     return;
                 }
                 //DE.Log($"lastRefDeckIndex : {lastRefDeckIndex}");
-                DE.Log($"제거할 카드 ID : {lastChoiceCardID}");
+                DE.Log($"제거할 카드 ID : {(int)lastChoiceCardID}, 카드이름 : {lastChoiceCardID}");
                 deckCardListRoot.RemoveToCard(lastChoiceCardID);
                 LobbyManager.Instance.playerDeckRoot.decks.deckList[lastRefDeckIndex].RemoveCard(lastChoiceCardID);
+                // TODo : 여기까지왔을때에 덱 상황확인해보기
             }
 
 

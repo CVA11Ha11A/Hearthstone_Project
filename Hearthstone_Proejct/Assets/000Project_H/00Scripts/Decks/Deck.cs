@@ -24,61 +24,58 @@ public class Deck : IDeckFunction
     }
 
 
-
     public void RemoveCard(CardID removeCardId_)
     {
         for (int i = 0; i < cardList.Length; i++)
         {
             if (cardList[i] == removeCardId_)
             {
-                //DE.Log($"제거 하려는 카드 : {removeCardId_}, 카드가 존재하던 인덱스 : {i}");
-                PullCardList(i);
+                //PullCardList(i);
+                cardList[i] = CardID.StartPoint;
+                PullCardList();
                 break;
             }
         }
         currentIndex--;
         count--;
     }
-    private void PullCardList(int targetIndex_)
-    {       // 카드 제거이후 빈공간 없이 땅기는 함수
-        StringBuilder test = new StringBuilder();
+    public void PullCardList()
+    {   // 첫 번째 인덱스 부터 순회하며 한칸씩 땡김
+        for (int i = 0; i < MAX_CARD_COUNT - 1; i++)
+        {
+            if (cardList[i] == CardID.StartPoint || cardList[i] == CardID.EndPoint)
+            {
+                if (i + 1 >= MAX_CARD_COUNT)
+                {   // IndexOutRange 예외처리
+                    break;
+                }
+                cardList[i] = cardList[i + 1];
+
+            }
+        }
+    }       // PullCardList()
+
+    public void PullCardList(int targetIndex_)
+    {       // 카드 제거이후 빈공간 없이 땅기는 함수 / 어디서 부터 한칸씩 땡길지 인자로 보낼수 있음
         if (targetIndex_ == cardList.Length)
         {       // 마지막 카드가 지우는 카드라면
             cardList[targetIndex_] = CardID.StartPoint;
             return;
         }
 
-        for (int i = targetIndex_; i < cardList.Length; i++)
+        for (int i = targetIndex_; i < cardList.Length - 1; i++)
         {
-            test.Clear();
             if (cardList.Length == i + 1)
             {   // 마지막 으로 왔으면
                 cardList[i] = CardID.StartPoint;
                 return;
             }
 
-
-            for(int j = i; j < cardList.Length; j++)
-            {
-                test.Append((int)cardList[j]);
-                test.Append(",");
-            }
-            DE.Log($"땡기기전 : {test}");
-            test.Clear();
-
             cardList[i] = cardList[i + 1];
-            if (cardList[i+1] == CardID.StartPoint || cardList[i + 1] == CardID.EndPoint)
+            if (cardList[i + 1] == CardID.StartPoint || cardList[i + 1] == CardID.EndPoint)
             {
                 break;
             }
-
-
-            for (int k = i; k < cardList.Length; k++)
-            {
-                test.Append((int)cardList[k]);
-                test.Append(",");
-            }
-            DE.Log($"땡긴후 : {test.ToString()}");
         }
     }       // PullCardList()
 
