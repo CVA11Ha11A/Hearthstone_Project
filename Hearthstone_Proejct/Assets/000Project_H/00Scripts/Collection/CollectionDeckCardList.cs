@@ -15,7 +15,7 @@ public class CollectionDeckCardList : MonoBehaviour
 
     public bool isCreatDeck = default;
     public bool isFixDeck = default;        // 덱 저장할때 해당 bool값 2개를 확인해서 리스트를 수정할지 아니면 추가할지 결정될것
-    public int fixIndex = default;          // 수정시 변경되어야할 PlayerDeckList의 인덱스 
+    public int fixIndex = -1;          // 수정시 변경되어야할 PlayerDeckList의 인덱스 
 
     private RectTransform moveObj = null;
     private Vector3 onOutputV3 = default;       // ScrollView의 Transform을 조정시켜줄 Vector3
@@ -214,8 +214,12 @@ public class CollectionDeckCardList : MonoBehaviour
 
     }   // RemoveToCard()
 
-    public void DeckOutPut(int targetDeckIndex_)
+    public void DeckOutPut(int targetDeckIndex_ , bool isReOuput_ = false) 
     {   // 플레이어가 선택한 덱의 인덱스를 참조해서 덱의 현재 존재하는 카드들을 출력해주는 함수
+        if(isReOuput_ == true)
+        {
+            this.SetActiveFlaseToChilds();
+        }
         // DeckListCompoent.DeckOnClick() 가 호출할거임
         PlayerDeckData playerDeckRoot = LobbyManager.Instance.playerDeckRoot.decks;
         int deckMaxCard = playerDeckRoot.deckList[targetDeckIndex_].count;

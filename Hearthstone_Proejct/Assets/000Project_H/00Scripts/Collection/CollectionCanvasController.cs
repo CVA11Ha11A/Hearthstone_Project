@@ -16,7 +16,7 @@ public class CollectionCanvasController : MonoBehaviour
     private Vector3 onPosition = default;
     private Vector3 offPosition = default;
     private bool isFirstOpen = true;
-    private bool isOpen = false;
+    private bool isOpen = false;    
 
     private CollectionHeroIcon nowPageIcon = default;
     public CollectionHeroIcon NowPageIcon
@@ -264,5 +264,36 @@ public class CollectionCanvasController : MonoBehaviour
         }
     }       // BackButtonEvent()
     #endregion 버튼 함수
+
+    // ! 2024.04.13 덱 상호작용에 필요한 함수 추가 제작함
+    // 덱을 생성하고 추가한뒤에 덱 생성 -> 덱 수정 모드로 바뀌는 기능
+    public void DeckCreateFromDeckFix()
+    {
+        if(deckCardListRoot.isCreatDeck == false)
+        {
+            DE.LogError($"예외상황 발생\ndeckCardListRoot.isCreatDeck : {deckCardListRoot.isCreatDeck}일때 호출되는게 이상함");
+        }
+        // 1. 덱을 생성 new 할당  O
+        // 2. 덱을 플레이어 덱에 추가  O
+        // 3. deckCardListRoot.fixIndex를 새로 추가된 덱의 Index로 (Count를 활용하면 될듯?) O
+        // 4. deckCardListRoot의 isCreate를 false로변경후 isFix를 true로        O
+        // 
+        Deck newDeck = newDeck = new Deck();    // 1
+        int loopCount = deckCardListRoot.GetCurrentIndex();
+        CardID addCardId = default;
+        for (int i = 0; i < loopCount; i++) // 2
+        {
+            addCardId = deckCardListRoot.cardList[i].GetComponent<DeckInCard>().Datas.cardId;
+            newDeck.AddCardInDeck(addCardId);
+        }
+
+        LobbyManager.Instance.playerDeckRoot.SaveDecks();
+        // 3
+        deckCardListRoot.fixIndex = LobbyManager.Instance.playerDeckRoot.decks.deckList.Count - 1;  // Count는 갯수로 나오기때문에 -1
+        deckCardListRoot.isCreatDeck = false;
+        deckCardListRoot.isFixDeck = true;
+
+    }
+
 
 }       // CollectionCanvasController ClassEnd

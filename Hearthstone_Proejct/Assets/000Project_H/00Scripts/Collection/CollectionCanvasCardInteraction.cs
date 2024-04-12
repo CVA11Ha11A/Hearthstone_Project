@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPointerUpHandler, IBeginDragHandler, IPointerDownHandler
 {       // DeckBuild State일떄 켜주어서 플레이어와 카드의 상호작용을 할 수 있게 해주는 클래스
 
-    private int lastRefDeckIndex = -1;   
+    private int lastRefDeckIndex = -1;
     public int LastRefDeckIndex
     {
         get
@@ -16,7 +16,7 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
         }
         set
         {
-            if(value >= 9 || -1 > value)
+            if (value >= 9 || -1 > value)
             {
                 this.lastRefDeckIndex = -1;
             }
@@ -26,7 +26,7 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
             }
         }
     }
-        
+
 
     public bool isDeckClick = false;       // 덱에 존재하는것을 클릭했는지 
 
@@ -49,7 +49,7 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
     private void Awake()
     {
         rayMaxDistance = 300f;
-        cardLayerMask = 1 << 6;        
+        cardLayerMask = 1 << 6;
         deckCardListLayerMask = 1 << 7;
         deckInCardLayerMask = 1 << 8;
         collectionBackGroundLayerMask = 1 << 9;
@@ -72,11 +72,11 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
         // TODO : 스크롤 Input이 들어올 경우 ScrollView의 currentView를 변경
         // 내리면 -20 올리면 +20      // 움직여야하는 개체  = Content
 
-        if(Input.GetAxis("Mouse ScrollWheel") > 0)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {   // 위로 스크롤
             scrollViewRoot.CurrentView -= 20;
         }
-        else if(Input.GetAxis("Mouse ScrollWheel") < 0)
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {   // 아래로 스크롤
             scrollViewRoot.CurrentView += 20;
         }
@@ -93,13 +93,13 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
         Vector3 mouseScreenPosition = Input.mousePosition;
         // 마우스 스크린 좌표를 월드 좌표로 변환
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y,
-            Camera.main.nearClipPlane));        
+            Camera.main.nearClipPlane));
         if (Physics.Raycast(mouseWorldPosition, Vector3.forward, out hitInfo, rayMaxDistance, cardLayerMask))
-        {            
+        {
             lastChoiceCard = hitInfo.collider.GetComponent<Card>();
         }
-        if(Physics.Raycast(mouseWorldPosition, Vector3.forward, out hitInfo, rayMaxDistance, deckInCardLayerMask))
-        {            
+        if (Physics.Raycast(mouseWorldPosition, Vector3.forward, out hitInfo, rayMaxDistance, deckInCardLayerMask))
+        {
             lastChoiceCardID = hitInfo.collider.GetComponent<DeckInCard>().Datas.cardId;
             isDeckClick = true;
         }
@@ -135,15 +135,27 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
             // 마우스 스크린 좌표를 월드 좌표로 변환
             Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y,
                 Camera.main.nearClipPlane));
-            
+
             //DE.DrawRay(mouseWorldPosition, Vector3.forward * 300f, Color.red, 5000f);            
             if (isDeckClick == false && Physics.Raycast(mouseWorldPosition, Vector3.forward, rayMaxDistance, deckCardListLayerMask))
-            {                                               
-                GetDeckCardListRoot();      // 루트가 null이면 가져오는 함수
+            {
+
+                if (deckCardListRoot == null)
+                {
+                    deckCardListRoot = LobbyManager.Instance.collectionCanvasRoot.deckCardListRoot;
+                }
+                else
+                {
+                    return;
+                }
                 deckCardListRoot.AddToCard(lastChoiceCard);
+
             }
+
             if (isDeckClick == true && Physics.Raycast(mouseWorldPosition, Vector3.forward, rayMaxDistance, collectionBackGroundLayerMask))
-            {                                
+            {
+                #region LEGACY
+                /*
                 if(lastChoiceCardID == default)
                 {
                     return;
@@ -151,12 +163,26 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
                 //DE.Log($"lastRefDeckIndex : {lastRefDeckIndex}");
                 DE.Log($"제거할 카드 ID : {(int)lastChoiceCardID}, 카드이름 : {lastChoiceCardID}");
                 deckCardListRoot.RemoveToCard(lastChoiceCardID);
+                LobbyManager.Instance.playerDeckRoot.decks.deckList[lastRefDeckIndex].RemoveCard(lastChoiceCardID);                
+                 */
+                #endregion LEGACY
+                if (lastChoiceCardID == default)
+                {
+                    return;
+                }
+                // 1. 실제 덱을 수정한다. 
                 LobbyManager.Instance.playerDeckRoot.decks.deckList[lastRefDeckIndex].RemoveCard(lastChoiceCardID);
-                // TODo : 여기까지왔을때에 덱 상황확인해보기
+                // 2.실제 덱을 토대로 출력을한다.
+                // 새로 생성하는 덱이라면 저장하고 접근해야함
+                if (deckCardListRoot.isCreatDeck == true)
+                {       // 여기서 덱을 생성해서 추가하고 CreateMode -> EditMode로 변경해야할듯?
+                    this.transform.GetComponent<CollectionCanvasController>().DeckCreateFromDeckFix();
+                }
+
             }
 
 
-                Destroy(instanceCard.GetComponent<Card>());
+            Destroy(instanceCard.GetComponent<Card>());
             instanceCard.gameObject.SetActive(false);
         }
         lastChoiceCardID = default;
@@ -173,8 +199,8 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
             instanceCard.gameObject.SetActive(true);
             instanceCard.AddComponent(lastChoiceCard.GetType());
         }
-        if(lastChoiceCardID != CardID.StartPoint)
-        {            
+        if (lastChoiceCardID != CardID.StartPoint)
+        {
             instanceCard.gameObject.SetActive(true);
             instanceCard.AddComponent(CardManager.cards[lastChoiceCardID].GetType());
         }
@@ -184,16 +210,5 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
 
     #endregion Interface Methods
 
-    private void GetDeckCardListRoot()
-    {
-        if(deckCardListRoot == null)
-        {
-            deckCardListRoot = LobbyManager.Instance.collectionCanvasRoot.deckCardListRoot;
-        }
-        else
-        {
-            return;
-        }
-    }       // GetDeckCardListRoot()
 
 }       // ClassEnd

@@ -30,14 +30,22 @@ public class Deck : IDeckFunction
         {
             if (cardList[i] == removeCardId_)
             {
-                //PullCardList(i);
-                cardList[i] = CardID.StartPoint;
-                PullCardList();
-                break;
+                #region LEGACY
+                //cardList[i] = CardID.StartPoint;
+                //PullCardList();
+                //currentIndex--;
+                //count--;
+                //return;
+                #endregion LEGACY
+
+                cardList[i] = cardList[currentIndex - 1];
+                cardList[currentIndex - 1] = CardID.StartPoint;
+                currentIndex--;
+                count--;
+                return;
             }
         }
-        currentIndex--;
-        count--;
+        
     }
     public void PullCardList()
     {   // 첫 번째 인덱스 부터 순회하며 한칸씩 땡김
