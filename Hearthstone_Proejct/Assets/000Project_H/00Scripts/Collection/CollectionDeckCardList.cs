@@ -1,4 +1,5 @@
 using Photon.Pun.Demo.Cockpit;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -106,6 +107,7 @@ public class CollectionDeckCardList : MonoBehaviour
 
     }       // AddToCard()
 
+    [Obsolete("제거기능 -> 초기화후 재출력으로 바꿈 2024.04.15")]
     // 덱속 카드를 제거해주는 함수
     public void RemoveToCard(CardID removeCardId_)
     {
@@ -218,6 +220,7 @@ public class CollectionDeckCardList : MonoBehaviour
     {   // 플레이어가 선택한 덱의 인덱스를 참조해서 덱의 현재 존재하는 카드들을 출력해주는 함수
         if(isReOuput_ == true)
         {
+            this.currentIndex = default;        // 재출력시 전부 초기화 해주어야함 
             this.SetActiveFlaseToChilds();
         }
         // DeckListCompoent.DeckOnClick() 가 호출할거임

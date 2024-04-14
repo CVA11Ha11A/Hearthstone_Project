@@ -28,7 +28,7 @@ public class Deck : IDeckFunction
     {
         for (int i = 0; i < cardList.Length; i++)
         {
-            if (cardList[i] == removeCardId_)
+            if (this.cardList[i] == removeCardId_)
             {
                 #region LEGACY
                 //cardList[i] = CardID.StartPoint;
@@ -38,10 +38,10 @@ public class Deck : IDeckFunction
                 //return;
                 #endregion LEGACY
 
-                cardList[i] = cardList[currentIndex - 1];
-                cardList[currentIndex - 1] = CardID.StartPoint;
-                currentIndex--;
-                count--;
+                this.cardList[i] = this.cardList[currentIndex - 1];
+                this.cardList[currentIndex - 1] = CardID.StartPoint;
+                this.currentIndex--;
+                this.count--;
                 return;
             }
         }
@@ -90,14 +90,14 @@ public class Deck : IDeckFunction
     #region InterfaceMethod
     public void AddCardInDeck(CardID addCardId_)
     {
-        if (currentIndex == MAX_CARD_COUNT - 1)
+        if (this.currentIndex == MAX_CARD_COUNT - 1)
         {
             return;
         }
 
-        cardList[currentIndex] = addCardId_;
-        currentIndex++;
-        count++;
+        this.cardList[this.currentIndex] = addCardId_;
+        this.currentIndex++;
+        this.count++;
     }       // AddCard()
 
     public void SetDeckClass(ClassCard heroClass_)

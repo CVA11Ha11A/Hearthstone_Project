@@ -36,7 +36,7 @@ public class DeckInCard : MonoBehaviour
             if (this.datas != value) 
             {
                 this.datas = value;
-                DE.Log($"Datas의 참조가 변경이 되었음");
+                //DE.Log($"Datas의 참조가 변경이 되었음");
             }
         }
     }
@@ -67,7 +67,7 @@ public class DeckInCard : MonoBehaviour
     public void UpdateUI()
     {   // 업데이트 되어야하는 UI를 최신화 하는 함수
 
-        DE.Log($"UpdateUI 함수를 실행하는 개체 : {this.gameObject.name}");
+        //DE.Log($"UpdateUI 함수를 실행하는 개체 : {this.gameObject.name}");
         this.costTextRoot.text = this.Datas.cardCost.ToString();
         this.cardNameRoot.text = this.Datas.cardName.ToString();
 

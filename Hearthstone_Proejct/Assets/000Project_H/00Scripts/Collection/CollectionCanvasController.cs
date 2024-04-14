@@ -286,13 +286,13 @@ public class CollectionCanvasController : MonoBehaviour
             addCardId = deckCardListRoot.cardList[i].GetComponent<DeckInCard>().Datas.cardId;
             newDeck.AddCardInDeck(addCardId);
         }
-
+        LobbyManager.Instance.playerDeckRoot.decks.deckList.Add(newDeck);
         LobbyManager.Instance.playerDeckRoot.SaveDecks();
         // 3
         deckCardListRoot.fixIndex = LobbyManager.Instance.playerDeckRoot.decks.deckList.Count - 1;  // Count는 갯수로 나오기때문에 -1
+        this.transform.GetComponent<CollectionCanvasCardInteraction>().LastRefDeckIndex = deckCardListRoot.fixIndex;
         deckCardListRoot.isCreatDeck = false;
         deckCardListRoot.isFixDeck = true;
-
     }
 
 

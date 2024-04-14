@@ -137,16 +137,12 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
                 Camera.main.nearClipPlane));
 
             //DE.DrawRay(mouseWorldPosition, Vector3.forward * 300f, Color.red, 5000f);            
-            if (isDeckClick == false && Physics.Raycast(mouseWorldPosition, Vector3.forward, rayMaxDistance, deckCardListLayerMask))
+            if (Physics.Raycast(mouseWorldPosition, Vector3.forward, rayMaxDistance, deckCardListLayerMask))
             {
-
+                DE.Log($"DeckCardListLayer 맞음");
                 if (deckCardListRoot == null)
                 {
                     deckCardListRoot = LobbyManager.Instance.collectionCanvasRoot.deckCardListRoot;
-                }
-                else
-                {
-                    return;
                 }
                 deckCardListRoot.AddToCard(lastChoiceCard);
 
@@ -171,12 +167,17 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
                     return;
                 }
                 // 1. 실제 덱을 수정한다. 
-                LobbyManager.Instance.playerDeckRoot.decks.deckList[lastRefDeckIndex].RemoveCard(lastChoiceCardID);
+                LobbyManager.Instance.playerDeckRoot.decks.deckList[LastRefDeckIndex].RemoveCard(lastChoiceCardID);
+
                 // 2.실제 덱을 토대로 출력을한다.
                 // 새로 생성하는 덱이라면 저장하고 접근해야함
                 if (deckCardListRoot.isCreatDeck == true)
                 {       // 여기서 덱을 생성해서 추가하고 CreateMode -> EditMode로 변경해야할듯?
                     this.transform.GetComponent<CollectionCanvasController>().DeckCreateFromDeckFix();
+                }
+                else
+                {       // TODO : (1)현재 참조된 덱의 내부를 바꿈(선택된 카드 제거) -> (2)참조된 덱을 새로 출력
+                    deckCardListRoot.DeckOutPut(LastRefDeckIndex, true);
                 }
 
             }

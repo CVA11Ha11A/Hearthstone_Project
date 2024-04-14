@@ -56,7 +56,7 @@ public class NewDeckCanvasTransformController : MonoBehaviour
             this.transform.GetChild(2).GetComponent<DeckBuildSelectingClass>().lastChoiceClass = ClassCard.None;
 
             // TODO : 현재 저장되어있는 덱들은 임시적으로 SetActiveFalse가 되어야함 
-            LobbyManager.Instance.collectionCanvasRoot.deckListComponentRoot.onlyCreateButton();
+            LobbyManager.Instance.collectionCanvasRoot.deckListComponentRoot.OnlyCreateButton();
         }
         else { /*PASS*/ }
     }       // SelectButtonOnClickMethod()

@@ -43,7 +43,7 @@ public class DeckListComponent : MonoBehaviour
 
     }       // UpdateOutputDeckList()
 
-    public void onlyCreateButton()
+    public void OnlyCreateButton()
     {   // 제작 버튼을 제외한 덱은 Off하는함수
         int childCount = this.gameObject.transform.childCount;
 
@@ -51,7 +51,7 @@ public class DeckListComponent : MonoBehaviour
         {
             decks[i].gameObject.SetActive(false);
         }
-    }       // onlyCreateButton()
+    }       // OnlyCreateButton()
 
     public void DeckOnClick(DeckListChild onClickDeckRoot_)
     {   // 자식 오브젝트 버튼이 눌릴시 자식 컴포넌트가 Call할 함수
