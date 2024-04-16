@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,7 +38,7 @@ public class GameStartSelectDeckCanvas : MonoBehaviour
         }
     }
 
-
+    public event Action StartMatchingEvent;
 
     private void Awake()
     {
@@ -89,5 +90,9 @@ public class GameStartSelectDeckCanvas : MonoBehaviour
         LobbyManager.Instance.CanvasClose(this.transform, originPos, 2.5f);
     }       // BackButtonFunction()
 
+    public void InvekeMatchingStart()
+    {
+        this.StartMatchingEvent?.Invoke();
+    }
     #endregion ButtonFunctions
 }       // ClassEnd

@@ -1928,6 +1928,7 @@ GameObject:
   - component: {fileID: 179281327}
   - component: {fileID: 179281326}
   - component: {fileID: 179281325}
+  - component: {fileID: 179281330}
   m_Layer: 5
   m_Name: GameStartSelectDeckCanvas
   m_TagString: Untagged
@@ -2032,6 +2033,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 20}
   m_SizeDelta: {x: 935, y: 525}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &179281330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179281324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f0e89a33a4cbc8409cfa78fc14a0161, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startMatching: 0
 --- !u!224 &183522955 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8980549999892050988, guid: e646f9863a4701c44bee821d34240cbf,
