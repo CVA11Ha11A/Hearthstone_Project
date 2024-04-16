@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d0db718fe9da66a439c61cf5b8fa7a07
+guid: 3bda984ee52d0c64bb71932994b30f4a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 408}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -129,64 +129,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HeroPicker_CreateDeck_Classic_0
+      name: Vallila_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 272
-        width: 1024
-        height: 752
+        y: 647
+        width: 564
+        height: 217
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff8852d9f597273469b024a3767df3ef
-      internalID: 146352069
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HeroPicker_CreateDeck_Classic 1_2
-      rect:
-        serializedVersion: 2
-        x: 385
-        y: 103
-        width: 74
-        height: 79
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6c2590bd1c5953b48aa59941fb5a9470
-      internalID: -1204845168
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HeroPicker_CreateDeck_Classic 1_4
-      rect:
-        serializedVersion: 2
-        x: 701
-        y: 51
-        width: 152
-        height: 150
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c86267556321774499d7d13b59367ac1
-      internalID: 772515690
+      spriteID: 1414f55d84996b0439ba127327c25a53
+      internalID: 486453976
       vertices: []
       indices: 
       edges: []
@@ -194,21 +152,15 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 178727ce4c3efe248ac8c8d62f3e550d
-    internalID: 0
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      HeroPicker_CreateDeck_Classic 1_0: 1440663613
-      HeroPicker_CreateDeck_Classic 1_1: 1263692498
-      HeroPicker_CreateDeck_Classic 1_2: -1204845168
-      HeroPicker_CreateDeck_Classic 1_3: -547871855
-      HeroPicker_CreateDeck_Classic 1_4: 772515690
-      HeroPicker_CreateDeck_Classic 1_5: -1394495535
-      HeroPicker_CreateDeck_Classic_0: 146352069
+      Vallila_0: 486453976
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

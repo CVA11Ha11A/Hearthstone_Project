@@ -62,12 +62,12 @@ public class LobbyManager : MonoBehaviour
     /// <summary>
     /// 이동할 개체, 목표 포지션 , 이동에 걸릴 시간 을 매개로 받으며 그에 맞게 이동
     /// </summary>
-    public void CanvasOpen(Transform targetPos_,Vector3 arrivalPos_, float time)
+    public void CanvasOpen(Transform targetPos_,Vector3 arrivalPos_, float time = 2.5f)
     {        
         StartCoroutine(OpenCanvas(targetPos_,arrivalPos_,time));
     }       // CanvasOpen()
 
-    public void CanvasClose(Transform targetPos_, Vector3 arrivalPos_, float time)
+    public void CanvasClose(Transform targetPos_, Vector3 arrivalPos_, float time = 2.5f)
     {
      
         StartCoroutine(CloseCanvase(targetPos_, arrivalPos_, time));
