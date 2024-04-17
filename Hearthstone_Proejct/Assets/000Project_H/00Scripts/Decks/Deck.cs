@@ -9,7 +9,8 @@ using UnityEngine;
 public class Deck : IDeckFunction
 {       // 덱이 가지고 있어야하는것들만 가지고 있을것
 
-    public const int MAX_CARD_COUNT = 30;
+    public const int MAX_CARD_COUNT = 30;       // 카드리스트가 담을 수 있는 최대 카드 갯수
+    public const int CARDLIST_MAXLOOP = 29;     // 카드리스트의 루프의 최대치
 
     public int currentIndex = default;
     public int count = default;

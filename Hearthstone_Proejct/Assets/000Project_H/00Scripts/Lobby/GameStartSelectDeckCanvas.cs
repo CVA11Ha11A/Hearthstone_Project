@@ -21,12 +21,12 @@ public class GameStartSelectDeckCanvas : MonoBehaviour
         }
         set
         {
-            if(this.selectDeckIndex != value)
+            if (this.selectDeckIndex != value)
             {
                 this.selectDeckIndex = value;
-                
+
             }
-            if(this.selectDeckIndex != -1)
+            if (this.selectDeckIndex != -1)
             {
                 // 참조된 덱의 영웅 이미지로 우측에 띄우기
                 selectDeckPrintImage.gameObject.SetActive(true);
@@ -47,7 +47,7 @@ public class GameStartSelectDeckCanvas : MonoBehaviour
         printDeckObjs = new GameObject[this.transform.GetChild(1).childCount];
         selectDeckPrintImage = this.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<Image>();
 
-        int loopCount = this.transform.GetChild(1).childCount;        
+        int loopCount = this.transform.GetChild(1).childCount;
         for (int i = 0; i < loopCount; i++)
         {
             printDeckObjs[i] = this.transform.GetChild(1).GetChild(i).gameObject;
@@ -59,7 +59,7 @@ public class GameStartSelectDeckCanvas : MonoBehaviour
 
     public void PrintDeckListAllOff()
     {   // 출력이되는 모든 덱 리스트 꺼주는 함수
-       
+
         for (int i = 0; i < printDeckObjs.Length; i++)
         {
             printDeckObjs[i].gameObject.SetActive(false);
@@ -80,10 +80,11 @@ public class GameStartSelectDeckCanvas : MonoBehaviour
 
     #region ButtonFunctions
     public void OpenCanvasButtonFunction()
-    {
+    {   // LobbyCanvas의 게임시작 버튼의 함수
         LobbyManager.Instance.CanvasOpen(this.transform, movePos);
         PrintDeckList();
-    }
+        this.transform.GetComponent<LobbyPhoton>().ConnectPhotonServer();
+    }       // OpenCanvasButtonFunction()
 
     public void BackButtonFunction()
     {
@@ -92,7 +93,13 @@ public class GameStartSelectDeckCanvas : MonoBehaviour
 
     public void InvekeMatchingStart()
     {
-        this.StartMatchingEvent?.Invoke();
-    }
+        // ! if : 포톤서버와 연결이 되었을때에만 매칭 시작되도록
+        if (this.transform.GetComponent<LobbyPhoton>().isConnectedPhoton == true)
+        {
+            this.StartMatchingEvent?.Invoke();
+        }
+        else { /*PASS*/ }
+        
+    }       // InvekeMatchingStart()
     #endregion ButtonFunctions
 }       // ClassEnd

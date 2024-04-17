@@ -18,10 +18,15 @@ public class GameManager : MonoBehaviour
             return instance; 
         }
     }
+
+    public InGamePlayersDeck inGamePlayersDeck = null;
+
+
     private void Awake()
     {
         instance = this;
         Application.targetFrameRate = 120;
+        DontDestroyOnLoad(this);
     }
 
 
