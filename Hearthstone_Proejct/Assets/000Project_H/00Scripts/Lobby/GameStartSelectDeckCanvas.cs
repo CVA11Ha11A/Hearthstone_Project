@@ -99,7 +99,8 @@ public class GameStartSelectDeckCanvas : MonoBehaviour
             this.StartMatchingEvent?.Invoke();
         }
         else { /*PASS*/ }
-        
+        //  여기서 내 덱을 초기화 하도록
+        GameManager.Instance.inGamePlayersDeck.MyDeckSetting(this.SelectDeckIndex);
     }       // InvekeMatchingStart()
     #endregion ButtonFunctions
 }       // ClassEnd

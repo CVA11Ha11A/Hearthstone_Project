@@ -5,15 +5,18 @@ using Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+using System.Text;
 
 public class LobbyPhoton : MonoBehaviourPunCallbacks
 {
     public bool isConnectedPhoton = false;     // 포톤의 마스터 클라이언트와 연결이 되었는지 확인할 bool값 (이게 true일때 매칭이 되야함)
     public bool startMatching = false;
 
+    private StringBuilder sb = null;
     private WaitForSeconds waitForSeconds = null;
     private RoomOptions roomOptions = null;
-    
+    public PhotonView photonView = null;
+
     private float addTime = default;
     private float currentTime = default;
     private float maxTime = default;
@@ -30,10 +33,14 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
         this.startMatching = false;
         this.addTime = 0.1f;
         this.maxTime = 3f;
-        this.waitForSeconds = new WaitForSeconds(this.addTime);
+
         this.transform.GetComponent<GameStartSelectDeckCanvas>().StartMatchingEvent += StartMatching;
 
+        this.waitForSeconds = new WaitForSeconds(this.addTime);
+        this.sb = new StringBuilder();
         this.roomOptions = new RoomOptions();
+        this.photonView = this.gameObject.GetComponent<PhotonView>();
+
         roomOptions.MaxPlayers = 2;
         roomOptions.IsOpen = true;
         roomOptions.IsVisible = true;
@@ -80,7 +87,7 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
 
     private IEnumerator MasterClientWait() // 일반 함수로 변경후 해당 코루틴을 따로 만들어야함
     {
-        
+
         DE.Log($"마스터 클라이언트 대기 함수 진입");
         this.currentTime = 0f;
         while (this.currentTime < this.maxTime + 3f)
@@ -141,11 +148,11 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
     {   // 방을 찾으며 접속하는 함수
         this.currentTime = 0;
         DE.Log($"방찾기 및 접속 함수 진입\n{PhotonNetwork.CurrentRoom}\n NetworkState : {PhotonNetwork.NetworkClientState}");
-        if(PhotonNetwork.NetworkClientState == ClientState.Leaving)
+        if (PhotonNetwork.NetworkClientState == ClientState.Leaving)
         {
             PhotonNetwork.ConnectUsingSettings();
         }
-        while(PhotonNetwork.NetworkClientState != ClientState.ConnectedToMasterServer)
+        while (PhotonNetwork.NetworkClientState != ClientState.ConnectedToMasterServer)
         {
             yield return null;
         }
@@ -209,6 +216,7 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
             PhotonNetwork.CurrentRoom.IsVisible = true; // 방이 리스트에서 보이도록 설정합니다.
             PhotonNetwork.CurrentRoom.IsOpen = true; // 방이 열리도록 설정합니다.        
             StartCoroutine(MasterClientWait());
+
         }
         else
         {   // 자신이 만든방이 아닌 타인의 방의 접속한경우 (클라이언트)
@@ -222,9 +230,64 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
         DE.Log($"내방에 누군가 들어옴");
         StopAllCoroutines();
         isReadyToStart = true;
-        // 해당 함수 호출후 상대의 채팅을 받을때까지 대기 후 채팅이 올 경우 해당 채팅을 기반으로 상대의 덱 리스트를 데이터에 입력
-
+        #region 클라이언트에게 덱 보내고 초기화시키는 함수 진행
+        // sb에 현제 내 정보 넣고 상대에게 해당 인자를 이용해서 적 덱을 셋팅할 수 있도록 실행
+        int deckRefIndex = this.gameObject.GetComponent<GameStartSelectDeckCanvas>().SelectDeckIndex;
+        Deck tempDeckRoot = LobbyManager.Instance.playerDeckRoot.decks.deckList[deckRefIndex];
+        sb.Clear();
+        sb.Append((int)tempDeckRoot.deckClass);  // class
+        sb.Append('-');                          // class
+        for (int i = 0; i < tempDeckRoot.cardList.Length; i++)
+        {
+            if (i < tempDeckRoot.cardList.Length + 1)
+            {
+                sb.Append($"{(int)tempDeckRoot.cardList[i]},");
+            }
+            else
+            {
+                sb.Append($"{(int)tempDeckRoot.cardList[i]}");
+            }
+        }
+        
+        string result = sb.ToString();        
+        photonView.RPC("ClientDeckEnemyDeckSetting", RpcTarget.Others, result);
+        #endregion 클라이언트에게 덱 보내고 초기화시키는 함수 진행
     }       // MyRoomClientIn()
+
+    [PunRPC]
+    public void ClientDeckEnemyDeckSetting(string enemyDeck_) // 클라이언트 키준 Enemy
+    {       // RPC 함수 호출자 (this에서 MyRoomClientIn 가 호출)
+        // 받은 인자를 이용해서 상대덱 초기화
+        GameManager.Instance.inGamePlayersDeck.EnemyDeckSetting(enemyDeck_);
+
+        // 마스터클라이언트에게 보낼 클라이언트의 덱을 string으로 압축
+        int deckRefIndex = this.gameObject.GetComponent<GameStartSelectDeckCanvas>().SelectDeckIndex;
+        Deck tempDeckRoot = LobbyManager.Instance.playerDeckRoot.decks.deckList[deckRefIndex];
+        sb.Clear();
+        sb.Append((int)tempDeckRoot.deckClass);  // class
+        sb.Append('-');                          // class
+        for (int i = 0; i < tempDeckRoot.cardList.Length; i++)
+        {
+            if (i < tempDeckRoot.cardList.Length + 1)
+            {
+                sb.Append($"{(int)tempDeckRoot.cardList[i]},");
+            }
+            else
+            {
+                sb.Append($"{(int)tempDeckRoot.cardList[i]}");
+            }
+        }
+        string result = sb.ToString();  // 압축된 결과
+        // 마스터 클라이언트의 덱 초기화 함수 호출
+        photonView.RPC("MasterClientDeckEnemyDeckSetting", RpcTarget.MasterClient, result);
+
+    }       // DeckEnemyDeckSetting()
+
+    [PunRPC]
+    public void MasterClientDeckEnemyDeckSetting(string enemyDeck_)
+    {
+        GameManager.Instance.inGamePlayersDeck.EnemyDeckSetting(enemyDeck_);
+    }       // MasterClientDeckEnemyDeckSetting()
     #endregion 매칭관련
 
 }       // LobbyPhoton Class End
