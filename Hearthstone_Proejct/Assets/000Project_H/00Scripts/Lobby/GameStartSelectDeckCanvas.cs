@@ -99,6 +99,20 @@ public class GameStartSelectDeckCanvas : MonoBehaviour
             this.StartMatchingEvent?.Invoke();
         }
         else { /*PASS*/ }
+
+        // 매칭 애니메이션 시작 // 오디오 플레이
+        this.transform.GetChild(5).GetComponent<OnMatchingCanvas>().OnImages();
+        this.transform.GetChild(5).GetChild(0).GetComponent<MacthingStartScrollController>().StartMatchingAnimation();
+        
+        if(UnityEngine.Random.Range(0, 2) == 0)
+        {
+            AudioManager.Instance.PlayBGM(isLoop_: true, ESoundBGM.MatchingTheme1);
+        }
+        else
+        {
+            AudioManager.Instance.PlayBGM(isLoop_: true, ESoundBGM.MatchingTheme2);
+        }
+        
         //  여기서 내 덱을 초기화 하도록
         GameManager.Instance.inGamePlayersDeck.MyDeckSetting(this.SelectDeckIndex);
     }       // InvekeMatchingStart()

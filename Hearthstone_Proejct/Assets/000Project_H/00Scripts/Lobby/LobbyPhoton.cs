@@ -228,6 +228,7 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
     private void MyRoomClientIn()
     {   // 마스터 클라이언트 함수
         DE.Log($"내방에 누군가 들어옴");
+        this.transform.GetChild(5).GetComponent<OnMatchingCanvas>().StopMatchingButtonDisable();
         StopAllCoroutines();
         isReadyToStart = true;
         #region 클라이언트에게 덱 보내고 초기화시키는 함수 진행
@@ -258,6 +259,7 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
     public void ClientDeckEnemyDeckSetting(string enemyDeck_) // 클라이언트 키준 Enemy
     {       // RPC 함수 호출자 (this에서 MyRoomClientIn 가 호출)
         // 받은 인자를 이용해서 상대덱 초기화
+        this.transform.GetChild(5).GetComponent<OnMatchingCanvas>().StopMatchingButtonDisable();
         GameManager.Instance.inGamePlayersDeck.EnemyDeckSetting(enemyDeck_);
 
         // 마스터클라이언트에게 보낼 클라이언트의 덱을 string으로 압축
@@ -287,6 +289,7 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
     public void MasterClientDeckEnemyDeckSetting(string enemyDeck_)
     {
         GameManager.Instance.inGamePlayersDeck.EnemyDeckSetting(enemyDeck_);
+        // 여기서 마스터 클라이언트가 게임을 시작해야함 -> 씬을 옮겨야함
     }       // MasterClientDeckEnemyDeckSetting()
     #endregion 매칭관련
 
