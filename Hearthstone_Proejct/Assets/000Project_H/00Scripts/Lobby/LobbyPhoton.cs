@@ -45,6 +45,8 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
         roomOptions.IsOpen = true;
         roomOptions.IsVisible = true;
         roomOptions.CleanupCacheOnLeave = true;
+
+        PhotonNetwork.AutomaticallySyncScene = true;
     }       // Awake()
 
 
@@ -249,8 +251,8 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
                 sb.Append($"{(int)tempDeckRoot.cardList[i]}");
             }
         }
-        
-        string result = sb.ToString();        
+
+        string result = sb.ToString();
         photonView.RPC("ClientDeckEnemyDeckSetting", RpcTarget.Others, result);
         #endregion 클라이언트에게 덱 보내고 초기화시키는 함수 진행
     }       // MyRoomClientIn()
@@ -281,16 +283,33 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
         }
         string result = sb.ToString();  // 압축된 결과
         // 마스터 클라이언트의 덱 초기화 함수 호출
-        photonView.RPC("MasterClientDeckEnemyDeckSetting", RpcTarget.MasterClient, result);
+        photonView.RPC("MasterClientEnemyDeckSetting", RpcTarget.MasterClient, result);
 
     }       // DeckEnemyDeckSetting()
 
     [PunRPC]
-    public void MasterClientDeckEnemyDeckSetting(string enemyDeck_)
+    public void MasterClientEnemyDeckSetting(string enemyDeck_)
     {
         GameManager.Instance.inGamePlayersDeck.EnemyDeckSetting(enemyDeck_);
         // 여기서 마스터 클라이언트가 게임을 시작해야함 -> 씬을 옮겨야함
+        // 여기서 로드 전에 매칭 에니메이션 작동을 바꾸어주는것이 좋을듯? 
+        photonView.RPC("GameStartAnimeStart", RpcTarget.All);
     }       // MasterClientDeckEnemyDeckSetting()
+
+    [PunRPC]
+    private void GameStartAnimeStart()
+    {
+        this.transform.GetChild(5).GetChild(0).GetComponent<MacthingStartScrollController>().GameStartAnime();
+    }
+
+    public void InGameScene()
+    {
+        AudioManager.Instance.keepingAudioList.Clear();
+        if (PhotonNetwork.IsMasterClient == true)
+        {
+            PhotonNetwork.LoadLevel("InGameScene");
+        }
+    }
     #endregion 매칭관련
 
 }       // LobbyPhoton Class End

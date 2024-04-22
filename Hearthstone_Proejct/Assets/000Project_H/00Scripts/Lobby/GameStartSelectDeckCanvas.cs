@@ -102,9 +102,16 @@ public class GameStartSelectDeckCanvas : MonoBehaviour
 
         // 매칭 애니메이션 시작 // 오디오 플레이
         this.transform.GetChild(5).GetComponent<OnMatchingCanvas>().OnImages();
-        this.transform.GetChild(5).GetChild(0).GetComponent<MacthingStartScrollController>().StartMatchingAnimation();
+        MacthingStartScrollController scrollControllerRoot = this.transform.GetChild(5).GetChild(0).GetComponent<MacthingStartScrollController>();
+        scrollControllerRoot.StartMatchingAnimation();
         
-        if(UnityEngine.Random.Range(0, 2) == 0)
+        if (scrollControllerRoot.gameStartAnimeV3 == default)
+        {
+            scrollControllerRoot.gameStartAnimeV3 = scrollControllerRoot.scrollObj.transform.position;
+        }
+
+
+        if (UnityEngine.Random.Range(0, 2) == 0)
         {
             AudioManager.Instance.PlayBGM(isLoop_: true, ESoundBGM.MatchingTheme1);
         }
@@ -112,7 +119,7 @@ public class GameStartSelectDeckCanvas : MonoBehaviour
         {
             AudioManager.Instance.PlayBGM(isLoop_: true, ESoundBGM.MatchingTheme2);
         }
-        
+
         //  여기서 내 덱을 초기화 하도록
         GameManager.Instance.inGamePlayersDeck.MyDeckSetting(this.SelectDeckIndex);
     }       // InvekeMatchingStart()

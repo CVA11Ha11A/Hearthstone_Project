@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 
@@ -14,10 +12,13 @@ public class MacthingStartScrollController : MonoBehaviour
         Right = 1
     }
 
-    private GameObject scrollObj = null;
+
+    private MatchingScroll_Image[] scrollImage = null;
+    public GameObject scrollObj = null;
     private GameObject[] allowObjs = null;
     private float startYPos = default;
     private float endYPos = default;
+    public Vector3 gameStartAnimeV3 = default;
 
     private float animeSpeed = default;
 
@@ -67,6 +68,13 @@ public class MacthingStartScrollController : MonoBehaviour
         this.endYPos = -3.5f;
         this.minusPos = new Vector3(0f, 2f, 0f);
 
+        scrollImage = new MatchingScroll_Image[3];
+        for(int i = 0; i < scrollImage.Length; i++)
+        {
+            //1.0.i
+            scrollImage[i] = this.transform.GetChild(1).GetChild(0).GetChild(i).GetComponent<MatchingScroll_Image>();
+        }
+
     }
     
 
@@ -76,9 +84,10 @@ public class MacthingStartScrollController : MonoBehaviour
         StartCoroutine(UpAllow());
     }
 
-    public void StopAllCoroutine()
-    {       // 외부에서 코루틴 멈추라고 명령할 수 있도록 제작
+    public void GameStartAnime()
+    {       // 게임씬 넘어가기 직전에 애니메이션
         StopAllCoroutines();
+        StartCoroutine(CGameStartAnime());
     }
 
     #region 애니메이션 관련
@@ -144,6 +153,37 @@ public class MacthingStartScrollController : MonoBehaviour
         }
         StartCoroutine(UpAllow());
     }       // DonwAllow()
+
+    private IEnumerator CGameStartAnime()
+    {
+        // 여기서 이미지 바꾸고 텍스트 켜야함
+        for(int i =0; i < scrollImage.Length; i++)
+        {
+            scrollImage[i].EndMatchingSetting();
+        }
+
+        float currentTime = 0;
+        float lerpTime = 5f;
+        Vector3 goalV3 = Vector3.zero;
+        while (currentTime < lerpTime)
+        {
+            // 현재 시간 업데이트
+            currentTime += Time.deltaTime;
+
+            // 보간 비율 계산
+            float t = currentTime / lerpTime;
+
+            // Lerp 함수 사용하여 새로운 위치 계산
+            goalV3 = Vector3.Lerp(scrollObj.transform.position, gameStartAnimeV3, t);
+            // 새로운 위치 적용
+            scrollObj.transform.position = goalV3;            
+            yield return null;
+        }
+
+        GameManager.Instance.GetTopParent(this.transform).GetComponent<LobbyPhoton>().InGameScene();
+            
+    }
+
     #endregion 애니메이션 관련
 
 }   // ClassEnd
