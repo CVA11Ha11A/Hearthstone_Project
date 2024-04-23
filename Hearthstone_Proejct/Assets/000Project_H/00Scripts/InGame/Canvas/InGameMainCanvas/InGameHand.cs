@@ -14,6 +14,20 @@ public class InGameHand : MonoBehaviour
             return this.maxHandCount;
         }        
     }
+    private int nowHandCount = default;
+    public int NowHandCount
+    {
+        get
+        {
+            return this.nowHandCount;
+        }
+        set
+        {
+            this.nowHandCount = value;
+        }
+    }
+
+
     private void Awake()
     {
         handCard = new List<GameObject>(12);
@@ -27,6 +41,10 @@ public class InGameHand : MonoBehaviour
         this.maxHandCount = newMaxHandCount_;
     }
 
+    public void CardHandSorting()
+    {
 
+    }
+    
 
 }       // ClassEnd
