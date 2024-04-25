@@ -42,9 +42,7 @@ public class InGamePlayersDeck : MonoBehaviour
 
     public bool isMyDeckInIt = false;       // bool 값 2개는 현재 적과 나의 덱을 포톤으로 받은것으로 초기화 시켰는지 확인할 변수
     public bool isEnemyDeckInIt = false;
-
-    public TextMeshProUGUI MyDeckTextTest;
-    public TextMeshProUGUI EnemyDeckTextTest;
+    
 
     private void Awake()
     {
@@ -53,6 +51,7 @@ public class InGamePlayersDeck : MonoBehaviour
 
         myDeck = new Deck();
         enemyDeck = new Deck();
+        
     }
 
     public void ClearDecks()
