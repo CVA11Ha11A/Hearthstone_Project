@@ -7,15 +7,15 @@ public class CardStandardSet : MonoBehaviour
 {        
     private void Awake()
     {
-        //if(SceneManager.GetActiveScene().name == "LobbyScene")
-        //{
-        //    this.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        //}
-        //else if(SceneManager.GetActiveScene().name == "InGameScene")
-        //{
-        //    this.transform.localScale = new Vector3(10f, 10f, 10f);
-        //}
-                
+        if (SceneManager.GetActiveScene().name == "LobbyScene")
+        {
+            this.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        }
+        else if (SceneManager.GetActiveScene().name == "InGameScene")
+        {
+            this.transform.localScale = new Vector3(10f, 10f, 10f);
+        }
+
 
     }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class InGameDeck : MonoBehaviour
@@ -33,6 +34,7 @@ public class InGameDeck : MonoBehaviour
         }
         else if (this.transform.name == "EnemyDeck")
         {
+            DE.Log($"뭐가 Null이지 ? InGameManager.Instance :  {InGameManager.Instance == null}\nGameManager.Instance.inGamePlayerDeck null? : {GameManager.Instance.inGamePlayersDeck.EnemyDeck == null}");
             InGameManager.Instance.InGameEnemyDeckRoot = this;
             this.deckClass = GameManager.Instance.inGamePlayersDeck.EnemyDeck.deckClass;
         }
@@ -46,16 +48,20 @@ public class InGameDeck : MonoBehaviour
     public void DeckInit(string[] cardIds_)
     {       // split된 인자가 들어옴
         inGameDeck = new Deck();
-        for(int i = 0; i< cardIds_.Length; i++)
-        {
-            DE.Log(cardIds_[i]);
-        }
+        int parseValue = -1;
+        
         for (int i = 0; i < cardIds_.Length; i++)
         {
-            DE.Log(cardIds_[i]);
-            inGameDeck.AddCardInDeck((CardID)int.Parse(cardIds_[i]));
+            //DE.Log($"{cardIds_[i]}\nIsParse? : {int.TryParse(cardIds_[i],out delog)} , DeLog : {delog}");
+            cardIds_[i] = cardIds_[i].Replace(" ","");
+            parseValue = int.Parse(cardIds_[i]);
+            if (parseValue == (int)CardID.StartPoint || parseValue == (int)CardID.EndPoint)
+            {
+                continue;
+            }
+            inGameDeck.AddCardInDeck((CardID)parseValue);
         }
-        inGameDeck.deckClass = this.deckClass;
+        //inGameDeck.deckClass = this.deckClass; //이 값 말고 Lobby에서 초기화된 덱의 직업을 할당하는것이 맞는거같음
 
 
     }

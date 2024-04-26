@@ -99,8 +99,8 @@ public class InGameManager : MonoBehaviourPunCallbacks
 
     }
     void Start()
-    {
-        //FirstPlayersDeckInit();
+    {        
+        FirstPlayersDeckInit();
     }
 
 
@@ -110,6 +110,8 @@ public class InGameManager : MonoBehaviourPunCallbacks
         this.sb = new StringBuilder();
     }
     #region 플레이어들의 덱 초기화 관련
+    
+
     public void FirstPlayersDeckInit()
     {   // 각자 자신의 덱 연산후 상대에게 자신의 덱을 보내주며 초기화시키는 함수
 
@@ -122,6 +124,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
         List<CardID> deckList = new List<CardID>(35);   // 최대 30장까지 초기화 할것이기 때문에 여유있게 할당        
         Deck myDeckRoot = GameManager.Instance.inGamePlayersDeck.MyDeck;
         int existenceCardCount = default;
+        DE.Log($"1 : 어느 for문에서 멈출까?");
         for (int i = 0; i < myDeckRoot.cardList.Length; i++)
         {
             if (myDeckRoot.cardList[i] == CardID.StartPoint || myDeckRoot.cardList[i] == CardID.EndPoint)
@@ -134,16 +137,8 @@ public class InGameManager : MonoBehaviourPunCallbacks
                 existenceCardCount++;
             }
         }
-        // TEST
-        for (int i = 0; i < deckList.Count; i++)
-        {
-            sb.Append(deckList[i]);
-        }
-        DE.Log($"{sb}");
-        sb.Clear();
+
         // 여기선 리스트에 마스터클라이언트 덱에 카드가 존재하는 것들만 들어가 있을 것임            
-
-
         // 1. 여기서 나의 덱을 섞어야함
         int shuffleCount = 5;   // 카드를 몇변 for문 돌리면서 랜덤하게 섞을지
         int nowShuffleCount = default;  // 0  아래 for문에서 현재 몇번 셔플 했는지 
@@ -157,7 +152,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
             shuffleGoalIndex = Random.Range(0, existenceCardCount);
             deckList[shuffleIndex] = deckList[shuffleGoalIndex];
             deckList[shuffleGoalIndex] = tempCardId;
-
+            nowShuffleCount++;
             // 위에 sb가 이 아래로 존재 해야 할 거갗다고도 생각이 듦
             // 왜냐하면 섞고 결과물을 Client에게 보내야하는데 위에 섞지 않은 결과를 보내면
             // 고정된 순서에 카드가 나올것임
@@ -169,21 +164,22 @@ public class InGameManager : MonoBehaviourPunCallbacks
 
         // 2. 카드를 sb를 이용해서 string화 시킴
         sb.Clear();
+        int addCardId = -1;
         for (int i = 0; i < deckList.Count; i++)
         {
+            addCardId = (int)deckList[i];
             if (i + 1 >= deckList.Count)
             {   // 다음 순회 조건에서 조건이 맞지 않은 경우
                 // 뒤에 ,를 뺴야함
-                sb.Append(deckList[i]);
+                sb.Append(addCardId);
             }
             else
             {
-                sb.Append(deckList[i]);
+                sb.Append(addCardId);
                 sb.Append(",");
             }
         }   // for : 덱속 카드 sb에 추가하는 for
-
-        DE.Log($"SB가 잘못되었나? : {sb}");
+        
         // 3. 상대에게 덱 초기화 하라고 함수 실행 여기선 StringBuilder는 Id , Id , Id 구조를 가지게됨
         IngameDeckInitalize(sb.ToString(), ETarGet.My);
         this.photonView.RPC("IngameDeckInitalize", RpcTarget.Others, sb.ToString(), ETarGet.Enemy);
@@ -218,6 +214,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
 
     private void TestOutPutDeckIDs(ETarGet compleateInItCardTarget_)
     {
+#if DEVELOP_TIME
         StringBuilder sb2 = new StringBuilder();
         if (compleateInItCardTarget_ == ETarGet.My)
         {
@@ -239,6 +236,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
             }
             DE.Log($"{sb2}");
         }
+#endif
     }
 
 }       // ClassEnd

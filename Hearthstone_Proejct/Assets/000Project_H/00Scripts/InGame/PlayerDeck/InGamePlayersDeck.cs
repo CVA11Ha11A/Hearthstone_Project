@@ -82,7 +82,7 @@ public class InGamePlayersDeck : MonoBehaviour
         {
             if (deckCardIds[i] == " " || deckCardIds[i] == "" || deckCardIds[i] == "," || deckCardIds[i] == "-")
             {
-                DE.Log($"덱 초기화 예외처리에 들어옴 : {i} 번째 값 -> {deckCardIds[i]}");
+                //DE.Log($"덱 초기화 예외처리에 들어옴 : {i} 번째 값 -> {deckCardIds[i]}");
                 continue;
             }
             deckCardIds[i].Replace(",", "");
