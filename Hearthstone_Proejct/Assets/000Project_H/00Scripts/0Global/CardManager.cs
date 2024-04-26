@@ -109,7 +109,7 @@ public enum S_Clip
 
 public class CardManager : MonoBehaviour
 {
-    public static Dictionary<CardID, Card> cards = default;    
+    public static Dictionary<CardID, Card> cards = default;
 
     private static CardManager instance = null;
     public static CardManager Instance
@@ -119,7 +119,7 @@ public class CardManager : MonoBehaviour
             if (instance == null || instance == default)
             {
                 GameObject managerObj = new GameObject("CardManager");
-                managerObj.AddComponent<CardManager>();
+                managerObj.AddComponent<CardManager>();                                
             }
             return instance;
         }
@@ -153,25 +153,39 @@ public class CardManager : MonoBehaviour
 
     private void Awake()
     {
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+            instance.ManagerInIt();
+        }
+        else if(instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+
+
+    }
+
+    private void ManagerInIt()
+    {
         const int CARD_MASK_SPRITE_COUNT = 2;
         const int CARD_OUTLINE_MATERIAL_COUNT = 4;
 
         instance = this;
         cardMaskSprites = new Sprite[CARD_MASK_SPRITE_COUNT];
         cardOutLineMaterials = new Material[CARD_OUTLINE_MATERIAL_COUNT];
-        classSprites = new Sprite[Enum.GetValues(typeof(ClassCard)).Length];        
+        classSprites = new Sprite[Enum.GetValues(typeof(ClassCard)).Length];
         ResourceLoad();
         FirstCardSetting();
-        DontDestroyOnLoad(this);        
-
-
+        DontDestroyOnLoad(this);
     }
 
     private void FirstCardSetting()
     {   // 처음 카드 메니저 컬렉션에 카드들을 새로 할당하는 함수
 
         if (cards == null)
-        {       
+        {
             //cards = new Dictionary<CardID, Card> ();
             cards = new Dictionary<CardID, Card>
             {
@@ -195,7 +209,7 @@ public class CardManager : MonoBehaviour
 
     }       // FirstCardSetting()
 
-  
+
 
 
     public void CardSetting(Card card_)

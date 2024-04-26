@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -51,7 +52,6 @@ public class MacthingStartScrollController : MonoBehaviour
     private Quaternion maxDown = default;   // 화살의 최대 아랫쪽 방향
 
 
-
     private void Awake()
     {
         this.scrollObj = this.transform.GetChild(1).GetChild(0).gameObject;
@@ -69,14 +69,14 @@ public class MacthingStartScrollController : MonoBehaviour
         this.minusPos = new Vector3(0f, 2f, 0f);
 
         scrollImage = new MatchingScroll_Image[3];
-        for(int i = 0; i < scrollImage.Length; i++)
+        for (int i = 0; i < scrollImage.Length; i++)
         {
             //1.0.i
             scrollImage[i] = this.transform.GetChild(1).GetChild(0).GetChild(i).GetComponent<MatchingScroll_Image>();
         }
 
     }
-    
+
 
     public void StartMatchingAnimation()
     {
@@ -95,9 +95,9 @@ public class MacthingStartScrollController : MonoBehaviour
     {
 
         while (isScrollring == true)
-        {            
+        {
             if (scrollObj.transform.position.y <= endYPos)
-            {                
+            {
                 scrollObj.transform.position = new Vector3(scrollObj.transform.position.x, startYPos, scrollObj.transform.position.z);
             }
             scrollObj.transform.position -= minusPos * Time.deltaTime * animeSpeed;
@@ -157,7 +157,7 @@ public class MacthingStartScrollController : MonoBehaviour
     private IEnumerator CGameStartAnime()
     {
         // 여기서 이미지 바꾸고 텍스트 켜야함
-        for(int i =0; i < scrollImage.Length; i++)
+        for (int i = 0; i < scrollImage.Length; i++)
         {
             scrollImage[i].EndMatchingSetting();
         }
@@ -176,12 +176,14 @@ public class MacthingStartScrollController : MonoBehaviour
             // Lerp 함수 사용하여 새로운 위치 계산
             goalV3 = Vector3.Lerp(scrollObj.transform.position, gameStartAnimeV3, t);
             // 새로운 위치 적용
-            scrollObj.transform.position = goalV3;            
+            scrollObj.transform.position = goalV3;
             yield return null;
         }
 
         GameManager.Instance.GetTopParent(this.transform).GetComponent<LobbyPhoton>().InGameScene();
-            
+
+
+
     }
 
     #endregion 애니메이션 관련

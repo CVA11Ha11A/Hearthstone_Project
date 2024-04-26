@@ -31,7 +31,7 @@ public class ResourceManager : MonoBehaviour
             if (instance == null)
             {
                 GameObject obj = new GameObject("ResourceManger");
-                obj.AddComponent<ResourceManager>();
+                obj.AddComponent<ResourceManager>(); 
             }
             return instance;
         }
@@ -61,14 +61,25 @@ public class ResourceManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
-        sb = new StringBuilder();
-
-        ClassVerticalSpriteLoad();
-        ClassPullSpriteLoad();
-
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+            ManagerInIt();
+        }
+        else if(instance != null)
+        {
+            Destroy(this.gameObject);
+        }
 
     }       // Awake()
+
+    private void ManagerInIt()
+    {
+        sb = new StringBuilder();
+        ClassVerticalSpriteLoad();
+        ClassPullSpriteLoad();
+    }
 
     private void ClassVerticalSpriteLoad()
     {        

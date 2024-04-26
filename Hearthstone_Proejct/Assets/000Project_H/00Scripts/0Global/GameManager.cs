@@ -8,14 +8,14 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
     public static GameManager Instance
     {
-        get 
-        { 
+        get
+        {
             if (instance == null || instance == default)
             {
                 GameObject manager = new GameObject("GameManager");
                 manager.AddComponent<GameManager>();
             }
-            return instance; 
+            return instance;
         }
     }
 
@@ -24,22 +24,36 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else if(instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        
+        
+
+    }
+
+    private void ManagerInIt()
+    {
         Application.targetFrameRate = 120;
         DontDestroyOnLoad(this);
     }
 
-
     public GameObject GetTopParent(Transform target_)
-    {        
-        while(target_.parent != null)
-        {            
+    {
+        while (target_.parent != null)
+        {
             target_ = target_.parent;
         }
 
         return target_.gameObject;
     }
-    
+
 
 
 }       // GameManager Class

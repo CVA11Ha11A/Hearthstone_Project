@@ -15,5 +15,10 @@ public class LobbyCanvasController : MonoBehaviour
         //this.transform.position = moveV3;
     }
 
+    private void Start()
+    {
+        AudioManager.Instance.SceneMoveBGMPlay();
+    }
+
 
 }       // LobbyCanvasController Class

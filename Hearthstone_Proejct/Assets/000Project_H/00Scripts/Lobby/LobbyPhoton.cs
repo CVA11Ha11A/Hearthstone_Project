@@ -303,11 +303,15 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
     }
 
     public void InGameScene()
-    {
-        AudioManager.Instance.keepingAudioList.Clear();
+    {        
+        AudioManager.Instance.AllStopAudios();
+        AudioManager.Instance.ClearAllAudios();
+        StopAllCoroutines();
         if (PhotonNetwork.IsMasterClient == true)
         {
-            PhotonNetwork.LoadLevel("InGameScene");
+            //GameManager.Instance.inGamePlayersDeck.TOutPutDeck(ETarGet.My);
+            //GameManager.Instance.inGamePlayersDeck.TOutPutDeck(ETarGet.Enemy);                        
+            PhotonNetwork.LoadLevel("InGameScene");            
         }
     }
     #endregion 매칭관련

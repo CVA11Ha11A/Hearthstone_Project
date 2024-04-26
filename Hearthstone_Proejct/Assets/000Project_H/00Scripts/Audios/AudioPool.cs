@@ -22,6 +22,7 @@ public class AudioPool : MonoBehaviour
         this.isKeeping = false;
 
         this.audioSource = this.transform.GetComponent<AudioSource>();
+        this.audioSource.spatialBlend = 0f;
     }
 
     private void OnDisable()

@@ -15,6 +15,7 @@ public class InGameMainCanvas : MonoBehaviour
 
     private void Awake()
     {
+        AudioManager.Instance.SceneMoveBGMPlay();
         GetRoots();
     }
 
