@@ -87,30 +87,31 @@ public class InGameManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        if(instance == null)
+
+        this.sb = new StringBuilder();
+        this.photonView = this.transform.GetComponent<PhotonView>();
+        this.photonView.observableSearch = PhotonView.ObservableSearch.AutoFindAll;
+        this.photonView.ViewID = 700;
+        //PhotonNetwork.AllocateViewID(this.photonView);
+
+        if (instance == null)
         {
-            instance = this;            
-            ManagerInIt();
+            instance = this;
         }
-        else if(instance != null)
+        else if (instance != null)
         {
             Destroy(this.gameObject);
         }
 
     }
     void Start()
-    {        
+    {
         FirstPlayersDeckInit();
     }
 
 
-    private void ManagerInIt()
-    {
-        this.photonView = this.transform.GetComponent<PhotonView>();
-        this.sb = new StringBuilder();
-    }
     #region 플레이어들의 덱 초기화 관련
-    
+
 
     public void FirstPlayersDeckInit()
     {   // 각자 자신의 덱 연산후 상대에게 자신의 덱을 보내주며 초기화시키는 함수
@@ -119,12 +120,14 @@ public class InGameManager : MonoBehaviourPunCallbacks
         // 2. 내덱(MasterClient)을 string으로 붙여서 자신 덱 초기화 하는 함수 실행
         // 3. 상대덱을 string으로 붙여서 상대 덱 초기화 하는 함수 실행
         // ! 상대에게 보낼때는 MasterClient기준으로 내 덱이 상대에겐 상대덱임 !
-        GameManager.Instance.inGamePlayersDeck.TOutPutDeck(ETarGet.My);
-        GameManager.Instance.inGamePlayersDeck.TOutPutDeck(ETarGet.Enemy);
+
+        //GameManager.Instance.inGamePlayersDeck.TOutPutDeck(ETarGet.My);
+        //GameManager.Instance.inGamePlayersDeck.TOutPutDeck(ETarGet.Enemy);
+
         List<CardID> deckList = new List<CardID>(35);   // 최대 30장까지 초기화 할것이기 때문에 여유있게 할당        
         Deck myDeckRoot = GameManager.Instance.inGamePlayersDeck.MyDeck;
         int existenceCardCount = default;
-        DE.Log($"1 : 어느 for문에서 멈출까?");
+        //DE.Log($"1 : 어느 for문에서 멈출까?");
         for (int i = 0; i < myDeckRoot.cardList.Length; i++)
         {
             if (myDeckRoot.cardList[i] == CardID.StartPoint || myDeckRoot.cardList[i] == CardID.EndPoint)
@@ -179,9 +182,10 @@ public class InGameManager : MonoBehaviourPunCallbacks
                 sb.Append(",");
             }
         }   // for : 덱속 카드 sb에 추가하는 for
-        
+
         // 3. 상대에게 덱 초기화 하라고 함수 실행 여기선 StringBuilder는 Id , Id , Id 구조를 가지게됨
         IngameDeckInitalize(sb.ToString(), ETarGet.My);
+        DE.Log($"어떤 것이 NUll이지?\nSb : {sb == null}, PhotonView : {photonView == null}");        
         this.photonView.RPC("IngameDeckInitalize", RpcTarget.Others, sb.ToString(), ETarGet.Enemy);
 
 
@@ -198,12 +202,16 @@ public class InGameManager : MonoBehaviourPunCallbacks
         if (initTarget_ == ETarGet.Enemy)
         {
             this.InGameEnemyDeckRoot.DeckInit(enemyCardIdArr);
-            TestOutPutDeckIDs(initTarget_);
+            //DE.Log($"ETarGet.Enemy 덱 출력");
+            //this.InGameEnemyDeckRoot.TestOutPutDeck();
+            StartCoroutine(Test());
         }
         else if (initTarget_ == ETarGet.My)
         {
             this.InGameMyDeckRoot.DeckInit(enemyCardIdArr);
-            TestOutPutDeckIDs(initTarget_);
+            StartCoroutine(Test());
+            //DE.Log($"ETarGet.My 덱 출력");
+            //this.InGameMyDeckRoot.TestOutPutDeck();
         }
         else
         {
@@ -212,6 +220,17 @@ public class InGameManager : MonoBehaviourPunCallbacks
 
     }   // IngameEnemyDeckInitalize()
 
+    IEnumerator Test()
+    {
+        yield return new WaitForSeconds(10f);
+
+        Debug.Log("적 덱 출력");
+        this.InGameEnemyDeckRoot.TestOutPutDeck();
+        Debug.Log("띄어쓰기");
+        Debug.Log("내 덱 출력");
+        this.InGameMyDeckRoot.TestOutPutDeck();
+
+    }
     private void TestOutPutDeckIDs(ETarGet compleateInItCardTarget_)
     {
 #if DEVELOP_TIME

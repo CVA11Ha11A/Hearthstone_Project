@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon;
+using Photon.Pun;
 
 public enum ERootIndex
 {   // InGame 배열 용
@@ -15,6 +17,7 @@ public class InGameMainCanvas : MonoBehaviour
 
     private void Awake()
     {
+        //PhotonNetwork.Instantiate("InGameManager", Vector3.zero, Quaternion.identity);
         AudioManager.Instance.SceneMoveBGMPlay();
         GetRoots();
     }

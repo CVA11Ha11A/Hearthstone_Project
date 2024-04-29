@@ -48,7 +48,7 @@ public class InGamePlayersDeck : MonoBehaviour
     {
         if (GameManager.Instance.inGamePlayersDeck == null)
         {
-            DE.Log($"static 인스턴스 null이여서 할당했음");
+            //DE.Log($"static 인스턴스 null이여서 할당했음");
             GameManager.Instance.inGamePlayersDeck = this;
             DontDestroyOnLoad(this);
         }
