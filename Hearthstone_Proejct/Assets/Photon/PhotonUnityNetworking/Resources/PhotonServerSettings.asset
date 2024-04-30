@@ -46,6 +46,11 @@ MonoBehaviour:
   - GameStartAnimeStart
   - IngameEnemyDeckInitalize
   - IngameDeckInitalize
+  - ChangedDeckSet
+  - ShuffleCards
+  - GameStart
+  - CallFadeIn
+  - ClientEnemyDeckInItCompleat
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

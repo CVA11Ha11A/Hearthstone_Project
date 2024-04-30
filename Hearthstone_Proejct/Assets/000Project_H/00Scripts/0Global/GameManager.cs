@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
         if(instance == null)
         {
             instance = this;
+            Application.targetFrameRate = 120;
             DontDestroyOnLoad(this.gameObject);
         }
         else if(instance != null)
@@ -36,13 +37,8 @@ public class GameManager : MonoBehaviour
         
         
 
-    }
+    } // Awake
 
-    private void ManagerInIt()
-    {
-        Application.targetFrameRate = 120;
-        DontDestroyOnLoad(this);
-    }
 
     public GameObject GetTopParent(Transform target_)
     {
@@ -54,6 +50,9 @@ public class GameManager : MonoBehaviour
         return target_.gameObject;
     }
 
+    public void InGameStart()
+    {
 
+    }
 
 }       // GameManager Class

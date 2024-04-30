@@ -90,7 +90,7 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
     private IEnumerator MasterClientWait() // 일반 함수로 변경후 해당 코루틴을 따로 만들어야함
     {
 
-        DE.Log($"마스터 클라이언트 대기 함수 진입");
+        //DE.Log($"마스터 클라이언트 대기 함수 진입");
         this.currentTime = 0f;
         while (this.currentTime < this.maxTime + 3f)
         {
@@ -106,8 +106,7 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
             #endregion LEGACY if
             if (PhotonNetwork.CurrentRoom.PlayerCount > 1)
             {   // 현재 다른 플레이어가 방에 들어왔다면                               
-                DE.Log($"마스터 방에 누군가 접속\nPlayerCount : {PhotonNetwork.CurrentRoom.PlayerCount}");
-
+                //DE.Log($"마스터 방에 누군가 접속\nPlayerCount : {PhotonNetwork.CurrentRoom.PlayerCount}");
                 MyRoomClientIn();
                 // TODO : 게임 시작 준비 (덱을 들고 씬을 이동하기)
             }
@@ -149,7 +148,7 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
     private IEnumerator RoomSerchAndJoin()
     {   // 방을 찾으며 접속하는 함수
         this.currentTime = 0;
-        DE.Log($"방찾기 및 접속 함수 진입\n{PhotonNetwork.CurrentRoom}\n NetworkState : {PhotonNetwork.NetworkClientState}");
+        //DE.Log($"방찾기 및 접속 함수 진입\n{PhotonNetwork.CurrentRoom}\n NetworkState : {PhotonNetwork.NetworkClientState}");
         if (PhotonNetwork.NetworkClientState == ClientState.Leaving)
         {
             PhotonNetwork.ConnectUsingSettings();
@@ -165,7 +164,7 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
             // TODO : 생성된 방이 존재한다면 들어가기            
             try
             {
-                DE.Log($"NetworkState : {PhotonNetwork.NetworkClientState}");
+                //DE.Log($"NetworkState : {PhotonNetwork.NetworkClientState}");
                 if (PhotonNetwork.NetworkClientState == ClientState.ConnectedToMasterServer)
                 {   // 마지막으로 변동된 값이 기본값이 아닐 경우 랜덤 접속
                     PhotonNetwork.JoinRandomRoom();
@@ -194,13 +193,13 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
         // 사용 가능한 방 목록이 업데이트될 때 호출됩니다.
         // 이 함수는 클라이언트가 마스터 서버에 연결되어 있고, 방 목록에 변경이 생길 때마다 호출됩니다.
         base.OnRoomListUpdate(roomList);
-        DE.Log($"방갯수 변동 : {roomList.Count}\n 현재 스크립트의 int : {this.lastRoomCount}");
+        //DE.Log($"방갯수 변동 : {roomList.Count}\n 현재 스크립트의 int : {this.lastRoomCount}");
         lastRoomCount = roomList.Count;
     }       // OnRoomListUpdate()
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        DE.Log($"랜덤방 접속 실패 : {message}");
+        //DE.Log($"랜덤방 접속 실패 : {message}");
 
 
     }
@@ -229,7 +228,7 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
 
     private void MyRoomClientIn()
     {   // 마스터 클라이언트 함수
-        DE.Log($"내방에 누군가 들어옴");
+        //DE.Log($"내방에 누군가 들어옴");
         this.transform.GetChild(5).GetComponent<OnMatchingCanvas>().StopMatchingButtonDisable();
         StopAllCoroutines();
         isReadyToStart = true;

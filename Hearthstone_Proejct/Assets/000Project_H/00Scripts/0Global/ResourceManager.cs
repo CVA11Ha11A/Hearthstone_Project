@@ -98,4 +98,31 @@ public class ResourceManager : MonoBehaviour
         classPullSprite[1] = Resources.Load<Sprite>("ClassSprites/Jeina");
     }       // ClassPullSpriteLoad()
 
+    public string GetHeroName(ClassCard heroClass_)
+    {   //  영웅의 이름을 리턴해주는 함수
+        if(heroClass_ == ClassCard.Prist)
+        {
+            return "Anduin";
+        }
+        else
+        {   // 에외적인 상황
+            DE.LogError($"조건에 맞는 것이 없어서 예외적인 상황이 발생\n들어온 인자 : {heroClass_}\n");
+            
+            return String.Empty;
+        }
+    }
+
+    public string GetHeroNum(ClassCard heroClass_)
+    {   // 영웅의 고유 번호를 리턴해주는 함수 (AudioClip에필요함)
+        if(heroClass_ == ClassCard.Prist)
+        {
+            return "09";
+        }
+        else
+        {   // 에외적인 상황
+            DE.LogError($"조건에 맞는 것이 없어서 예외적인 상황이 발생\n들어온 인자 : {heroClass_}\n");
+            return String.Empty;
+        }
+    }       // GetHeroNum()
+
 }       // ClassEnd

@@ -105,6 +105,27 @@ public class Deck : IDeckFunction
     {
         this.deckClass = heroClass_;
     }       // SetDeckClass()
+
+    public void ClearDeck()
+    {
+        for(int i =0; i < this.cardList.Length; i++)
+        {
+            this.cardList[i] = CardID.StartPoint;
+        }
+        this.count = default;
+        this.currentIndex = default;
+        this.deckClass = ClassCard.None;
+    }       // ClearDeck()
+
+    public void ClearCardList()
+    {
+        for (int i = 0; i < this.cardList.Length; i++)
+        {
+            this.cardList[i] = CardID.StartPoint;
+        }
+        this.count = default;
+        this.currentIndex = default;
+    }
     #endregion InterfaceMethod
 
 

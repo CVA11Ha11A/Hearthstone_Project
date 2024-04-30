@@ -6,11 +6,19 @@ using Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Text;
+using UnityEngine.AI;
 
 public enum ETarGet
 {
     My = 100,
     Enemy = 200
+}
+public enum ETurn
+{
+    StartPoint = 0,
+    GoFirst = 1,
+    GoSecond = 2,
+    EndPoint = 3
 }
 public class InGameManager : MonoBehaviourPunCallbacks
 {   // 인게임에서 필요한 사이클 , 덱 초기화 , 랜덤 등 동기화되어야하는 기능들을 담을 것
@@ -82,17 +90,35 @@ public class InGameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    public FrontGroundCanvas frontCanvas = null;
+    private PhotonView PV = null;
 
-    private PhotonView photonView = null;
+    public bool isCompleatMyDeckInit = false;
+    public bool isCompleatEnemyDeckInit = false;
+
+    private ETurn turnSystem = default;
+    public ETurn TurnSystem
+    {
+        get
+        {
+            return this.turnSystem;
+        }
+        set
+        {
+            if (this.turnSystem != value)
+            {
+                this.turnSystem = value;
+                TurnStart();
+            }
+        }
+    }
+
 
     private void Awake()
     {
 
-        this.sb = new StringBuilder();
-        this.photonView = this.transform.GetComponent<PhotonView>();
-        this.photonView.observableSearch = PhotonView.ObservableSearch.AutoFindAll;
-        this.photonView.ViewID = 700;
-        //PhotonNetwork.AllocateViewID(this.photonView);
+
+        //PhotonNetwork.AllocateViewID(this.PV);
 
         if (instance == null)
         {
@@ -106,8 +132,14 @@ public class InGameManager : MonoBehaviourPunCallbacks
     }
     void Start()
     {
+        this.sb = new StringBuilder();
+        this.PV = this.transform.GetComponent<PhotonView>();
+        this.PV.observableSearch = PhotonView.ObservableSearch.AutoFindAll;
+        this.PV.ViewID = 700;
         FirstPlayersDeckInit();
     }
+
+    
 
 
     #region 플레이어들의 덱 초기화 관련
@@ -185,77 +217,189 @@ public class InGameManager : MonoBehaviourPunCallbacks
 
         // 3. 상대에게 덱 초기화 하라고 함수 실행 여기선 StringBuilder는 Id , Id , Id 구조를 가지게됨
         IngameDeckInitalize(sb.ToString(), ETarGet.My);
-        DE.Log($"어떤 것이 NUll이지?\nSb : {sb == null}, PhotonView : {photonView == null}");        
-        this.photonView.RPC("IngameDeckInitalize", RpcTarget.Others, sb.ToString(), ETarGet.Enemy);
+        this.isCompleatMyDeckInit = true;
+        //DE.Log($"어떤 것이 NUll이지?\nSb : {sb == null}, PhotonView : {PV == null}");
+        this.PV.RPC("IngameDeckInitalize", RpcTarget.Others, sb.ToString(), ETarGet.Enemy);
 
+        // 여기서 이제 게임을 시작
 
+        //StartCoroutine(Tess());
 
 
     }       // FirstPlayersDeckInit()
-    #endregion 플레이어들의 덱 초기화 관련
+
 
     [PunRPC]
-    public void IngameDeckInitalize(string enemyDeckStr_, ETarGet initTarget_)
+    public void IngameDeckInitalize(string deckIdsStr_, ETarGet initTarget_)
     {   // 인게임에서 상대덱을 초기화 하는 함수
-        string[] enemyCardIdArr = enemyDeckStr_.Split(',');
+        string[] deckCardIdArr = deckIdsStr_.Split(',');
 
         if (initTarget_ == ETarGet.Enemy)
         {
-            this.InGameEnemyDeckRoot.DeckInit(enemyCardIdArr);
-            //DE.Log($"ETarGet.Enemy 덱 출력");
-            //this.InGameEnemyDeckRoot.TestOutPutDeck();
-            StartCoroutine(Test());
+            this.InGameEnemyDeckRoot.DeckInit(deckCardIdArr, initTarget_);
         }
         else if (initTarget_ == ETarGet.My)
         {
-            this.InGameMyDeckRoot.DeckInit(enemyCardIdArr);
-            StartCoroutine(Test());
-            //DE.Log($"ETarGet.My 덱 출력");
-            //this.InGameMyDeckRoot.TestOutPutDeck();
+            this.InGameMyDeckRoot.DeckInit(deckCardIdArr, initTarget_);
         }
         else
         {
             DE.LogError($"잘못된 Target : {initTarget_}");
         }
-
     }   // IngameEnemyDeckInitalize()
 
-    IEnumerator Test()
-    {
-        yield return new WaitForSeconds(10f);
 
-        Debug.Log("적 덱 출력");
-        this.InGameEnemyDeckRoot.TestOutPutDeck();
-        Debug.Log("띄어쓰기");
-        Debug.Log("내 덱 출력");
-        this.InGameMyDeckRoot.TestOutPutDeck();
+    /// <summary>
+    /// 덱을 현재 덱의 CurrentIndex만큼 순회하며 섞는 함수
+    /// </summary>
+    /// <param name="targetDeck_">카드가 섞일 덱의 Root</param>
+    /// <param name="shuffleTarget">섞는 타겟을 보내야함</param>
+    [PunRPC]
+    public void ShuffleCards(InGameDeck targetDeck_, ETarGet shuffleTarget)
+    {       // 카드를 섞는 함수 ! 덱이 초기화 되어있다는 가정하에 제작된 함수임
+
+        int shuffleCount = 5;   // 카드를 몇변 for문 돌리면서 랜덤하게 섞을지
+        int nowShuffleCount = default;  // 0  아래 for문에서 현재 몇번 셔플 했는지 
+        int shuffleIndex = default;     // 섞일 시작할 카드 아래 For문에서 Random으로 결정될 변수
+        int shuffleGoalIndex = default; // 위에서 지정된 idnex가 들어갈 index
+        CardID tempCardId = default;
+
+        for (int i = 0; i < targetDeck_.InGamePlayerDeck.currentIndex; i++)
+        {
+            shuffleIndex = Random.Range(0, targetDeck_.InGamePlayerDeck.currentIndex);
+            tempCardId = targetDeck_.InGamePlayerDeck.cardList[shuffleIndex];
+
+            shuffleGoalIndex = Random.Range(0, targetDeck_.InGamePlayerDeck.currentIndex);
+            targetDeck_.InGamePlayerDeck.cardList[shuffleIndex] = targetDeck_.InGamePlayerDeck.cardList[shuffleGoalIndex];
+
+            targetDeck_.InGamePlayerDeck.cardList[shuffleGoalIndex] = tempCardId;
+            nowShuffleCount++;
+            // 위에 sb가 이 아래로 존재 해야 할 거갗다고도 생각이 듦
+            // 왜냐하면 섞고 결과물을 Client에게 보내야하는데 위에 섞지 않은 결과를 보내면
+            // 고정된 순서에 카드가 나올것임
+            if (i + 1 == targetDeck_.InGamePlayerDeck.currentIndex && nowShuffleCount < shuffleCount)
+            {
+                i = 0;
+            }
+        }   // For : 카드 셔플 
+
+        // 이제 새로운 덱을 string화 시켜서 다른사람에게 넘겨주고 새롭게 초기화된 덱으로 변경 시켜야함
+        sb.Clear();
+        for (int i = 0; i < targetDeck_.InGamePlayerDeck.currentIndex; i++)
+        {
+            if (i + 1 == targetDeck_.InGamePlayerDeck.currentIndex)
+            {   // 마지막 순회라면
+                sb.Append((int)targetDeck_.InGamePlayerDeck.cardList[i]);
+            }
+            else
+            {
+                sb.Append((int)targetDeck_.InGamePlayerDeck.cardList[i]);
+                sb.Append(',');
+            }
+        }   // for : 새로 섞인 덱을 string으로 합쳐주는 순회
+
+        if (shuffleTarget == ETarGet.My)
+        {
+            PV.RPC("ChangedDeckSet", RpcTarget.Others, sb.ToString(), ETarGet.My);
+        }
+        else
+        { // (shuffleTarget == ETarGet.Enemy)
+            PV.RPC("ChangedDeckSet", RpcTarget.Others, sb.ToString(), ETarGet.Enemy);
+        }
+
+    }       // ShuffleCards()
+
+
+    [PunRPC]
+    public void ChangedDeckSet(string changedCardIdsStr_, ETarGet changedTarget)
+    {       // ShuppleCards() 가 RPC로 호출해줄 함수
+
+        string[] splitCardIds = changedCardIdsStr_.Split(',');
+
+        if (changedTarget == ETarGet.My)
+        { // 호출자 기준으로 자신이기에 적의 Root를 접근해야함
+            this.InGameEnemyDeckRoot.ChangeDeckInIt(splitCardIds);
+        }
+        else
+        { // 호출자 기준으로 적이기에 자신의 Root를 접근해야함
+            this.InGameMyDeckRoot.ChangeDeckInIt(splitCardIds);
+        }
+    }       // ChangedDeckSet()
+
+    #endregion 플레이어들의 덱 초기화 관련
+
+    [PunRPC]
+    public void GameStart()
+    {   // 여기서 선공, 후공이 정해질 것임
 
     }
-    private void TestOutPutDeckIDs(ETarGet compleateInItCardTarget_)
-    {
-#if DEVELOP_TIME
-        StringBuilder sb2 = new StringBuilder();
-        if (compleateInItCardTarget_ == ETarGet.My)
-        {
-            DE.Log("자신의 덱");
-            for (int i = 0; i < InGameMyDeckRoot.InGamePlayerDeck.cardList.Length; i++)
-            {
-                sb2.Append((int)InGameMyDeckRoot.InGamePlayerDeck.cardList[i]);
-                sb2.Append(" ");
-            }
-            DE.Log($"{sb2}");
-        }
-        else if (compleateInItCardTarget_ == ETarGet.Enemy)
-        {
-            DE.Log("상대의 덱");
-            for (int i = 0; i < InGameEnemyDeckRoot.InGamePlayerDeck.cardList.Length; i++)
-            {
-                sb2.Append((int)InGameEnemyDeckRoot.InGamePlayerDeck.cardList[i]);
-                sb2.Append(" ");
-            }
-            DE.Log($"{sb2}");
-        }
-#endif
+
+    public void TurnStart()
+    {       // 이건 InGameSycle로 옮길수도 있음
+
     }
+
+
+
+    public void IsCompleateDeckInItCheck()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            StartCoroutine(CWaitForDeckInIt());
+        }
+        else
+        {
+            ClientEnemyDeckInItCompleat();
+        }
+    }
+
+    IEnumerator CWaitForDeckInIt()
+    {
+        //DE.Log($"마스터 클라이언트가 여기는 잘 들어오나?");
+        while (isCompleatEnemyDeckInit == false || isCompleatMyDeckInit == false)
+        {
+            yield return null;
+        }
+        PV.RPC("CallFadeIn", RpcTarget.All);
+        GameStart();
+    }
+    [PunRPC]
+    public void ClientEnemyDeckInItCompleat()
+    {
+        if (PhotonNetwork.IsMasterClient != true)
+        {
+            PV.RPC("ClientEnemyDeckInItCompleat", RpcTarget.MasterClient);
+        }
+        else if(PhotonNetwork.IsMasterClient == true)
+        {
+            this.isCompleatEnemyDeckInit = true;
+        }
+    }
+
+    [PunRPC]
+    public void CallFadeIn()
+    {
+        this.frontCanvas.FadeIn();
+    }
+    #region 테스트 함수
+
+    private IEnumerator Tess()
+    {
+        yield return new WaitForSeconds(5f);
+        Debug.Log("적의 덱을 출력");
+        this.InGameEnemyDeckRoot.TestOutPut();
+        Debug.Log("나의 덱을 출력");
+        this.InGameMyDeckRoot.TestOutPut();
+        ShuffleCards(this.InGameMyDeckRoot, ETarGet.My);
+        yield return new WaitForSeconds(5f);
+        Debug.Log($"새로 덱을 섞은후");
+        Debug.Log("적의 덱을 출력");
+        this.InGameEnemyDeckRoot.TestOutPut();
+        Debug.Log("나의 덱을 출력");
+        this.InGameMyDeckRoot.TestOutPut();
+
+    }
+
+    #endregion  테스트 함수
 
 }       // ClassEnd

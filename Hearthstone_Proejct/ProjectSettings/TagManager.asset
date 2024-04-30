@@ -54,3 +54,6 @@ TagManager:
   - name: NewDeckSelcetClassCanvas
     uniqueID: 1685646667
     locked: 0
+  - name: Front
+    uniqueID: 3714888267
+    locked: 0
