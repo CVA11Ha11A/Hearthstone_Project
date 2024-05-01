@@ -152,6 +152,10 @@ public class Card : MonoBehaviour
         cardTexts[(int)C_Text.Cost].text = cost.ToString();
 
     }       // UpdateUI()
+    public virtual void NameTextFix()
+    {
+        
+    }
 
     #region AudioTestMethod
     public void TestAudioPlay()

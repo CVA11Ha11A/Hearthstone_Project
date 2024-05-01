@@ -14,10 +14,11 @@ public class Deck : IDeckFunction
 
     public int currentIndex = default;
     public int count = default;
-
     public CardID[] cardList = default;
 
     public ClassCard deckClass = default; // 직업 
+    
+
 
     public Deck()
     {

@@ -270,9 +270,30 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlaySFM()
+    public void PlaySFM(bool isLoop_, AudioClip clip_)
     {
+       
+        int playObjIndex = -1;
 
+        for (int i = 0; i < this.audioObjList.Count; i++)
+        {
+            if (audioObjList[i].gameObject.activeSelf == false)
+            {
+                playObjIndex = i;
+                break;
+            }
+        }
+
+        if (playObjIndex == -1)
+        {
+            CreatePullObj();
+            playObjIndex = audioObjList.Count - 1;
+        }
+
+        // 여기서 들어온 셋팅설정
+        audioObjList[playObjIndex].gameObject.SetActive(true);
+        AudioPool audioRoot = audioObjList[playObjIndex].GetComponent<AudioPool>();
+        audioRoot.PlayAudio(isLoop_, clip_, mixerGroup[(int)EAudioMixerGroup.SFM]);
     }
 
     public void KeepSoundPlay()

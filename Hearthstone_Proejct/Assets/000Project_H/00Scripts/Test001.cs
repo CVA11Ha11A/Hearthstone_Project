@@ -9,42 +9,56 @@ using UnityEngine.SceneManagement;
 using Photon;
 using Photon.Pun;
 using Photon.Realtime;
+using System.Text;
+using TMPro;
+using UnityEngine.UI;
 
 
 
 [System.Serializable]
 public class Test001 : MonoBehaviour
 {
-    
+        
+    public AudioClip[] emoteClip = null;
+    public AudioClip[] EmoteClip
+    {
+        get
+        {
+            return this.emoteClip;
+        }
+    }
+    private StringBuilder sb = null;
+
     private void Awake()
     {
+       
+        sb = new StringBuilder();
+        emoteClip = new AudioClip[7];
+        HeroSetting();
 
-        PhotonNetwork.ConnectUsingSettings();
-    }
-    private void Update()
-    {
-        if(UnityEngine.Input.GetKeyDown(KeyCode.B))
-        {
-            Test();
-        }
-        if (UnityEngine.Input.GetKeyDown(KeyCode.V))
-        {
-            Test1();
-        }
-        if (UnityEngine.Input.GetKeyDown(KeyCode.K))
-        {
-            PhotonNetwork.CreateRoom("TestRoom", new RoomOptions());
-        }
-    }
 
-    public void Test()
-    {
-        SceneManager.LoadScene("InGameScene");
+
     }
-    public void Test1()
+    
+    public void HeroSetting()
     {
-        PhotonNetwork.LoadLevel("InGameScene");
-    }
+
+        string defaultPath = "ClassEmoteClips/VO_HERO_";
+        string heroNum = "09";
+
+        int conversIndex = 0;
+
+        for (int i = 0; i < emoteClip.Length; i++)
+        {
+            sb.Clear();
+            sb.Append(defaultPath).Append(heroNum).Append("_").Append((EEmoteClip)conversIndex);
+            DE.Log(sb.ToString());
+            emoteClip[i] = Resources.Load<AudioClip>(sb.ToString());
+            conversIndex++;
+        }
+        
+    }       // HeroSetting()
+
 
 
 }

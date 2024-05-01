@@ -11,33 +11,24 @@ public enum ERootIndex
 }
 public class InGameMainCanvas : MonoBehaviour
 {
-    private HeroImage[] heroImageRoots = null;      // ChildNum 0.6
-    private InGameHand[] ingameHandRoots = null;    // ChildNum 0.5
-    private InGamePlayersCost[] ingameCostRoots = null; // 0.2.0.0
+    public HeroImages heroImagesRoot = null;      // ChildNum 0.6
+    public InGameDecks decksRoot = null;    
+    public InGameHands handRoot = null;
+    public InGamePlayersCost[] ingameCostRoots = null; // 0.2.0.0
 
     private void Awake()
     {
         //PhotonNetwork.Instantiate("InGameManager", Vector3.zero, Quaternion.identity);
+        InGameManager.Instance.mainCanvsRoot = this;
         AudioManager.Instance.SceneMoveBGMPlay();
         GetRoots();
     }
 
     private void GetRoots()
     {
-        // 영웅 이미지
-        int heroImageChildCount = this.transform.GetChild(0).GetChild(6).childCount;
-        heroImageRoots = new HeroImage[heroImageChildCount];
-        for (int i = 0; i < heroImageChildCount; i++)
-        {
-            heroImageRoots[i] = this.transform.GetChild(0).GetChild(6).GetChild(i).GetComponent<HeroImage>();
-        }
-        // 핸드
-        int handChildCount = this.transform.GetChild(0).GetChild(5).childCount;
-        ingameHandRoots = new InGameHand[handChildCount];
-        for(int i = 0; i < handChildCount; i++)
-        {
-            ingameHandRoots[i] = this.transform.GetChild(0).GetChild(5).GetChild(i).GetComponent<InGameHand>();
-        }
+        // 영웅 이미지        
+        heroImagesRoot = this.transform.GetChild(0).GetChild(6).GetComponent<HeroImages>();             
+      
         // 코스트
         int costChildCount = this.transform.GetChild(0).GetChild(2).GetChild(0).GetChild(0).childCount;
         ingameCostRoots = new InGamePlayersCost[costChildCount];

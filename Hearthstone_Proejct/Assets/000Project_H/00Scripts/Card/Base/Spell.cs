@@ -22,7 +22,7 @@ public class Spell : Card
     {
         base.Start();
         GetAudioClip();
-        UpdateUI();
+        UpdateUI();        
 
     }       // Start()
 

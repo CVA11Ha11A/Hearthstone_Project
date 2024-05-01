@@ -33,11 +33,14 @@ public class InGameManager : MonoBehaviourPunCallbacks
             {
                 GameObject obj = new GameObject("InGameManager");
                 obj.AddComponent<InGameManager>();
+                obj.AddComponent<InGameSycle>();
                 obj.AddComponent<PhotonView>();
             }
             return instance;
         }
     }
+
+    public InGameMainCanvas mainCanvsRoot = null;
 
     private StringBuilder sb = null;
 
@@ -108,7 +111,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
             if (this.turnSystem != value)
             {
                 this.turnSystem = value;
-                TurnStart();
+                
             }
         }
     }
@@ -139,7 +142,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
         FirstPlayersDeckInit();
     }
 
-    
+
 
 
     #region 플레이어들의 덱 초기화 관련
@@ -237,10 +240,12 @@ public class InGameManager : MonoBehaviourPunCallbacks
         if (initTarget_ == ETarGet.Enemy)
         {
             this.InGameEnemyDeckRoot.DeckInit(deckCardIdArr, initTarget_);
+            mainCanvsRoot.heroImagesRoot.EnemyHeroImage.HeroSetting();
         }
         else if (initTarget_ == ETarGet.My)
         {
             this.InGameMyDeckRoot.DeckInit(deckCardIdArr, initTarget_);
+            mainCanvsRoot.heroImagesRoot.MyHeroImage.HeroSetting();
         }
         else
         {
@@ -328,15 +333,23 @@ public class InGameManager : MonoBehaviourPunCallbacks
 
     #endregion 플레이어들의 덱 초기화 관련
 
+    #region 덱 초기화이후 첫 인사 까지
     [PunRPC]
     public void GameStart()
     {   // 여기서 선공, 후공이 정해질 것임
-
-    }
-
-    public void TurnStart()
-    {       // 이건 InGameSycle로 옮길수도 있음
-
+        this.turnSystem = (ETurn)Random.Range((int)ETurn.GoFirst, (int)ETurn.EndPoint);     // 턴 설정
+        ETurn enemyTurn = default;
+        if(this.turnSystem == ETurn.GoFirst)
+        {
+            enemyTurn = ETurn.GoSecond;
+        }
+        else
+        {
+            enemyTurn = ETurn.GoFirst;
+        }
+        PV.RPC("TurnSet", RpcTarget.Others, (int)enemyTurn);  // 상대방의 턴 설정
+        PV.RPC("FristGreeting", RpcTarget.All);
+        
     }
 
 
@@ -361,7 +374,11 @@ public class InGameManager : MonoBehaviourPunCallbacks
             yield return null;
         }
         PV.RPC("CallFadeIn", RpcTarget.All);
-        GameStart();
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GameStart();
+        }
     }
     [PunRPC]
     public void ClientEnemyDeckInItCompleat()
@@ -370,7 +387,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
         {
             PV.RPC("ClientEnemyDeckInItCompleat", RpcTarget.MasterClient);
         }
-        else if(PhotonNetwork.IsMasterClient == true)
+        else if (PhotonNetwork.IsMasterClient == true)
         {
             this.isCompleatEnemyDeckInit = true;
         }
@@ -402,4 +419,45 @@ public class InGameManager : MonoBehaviourPunCallbacks
 
     #endregion  테스트 함수
 
+    [PunRPC]
+    public void FristGreeting()
+    {
+        StartCoroutine(CFIrstGreeting());
+    }
+
+    IEnumerator CFIrstGreeting()
+    {        
+        // 내 직업에 접근해서 인사 음성 출력시켜야함
+        AudioManager.Instance.PlaySFM(false, mainCanvsRoot.heroImagesRoot.MyHeroImage.EmoteClip[(int)EEmoteClip.Start]);        
+        yield return new WaitForSeconds(2f);
+        AudioManager.Instance.PlaySFM(false, mainCanvsRoot.heroImagesRoot.EnemyHeroImage.EmoteClip[(int)EEmoteClip.Start]);
+        yield return new WaitForSeconds(2f);
+        // 인사끝 선공 후공에 따라 카드 뽑고 멀리건 교체할지 선택하는 기능 실행되어야함
+        // 여기부터 InGameSycle Class에서 관리하며 기능 실행할거임
+        this.transform.GetComponent<InGameSycle>().StartMulligan();
+    }
+    #endregion 덱 초기화이후 첫 인사 까지
+
+
+
+    #region 자주 사용할거같은 함수
+
+    #region 인게임 기능 함수들
+    [PunRPC]
+    public void TurnSet(int turn_)
+    {
+        this.turnSystem = (ETurn)turn_;
+    }
+
+    [PunRPC]
+    public void DrawCard(ETarGet target_)
+    {   // 상대 기준으로 드로우 시키는 함수
+        // 드로우 시키는 함수를 만들어서 여기서 Call해야할거같음
+        // 누가 함수를 가져야하지? 덱? 카드? 메니저? 핸드? 
+    }
+
+
+    #endregion 인게임 기능 함수들
+
+    #endregion 자주 사용할거같은 함수
 }       // ClassEnd

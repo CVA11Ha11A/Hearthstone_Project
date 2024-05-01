@@ -48,6 +48,16 @@ public class InGameHand : MonoBehaviour
         this.senterX = 0f;
         this.senterY = 0f;
         this.cardOneSizeXPos = 100f;
+
+        if(this.gameObject.name == "MyHand")
+        {
+            this.transform.parent.GetComponent<InGameHands>().SetterMyHand(this);
+        }
+        else if(this.gameObject.name == "EnemyHand")
+        {
+            this.transform.parent.GetComponent<InGameHands>().SetterEnemyHand(this);
+        }
+
     }
 
 
@@ -59,7 +69,7 @@ public class InGameHand : MonoBehaviour
 
     public void DisplayHandCards()
     {   // 핸드의 X Y 축을 조정 하는 기능
-        DE.Log($"핸드 카드 포지션 조정 함수 진입");
+        //DE.Log($"핸드 카드 포지션 조정 함수 진입");
         int nowHandCount = handCard.Count;
         int senterIndex = nowHandCount / 2;
 
@@ -123,7 +133,7 @@ public class InGameHand : MonoBehaviour
     }       // DisplayHandCards()
     public void CardHandSorting()
     {
-        DE.Log($"핸드 부채모양 함수 진입");
+        //DE.Log($"핸드 부채모양 함수 진입");
         // 나눌떄 홀수는 -1 / .5는 버림
         // 홀수일때는 /2 -> +1 이 senter가 되면됨
         // 짝수는 그냥 /2 한 값이 center
@@ -184,6 +194,13 @@ public class InGameHand : MonoBehaviour
         handCard.Add(testObj);
         NowHandCount++;
 
+    }
+
+    public void AddCardInHand(GameObject targetObj_)
+    {
+        targetObj_.transform.SetParent(this.transform.GetChild(0).transform);
+        handCard.Add(targetObj_);
+        NowHandCount++;
     }
 
 

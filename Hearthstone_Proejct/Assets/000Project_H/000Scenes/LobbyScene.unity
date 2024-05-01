@@ -5811,6 +5811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67265d96f1778664ba06055030b062cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emoteClip: []
 --- !u!4 &476857364
 Transform:
   m_ObjectHideFlags: 0

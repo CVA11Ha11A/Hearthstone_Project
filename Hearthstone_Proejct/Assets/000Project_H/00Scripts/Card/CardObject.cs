@@ -5,6 +5,7 @@ using UnityEngine;
 public class CardObject : MonoBehaviour
 {       // 인게임에서 오브젝트가 이상하게 보이는 이슈로 만들어진 컴포넌트임
 
+
     private void Awake()
     {
         this.transform.GetComponent<Canvas>().sortingLayerName = "Card";

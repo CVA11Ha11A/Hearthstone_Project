@@ -81,7 +81,7 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
     #region 방 생성 관련 (마스터 클라이언트)
     private void RoomCreate()
     {   // 방을 생성하는 함수
-        DE.Log($"방 생성 함수 진입");
+        //DE.Log($"방 생성 함수 진입");
         this.isMasterClient = true;
         StopAllCoroutines();
         PhotonNetwork.CreateRoom(null, this.roomOptions);
@@ -210,7 +210,7 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
     {   // 방에 접속 성공 했을경우
         // this.isReadyToStart = true; // 여기에 존재하면 안됨
         StopAllCoroutines();
-        DE.Log($"방접속 함수 진입");
+        //DE.Log($"방접속 함수 진입");
         if (this.isMasterClient == true)
         {       // 자신이 방을 만들어서 들어온 경우 (마스터 클라이언트)
             //DE.Log($"방접속 함수속 마스터클라이언트 if 진입");

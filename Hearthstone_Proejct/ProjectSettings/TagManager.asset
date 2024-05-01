@@ -48,8 +48,17 @@ TagManager:
   - name: CollectionCanvas
     uniqueID: 2007506245
     locked: 0
+  - name: InGameTable
+    uniqueID: 2946599741
+    locked: 0
   - name: Card
     uniqueID: 3088964997
+    locked: 0
+  - name: DeckImage
+    uniqueID: 4114403873
+    locked: 0
+  - name: HeroImage
+    uniqueID: 3876559603
     locked: 0
   - name: NewDeckSelcetClassCanvas
     uniqueID: 1685646667

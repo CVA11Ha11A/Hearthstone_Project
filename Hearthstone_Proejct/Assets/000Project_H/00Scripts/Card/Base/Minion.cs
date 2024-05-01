@@ -34,7 +34,7 @@ public class Minion : Card
         base.Start();        
         GetAudioClip();
         UpdateUI();
-
+        NameTextFix();
     }       // Start()
 
 
@@ -119,4 +119,11 @@ public class Minion : Card
         cardTexts[(int)C_Text.Damage].gameObject.SetActive(true);
     }       // GetCardComponents()
 
+    public override void NameTextFix()
+    {
+        Vector3 v3 = this.cardTexts[(int)C_Text.Name].transform.localPosition;
+        v3.z = -0.1f;
+        this.cardTexts[(int)C_Text.Name].transform.localPosition = v3;
+        this.cardTexts[(int)C_Text.Name].transform.localRotation = Quaternion.Euler(0f, 0f, 6f);
+    }
 }       // Minion ClassEnd

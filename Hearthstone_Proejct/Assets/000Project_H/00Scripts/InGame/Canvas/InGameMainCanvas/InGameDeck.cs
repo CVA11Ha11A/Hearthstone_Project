@@ -19,6 +19,26 @@ public class InGameDeck : MonoBehaviour
     private GameObject[] cardObjs = null;
     private ClassCard deckClass = default;
 
+    private InGameHand targetHand = null;
+    public InGameHand TargetHand
+    {
+        get
+        {
+            if (this.targetHand == null)
+            {
+                if (this.transform.name == "MyDeck")
+                {
+                    this.targetHand = InGameManager.Instance.mainCanvsRoot.handRoot.MyHand;
+                }
+                else if (this.transform.name == "EnemyDeck")
+                {
+                    this.targetHand = InGameManager.Instance.mainCanvsRoot.handRoot.EnemyHand;
+                }
+            }
+            return this.targetHand;
+        }
+    }
+    // ------------------------------------------------------- 유니티 사이클 -------------------------------------------------------------------------
     private void Awake()
     {
         int cardsChildCount = this.transform.GetChild(0).childCount;
@@ -29,7 +49,7 @@ public class InGameDeck : MonoBehaviour
             cardObjs[i] = this.transform.GetChild(0).GetChild(i).gameObject;
         }
 
-      
+
 
     }
     void Start()
@@ -38,15 +58,16 @@ public class InGameDeck : MonoBehaviour
         {
             InGameManager.Instance.InGameMyDeckRoot = this;
             this.deckClass = GameManager.Instance.inGamePlayersDeck.MyDeck.deckClass;
+            this.transform.parent.GetComponent<InGameDecks>().MyDeckSetter(this);
         }
         else if (this.transform.name == "EnemyDeck")
         {
-            //DE.Log($"뭐가 Null이지 ? InGameManager.Instance :  {InGameManager.Instance == null}\nGameManager.Instance.inGamePlayerDeck null? : {GameManager.Instance.inGamePlayersDeck.EnemyDeck == null}");
             InGameManager.Instance.InGameEnemyDeckRoot = this;
             this.deckClass = GameManager.Instance.inGamePlayersDeck.EnemyDeck.deckClass;
+            this.transform.parent.GetComponent<InGameDecks>().EnemyDeckSetter(this);
         }
     }
-
+    // ------------------------------------------------------- 덱초기화 관련 함수들 -------------------------------------------------------------------------
     public void DeckInit(string[] cardIds_, ETarGet initTarget_)
     {       // split된 인자가 들어옴
         inGameDeck = new Deck();
@@ -82,7 +103,7 @@ public class InGameDeck : MonoBehaviour
                 InGameManager.Instance.IsCompleateDeckInItCheck();
             }
         }
-        else if(PhotonNetwork.IsMasterClient == true)
+        else if (PhotonNetwork.IsMasterClient == true)
         {
             if (initTarget_ == ETarGet.Enemy)
             {
@@ -90,6 +111,18 @@ public class InGameDeck : MonoBehaviour
                 InGameManager.Instance.IsCompleateDeckInItCheck();
             }
         }
+
+        // 카드 오브젝트 초기화
+        for (int i = 0; i < InGamePlayerDeck.cardList.Length; i++)
+        {
+            if (InGamePlayerDeck.cardList[i] == CardID.StartPoint || InGamePlayerDeck.cardList[i] == CardID.EndPoint)
+            {
+                continue;
+            }
+            cardObjs[i].gameObject.SetActive(true);
+            CardManager.Instance.InItCardComponent(cardObjs[i], InGamePlayerDeck.cardList[i]);
+        }
+
         // DE.Log($"ingameDeck New 할당 완료 : IsNull? : {this.InGamePlayerDeck == null}");
     }       // DeckInit()
 
@@ -102,8 +135,54 @@ public class InGameDeck : MonoBehaviour
             this.InGamePlayerDeck.AddCardInDeck((CardID)int.Parse(changedCardIds_[i]));
         }
 
+
     }       // ChangeDeckInIt()
 
+    // 드로우
+    public void DrawCard()
+    {
+        // 드로우 할떄마다 Deck의 PullDeck을 호출하면 땡겨짐 중간에 카드 드로우라면 인자를 넣어주면됨
+        // 카드를 뽑을경우 
+        int objIndex = -1;
+        CardID targetCard = InGamePlayerDeck.cardList[0];
+
+        // 타겟의 인덱스를 찾는 for
+        for (int i = 0; i < cardObjs.Length; i++)
+        {
+            if (cardObjs[i] == null)
+            {
+                continue;
+            }
+            else if (cardObjs[i].activeSelf == false)
+            {
+                continue;
+            }
+            else if (cardObjs[i].GetComponent<Card>() == true)
+            {
+                if(cardObjs[i].GetComponent<Card>().cardId == targetCard)
+                {
+                    objIndex = i;
+                }
+            }            
+        }
+
+        // 디버깅용
+        if(objIndex == -1)
+        {
+            DE.Log($"TargetCard를 찾지 못했음");
+        }
+
+        // 해당 게임 오브젝트가 핸드로 가면됨
+        InGamePlayerDeck.cardList[0] = CardID.StartPoint;   // 뽑은카드는 덱의 데이터에서 제외        // 상대에게도 해줘야함
+        InGamePlayerDeck.PullCardList();
+        cardObjs[objIndex].transform.rotation = Quaternion.Euler(0,0,0);
+        TargetHand.AddCardInHand(cardObjs[objIndex]);
+        cardObjs[objIndex] = null;
+
+    }       // DrawCard
+
+
+    // -------------------------------------------------------- 테스트 ------------------------------------------------------------------
     public void TestOutPut()
     {
         StringBuilder sb1 = new StringBuilder();

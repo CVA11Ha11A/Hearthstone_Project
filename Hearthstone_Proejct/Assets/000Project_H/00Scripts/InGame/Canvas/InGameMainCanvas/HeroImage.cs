@@ -25,6 +25,13 @@ public class HeroImage : MonoBehaviour
     private bool isEnemy = false;
     private GameObject hpImageObject = null;
     private AudioClip[] emoteClip = null;
+    public AudioClip[] EmoteClip
+    {
+        get
+        {
+            return this.emoteClip;
+        }
+    }
     private StringBuilder sb = null;
 
     private void Awake()
@@ -40,11 +47,13 @@ public class HeroImage : MonoBehaviour
         {
             isMine = true;
             isEnemy = false;
+            this.transform.parent.GetComponent<HeroImages>().MyHeroImageRootSetter(this);
         }
         else if(this.transform.name == "EnemyImage(Frame)")
         {
             isMine = false;
             isEnemy = true;
+            this.transform.parent.GetComponent<HeroImages>().EnemyHeroImageRootSetter(this);
         }
 
         hpImageObject.SetActive(false);
