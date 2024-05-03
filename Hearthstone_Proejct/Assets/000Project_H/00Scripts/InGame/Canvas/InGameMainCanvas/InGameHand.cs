@@ -13,6 +13,11 @@ public class InGameHand : MonoBehaviour
     private float senterX = default;        // X는 Index에 따라 Dis를 이용해서 계산
     private float senterY = default;        // Y는 카드 갯수에 따라서 변동         // Z 는 Index * -10 으로
 
+    private bool isEnemyHand = false;
+    private bool isMyHand = false;
+
+
+
     public int MaxHandCount
     {
         get
@@ -30,10 +35,10 @@ public class InGameHand : MonoBehaviour
         set
         {
             this.nowHandCount = value;
-            
+
             if (this.nowHandCount > 3)
             {
-                CardHandSorting();
+                CardHandSorting();      
             }
             DisplayHandCards();
         }
@@ -49,13 +54,15 @@ public class InGameHand : MonoBehaviour
         this.senterY = 0f;
         this.cardOneSizeXPos = 100f;
 
-        if(this.gameObject.name == "MyHand")
+        if (this.gameObject.name == "MyHand")
         {
             this.transform.parent.GetComponent<InGameHands>().SetterMyHand(this);
+            isMyHand = true;
         }
-        else if(this.gameObject.name == "EnemyHand")
+        else if (this.gameObject.name == "EnemyHand")
         {
             this.transform.parent.GetComponent<InGameHands>().SetterEnemyHand(this);
+            isEnemyHand = true;
         }
 
     }
@@ -73,6 +80,13 @@ public class InGameHand : MonoBehaviour
         int nowHandCount = handCard.Count;
         int senterIndex = nowHandCount / 2;
 
+        if(this.isEnemyHand == true)
+        {
+            for(int i =0; i < handCard.Count; i++)
+            {
+                handCard[i].transform.rotation = Quaternion.Euler(180f, 0, 0);
+            }
+        }
 
         if (senterIndex == 0 && handCard.Count == 1)
         {   // 카드가 한개일 경우         
@@ -116,15 +130,15 @@ public class InGameHand : MonoBehaviour
         // 중앙기준 좌측
         for (int i = senterIndex - 1; 0 <= i; i--)
         {
-            handCard[i].transform.localPosition = 
+            handCard[i].transform.localPosition =
                 new Vector3(leftCardCoopCount * -cardOverlapXPosDis, handCard[i + 1].transform.localPosition.y - 10, -10 * i);
             leftCardCoopCount++;
         }       // for : 중앙기준 좌측
 
         int rightCardLoopCount = 1;
         for (int i = senterIndex + 1; i < handCard.Count; i++)
-        {            
-            handCard[i].transform.localPosition = 
+        {
+            handCard[i].transform.localPosition =
                 new Vector3(rightCardLoopCount * cardOverlapXPosDis, handCard[i - 1].transform.localPosition.y - 10, -10 * i);
             rightCardLoopCount++;
         }
@@ -145,6 +159,11 @@ public class InGameHand : MonoBehaviour
         float previousSenterAngle = 20f / handCard.Count;
         float angle = default;
         int senterIndex = -1;
+        float xAngle = 0f;
+        if(isEnemyHand == true)
+        {
+            xAngle = 180f;
+        }
 
         // 조건에서 Lenth대신 CurrentHandCount 가 들어가야함        // 현재 손패 갯수 기준으로 잡아야함
 
@@ -166,27 +185,28 @@ public class InGameHand : MonoBehaviour
         {
             angle = previousSenterAngle * nowCardCount;
             nowCardCount--;
-            handCard[i].transform.rotation = Quaternion.Euler(0, 0, angle);
+            handCard[i].transform.rotation = Quaternion.Euler(xAngle, 0, angle);
         }
 
         if (allAngleChanger == true)
         {
             angle = previousSenterAngle * nowCardCount;
-            handCard[senterIndex].transform.rotation = Quaternion.Euler(0, 0, angle);
+            handCard[senterIndex].transform.rotation = Quaternion.Euler(xAngle, 0, angle);
         }
         else
         {
-            handCard[senterIndex].transform.rotation = Quaternion.Euler(0, 0, 0);
+            handCard[senterIndex].transform.rotation = Quaternion.Euler(xAngle, 0, 0);
 
         }
 
         for (int i = senterIndex + 1; i < handCard.Count; i++)
         {
             angle = afterSenterAngle * i;
-            handCard[i].transform.rotation = Quaternion.Euler(0, 0, angle);
+            handCard[i].transform.rotation = Quaternion.Euler(xAngle, 0, angle);
         }
 
     }
+
 
     public void TESTBUTTON()
     {

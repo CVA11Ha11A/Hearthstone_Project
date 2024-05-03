@@ -46,19 +46,28 @@ public class Deck : IDeckFunction
                 this.count--;
                 return;
             }
-        }
-        
+        }        
     }
+
+    public void DrawCardRemoveCard()
+    {
+        cardList[0] = CardID.StartPoint;
+        this.currentIndex--;
+        this.count--;
+        PullCardList();
+    }
+
     public void PullCardList()
     {   // 첫 번째 인덱스 부터 순회하며 한칸씩 땡김
         for (int i = 0; i < MAX_CARD_COUNT - 1; i++)
         {
+            if (i + 1 >= MAX_CARD_COUNT)
+            {   // IndexOutRange 예외처리
+                continue;
+            }
             if (cardList[i] == CardID.StartPoint || cardList[i] == CardID.EndPoint)
             {
-                if (i + 1 >= MAX_CARD_COUNT)
-                {   // IndexOutRange 예외처리
-                    break;
-                }
+                
                 cardList[i] = cardList[i + 1];
 
             }

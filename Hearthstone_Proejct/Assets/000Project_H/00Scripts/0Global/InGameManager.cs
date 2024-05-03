@@ -111,7 +111,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
             if (this.turnSystem != value)
             {
                 this.turnSystem = value;
-                
+
             }
         }
     }
@@ -339,7 +339,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
     {   // 여기서 선공, 후공이 정해질 것임
         this.turnSystem = (ETurn)Random.Range((int)ETurn.GoFirst, (int)ETurn.EndPoint);     // 턴 설정
         ETurn enemyTurn = default;
-        if(this.turnSystem == ETurn.GoFirst)
+        if (this.turnSystem == ETurn.GoFirst)
         {
             enemyTurn = ETurn.GoSecond;
         }
@@ -349,7 +349,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
         }
         PV.RPC("TurnSet", RpcTarget.Others, (int)enemyTurn);  // 상대방의 턴 설정
         PV.RPC("FristGreeting", RpcTarget.All);
-        
+
     }
 
 
@@ -426,9 +426,9 @@ public class InGameManager : MonoBehaviourPunCallbacks
     }
 
     IEnumerator CFIrstGreeting()
-    {        
+    {
         // 내 직업에 접근해서 인사 음성 출력시켜야함
-        AudioManager.Instance.PlaySFM(false, mainCanvsRoot.heroImagesRoot.MyHeroImage.EmoteClip[(int)EEmoteClip.Start]);        
+        AudioManager.Instance.PlaySFM(false, mainCanvsRoot.heroImagesRoot.MyHeroImage.EmoteClip[(int)EEmoteClip.Start]);
         yield return new WaitForSeconds(2f);
         AudioManager.Instance.PlaySFM(false, mainCanvsRoot.heroImagesRoot.EnemyHeroImage.EmoteClip[(int)EEmoteClip.Start]);
         yield return new WaitForSeconds(2f);
@@ -450,10 +450,19 @@ public class InGameManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void DrawCard(ETarGet target_)
+    public void DrawCard()
     {   // 상대 기준으로 드로우 시키는 함수
         // 드로우 시키는 함수를 만들어서 여기서 Call해야할거같음
-        // 누가 함수를 가져야하지? 덱? 카드? 메니저? 핸드? 
+        // 누가 함수를 가져야하지? 덱? 카드? 메니저? 핸드?    : 덱
+
+        this.InGameMyDeckRoot.DrawCard();
+        PV.RPC("DrawEnemy", RpcTarget.Others);
+    }       // DrawCard
+
+    [PunRPC]
+    public void DrawEnemy()
+    {
+        this.InGameEnemyDeckRoot.EnemyDrawCard();
     }
 
 

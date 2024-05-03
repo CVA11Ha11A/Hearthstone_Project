@@ -8,9 +8,16 @@ public class InGameSycle : MonoBehaviourPun
 {       // 게임의 사이클을 관리해줄 Class
 
     private PhotonView PV = null;
+
+    // 멀리건 변수
+    private bool isMyMulliganCompleat = false;
+    private bool isEnemyMulliganCompleat = false;
+
     private void Awake()
     {
         this.PV = GetComponent<PhotonView>();
+        isEnemyMulliganCompleat = false;
+        isMyMulliganCompleat = false;
     }
     void Start()
     {
@@ -23,18 +30,21 @@ public class InGameSycle : MonoBehaviourPun
         // 2.선공 후공에 따라 카드를 드로우시킴
         // 3. EnemyDrow를 제작해서 내가 드로우하면 상대도 로컬에서 드로우 시키는 기능이 필요할듯(씬 내부에서 Standard를 X -180 으로 돌려놔서 안돌려도 될듯)
 
-        StartCoroutine(CTest());
+    
     }
     private void OnDestroy()
     {
 
     }
 
+
+
+
     IEnumerator CTest()
     {
         for (int i = 0; i < 6; i++)
         {
-            InGameManager.Instance.InGameMyDeckRoot.DrawCard();
+            InGameManager.Instance.DrawCard();
             yield return new WaitForSeconds(3f);
         }
     }
