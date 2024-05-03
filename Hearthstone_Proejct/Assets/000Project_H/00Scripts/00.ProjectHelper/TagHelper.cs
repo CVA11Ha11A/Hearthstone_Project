@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-#if UNITY_EDITOR
+
 public class TagHelper : MonoBehaviour
 {   // 던전의 사용할 태그추가를 도와주는 클래스
     // 제작 이유 : UnityEditorInternal.InternalEditorUtility.tags 관련은 빌드시 사용불가(에디터에서만 사용가능)
     //            그리고 에디터로 무언갈 많이 만들어보고 싶었음 2024.01.23
-
+#if UNITY_EDITOR
     public List<string> nowSettingTagList = new List<string>();
 
     [SerializeField]
@@ -107,6 +107,6 @@ public class TagHelper : MonoBehaviour
     {
         nowSettingTagList = UnityEditorInternal.InternalEditorUtility.tags.ToList();
     }       // UpdateTagList()
-
-}       // DungeonTagHelper Class
 #endif
+}       // DungeonTagHelper Class
+

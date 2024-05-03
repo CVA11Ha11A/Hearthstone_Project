@@ -29,8 +29,12 @@ public class InGameSycle : MonoBehaviourPun
         // 1.드로우 시스템 제작  (Deck이 가지고 있음)
         // 2.선공 후공에 따라 카드를 드로우시킴
         // 3. EnemyDrow를 제작해서 내가 드로우하면 상대도 로컬에서 드로우 시키는 기능이 필요할듯(씬 내부에서 Standard를 X -180 으로 돌려놔서 안돌려도 될듯)
+        InGameManager managerRoot = InGameManager.Instance;
+        managerRoot.mainCanvasRoot.transform.GetChild(0).GetChild(7).GetComponent<DiscoveryCanvas>()
+            .Mulligan(managerRoot.InGameMyDeckRoot.InGamePlayerDeck.cardList[0], managerRoot.InGameMyDeckRoot.InGamePlayerDeck.cardList[1],
+            managerRoot.InGameMyDeckRoot.InGamePlayerDeck.cardList[2]);
 
-    
+
     }
     private void OnDestroy()
     {

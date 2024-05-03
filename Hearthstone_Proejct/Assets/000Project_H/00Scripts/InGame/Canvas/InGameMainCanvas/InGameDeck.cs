@@ -28,11 +28,11 @@ public class InGameDeck : MonoBehaviour
             {
                 if (this.transform.name == "MyDeck")
                 {
-                    this.targetHand = InGameManager.Instance.mainCanvsRoot.handRoot.MyHand;
+                    this.targetHand = InGameManager.Instance.mainCanvasRoot.handRoot.MyHand;
                 }
                 else if (this.transform.name == "EnemyDeck")
                 {
-                    this.targetHand = InGameManager.Instance.mainCanvsRoot.handRoot.EnemyHand;
+                    this.targetHand = InGameManager.Instance.mainCanvasRoot.handRoot.EnemyHand;
                 }
             }
             return this.targetHand;
@@ -205,6 +205,52 @@ public class InGameDeck : MonoBehaviour
 
     }       // DrawCard
 
+    public void DrawCard(CardID drawCard)
+    {
+        // 드로우 할떄마다 Deck의 PullDeck을 호출하면 땡겨짐 중간에 카드 드로우라면 인자를 넣어주면됨
+        // 카드를 뽑을경우 
+        int objIndex = -1;
+
+        // 타겟의 인덱스를 찾는 for
+        DE.Log($"인덱스 찾는 for 순회 시작");
+        for (int i = 0; i < cardObjs.Length; i++)
+        {
+            DE.Log($"i : {i}");
+            if (cardObjs[i] == null)
+            {
+                DE.Log($"cardObjs[i] == null 조건으로 Continue");
+                continue;
+            }
+            else if (cardObjs[i].activeSelf == false)
+            {
+                DE.Log($"cardObjs[i].activeSelf == false Continue");
+                continue;
+            }
+            else if (cardObjs[i].GetComponent<Card>() == true)
+            {
+                DE.Log($"cardObjs[i].GetComponent<Card>() == true조건 맞아서 진입함\n카드가 존재하는 개체의 카드 ID : {(int)cardObjs[i].GetComponent<Card>().cardId}\n 타겟의 ID : {(int)drawCard}");
+                if (cardObjs[i].GetComponent<Card>().cardId == drawCard)
+                {
+                    DE.Log($"찾던 카드 찾음\n TargetIndex : {objIndex}");
+                    objIndex = i;
+                    break;
+                }
+            }
+        }
+
+        // 디버깅용
+        if (objIndex == -1)
+        {
+            DE.Log($"TargetCard를 찾지 못했음");
+        }
+
+        InGamePlayerDeck.DrawCardRemoveCard();
+        cardObjs[objIndex].transform.rotation = Quaternion.Euler(0, 0, 0);
+        TargetHand.AddCardInHand(cardObjs[objIndex]);
+        cardObjs[objIndex] = null;
+        InGameManager.Instance.CallEnemyMulliganDraw((int)drawCard);
+    }       // DrawCard
+
     public void EnemyDrawCard()
     {   // 적이 드로우 할떄
         int objIndex = -1;
@@ -264,6 +310,46 @@ public class InGameDeck : MonoBehaviour
         TargetHand.AddCardInHand(cardObjs[objIndex]);
         cardObjs[objIndex] = null;
     }       // EnemyDraw()
+
+    public void EnemyDrawCard(int targetCard_)
+    {
+        int objIndex = -1;
+
+        // 타겟의 인덱스를 찾는 for
+        for (int i = 0; i < cardObjs.Length; i++)
+        {
+            if (cardObjs[i] == null)
+            {
+                continue;
+            }
+            else if (cardObjs[i].activeSelf == false)
+            {
+                continue;
+            }
+            else if (cardObjs[i].GetComponent<Card>() == true)
+            {
+                if (cardObjs[i].GetComponent<Card>().cardId == (CardID)targetCard_)
+                {
+                    objIndex = i;
+                    break;
+                }
+            }
+        }
+
+
+        // 디버깅용
+        if (objIndex == -1)
+        {
+            DE.Log($"TargetCard를 찾지 못했음");
+        }
+
+        // 해당 게임 오브젝트가 핸드로 가면됨
+        // RPC 함수로 호출해서 상대에게 기능 실행 InGamePlayerDeck.cardList[0] = CardID.StartPoint;   // 뽑은카드는 덱의 데이터에서 제외 
+        InGameManager.Instance.InGameEnemyDeckRoot.InGamePlayerDeck.DrawCardRemoveCard();
+        cardObjs[objIndex].transform.rotation = Quaternion.Euler(0, 0, 0);
+        TargetHand.AddCardInHand(cardObjs[objIndex]);
+        cardObjs[objIndex] = null;
+    }
     // -------------------------------------------------------- 테스트 ------------------------------------------------------------------
     public void TestOutPut()
     {

@@ -19,7 +19,7 @@ public class InGameMainCanvas : MonoBehaviour
     private void Awake()
     {
         //PhotonNetwork.Instantiate("InGameManager", Vector3.zero, Quaternion.identity);
-        InGameManager.Instance.mainCanvsRoot = this;
+        InGameManager.Instance.mainCanvasRoot = this;
         AudioManager.Instance.SceneMoveBGMPlay();
         GetRoots();
     }

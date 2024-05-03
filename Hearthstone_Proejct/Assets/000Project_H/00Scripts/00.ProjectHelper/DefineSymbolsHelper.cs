@@ -5,9 +5,10 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-#if UNITY_EDITOR
+
 public class DefineSymbolsHelper : MonoBehaviour
 {
+#if UNITY_EDITOR
     [Header("NowSettingSymbols")]
     public List<string> nowSettingSymbolsList = new List<string>();
 
@@ -180,7 +181,7 @@ public class DefineSymbolsHelper : MonoBehaviour
         isSettingUp = false;
     }       // ListUpdate()
 
-
+#endif
 }       // DefineSymbolsHelper ClassEnd
 
-#endif
+

@@ -20,10 +20,14 @@ public enum ETurn
     GoSecond = 2,
     EndPoint = 3
 }
+
+
+
 public class InGameManager : MonoBehaviourPunCallbacks
 {   // 인게임에서 필요한 사이클 , 덱 초기화 , 랜덤 등 동기화되어야하는 기능들을 담을 것
     // ! 여러 군데에서 IngameManager의 도움을 받아서 기능수행을 할 것이기 때문에 최대한 프로퍼티 활용으로 참조 목록 확인 가능하도록 제작
 
+    #region Roots
     private static InGameManager instance;
     public static InGameManager Instance
     {
@@ -40,7 +44,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public InGameMainCanvas mainCanvsRoot = null;
+    public InGameMainCanvas mainCanvasRoot = null;
 
     private StringBuilder sb = null;
 
@@ -96,9 +100,16 @@ public class InGameManager : MonoBehaviourPunCallbacks
     public FrontGroundCanvas frontCanvas = null;
     private PhotonView PV = null;
 
+    #endregion Roots
+
+
     public bool isCompleatMyDeckInit = false;
     public bool isCompleatEnemyDeckInit = false;
 
+    public bool isCompleateMyMulligan = false;
+    public bool isCompleateEnemyMulligan = false;
+
+    public bool[] masterClientWaiters = null;
     private ETurn turnSystem = default;
     public ETurn TurnSystem
     {
@@ -139,6 +150,14 @@ public class InGameManager : MonoBehaviourPunCallbacks
         this.PV = this.transform.GetComponent<PhotonView>();
         this.PV.observableSearch = PhotonView.ObservableSearch.AutoFindAll;
         this.PV.ViewID = 700;
+
+        int enumCount = 10;
+        this.masterClientWaiters = new bool[enumCount];
+        for (int i = 0; i < enumCount; i++)
+        {
+            this.masterClientWaiters[i] = false;
+        }
+
         FirstPlayersDeckInit();
     }
 
@@ -240,12 +259,12 @@ public class InGameManager : MonoBehaviourPunCallbacks
         if (initTarget_ == ETarGet.Enemy)
         {
             this.InGameEnemyDeckRoot.DeckInit(deckCardIdArr, initTarget_);
-            mainCanvsRoot.heroImagesRoot.EnemyHeroImage.HeroSetting();
+            mainCanvasRoot.heroImagesRoot.EnemyHeroImage.HeroSetting();
         }
         else if (initTarget_ == ETarGet.My)
         {
             this.InGameMyDeckRoot.DeckInit(deckCardIdArr, initTarget_);
-            mainCanvsRoot.heroImagesRoot.MyHeroImage.HeroSetting();
+            mainCanvasRoot.heroImagesRoot.MyHeroImage.HeroSetting();
         }
         else
         {
@@ -262,6 +281,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void ShuffleCards(InGameDeck targetDeck_, ETarGet shuffleTarget)
     {       // 카드를 섞는 함수 ! 덱이 초기화 되어있다는 가정하에 제작된 함수임
+            // 
 
         int shuffleCount = 5;   // 카드를 몇변 for문 돌리면서 랜덤하게 섞을지
         int nowShuffleCount = default;  // 0  아래 for문에서 현재 몇번 셔플 했는지 
@@ -428,9 +448,9 @@ public class InGameManager : MonoBehaviourPunCallbacks
     IEnumerator CFIrstGreeting()
     {
         // 내 직업에 접근해서 인사 음성 출력시켜야함
-        AudioManager.Instance.PlaySFM(false, mainCanvsRoot.heroImagesRoot.MyHeroImage.EmoteClip[(int)EEmoteClip.Start]);
+        AudioManager.Instance.PlaySFM(false, mainCanvasRoot.heroImagesRoot.MyHeroImage.EmoteClip[(int)EEmoteClip.Start]);
         yield return new WaitForSeconds(2f);
-        AudioManager.Instance.PlaySFM(false, mainCanvsRoot.heroImagesRoot.EnemyHeroImage.EmoteClip[(int)EEmoteClip.Start]);
+        AudioManager.Instance.PlaySFM(false, mainCanvasRoot.heroImagesRoot.EnemyHeroImage.EmoteClip[(int)EEmoteClip.Start]);
         yield return new WaitForSeconds(2f);
         // 인사끝 선공 후공에 따라 카드 뽑고 멀리건 교체할지 선택하는 기능 실행되어야함
         // 여기부터 InGameSycle Class에서 관리하며 기능 실행할거임
@@ -440,7 +460,27 @@ public class InGameManager : MonoBehaviourPunCallbacks
 
 
 
-    #region 자주 사용할거같은 함수
+    #region 멀리건
+    [PunRPC]
+    public void DrawEnemy()
+    {
+        this.InGameEnemyDeckRoot.EnemyDrawCard();
+    }
+
+
+    public void CallEnemyMulliganDraw(int drawCard_)
+    {
+        PV.RPC("MulliganDraw", RpcTarget.Others, drawCard_);
+    }
+
+    [PunRPC]
+    public void MulliganDraw(int drawCardId)
+    {
+        this.InGameEnemyDeckRoot.EnemyDrawCard(drawCardId);
+    }
+
+    #endregion 멀리건
+
 
     #region 인게임 기능 함수들
     [PunRPC]
@@ -449,7 +489,6 @@ public class InGameManager : MonoBehaviourPunCallbacks
         this.turnSystem = (ETurn)turn_;
     }
 
-    [PunRPC]
     public void DrawCard()
     {   // 상대 기준으로 드로우 시키는 함수
         // 드로우 시키는 함수를 만들어서 여기서 Call해야할거같음
@@ -459,14 +498,45 @@ public class InGameManager : MonoBehaviourPunCallbacks
         PV.RPC("DrawEnemy", RpcTarget.Others);
     }       // DrawCard
 
-    [PunRPC]
-    public void DrawEnemy()
-    {
-        this.InGameEnemyDeckRoot.EnemyDrawCard();
-    }
-
 
     #endregion 인게임 기능 함수들
 
-    #endregion 자주 사용할거같은 함수
+    #region 멀리건 대기 함수
+    public void MasterClientMulliganWait()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            StartCoroutine(CMasterClientMulliganWait());
+        }
+    }
+
+    IEnumerator CMasterClientMulliganWait()
+    {
+        while (this.isCompleateMyMulligan != true || this.isCompleateEnemyMulligan != true)
+        {
+            yield return null;
+        }
+        // 여기서 턴 시작하면됨
+    }
+    
+    public void CompleateMulligan()
+    {
+        if(PhotonNetwork.IsMasterClient == true)
+        {
+            this.isCompleateMyMulligan = true;
+        }
+        else
+        {
+            PV.RPC("CompleateMulliganSetter", RpcTarget.MasterClient, true);
+        }
+    }
+    [PunRPC]
+    public void CompleateMulliganSetter(bool compleate = true)
+    {
+        this.isCompleateEnemyMulligan = compleate;
+    }
+
+    
+    #endregion 멀리건
+
 }       // ClassEnd

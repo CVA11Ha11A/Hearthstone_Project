@@ -16,7 +16,7 @@ TagManager:
   - DeckCardListUI
   - DeckInCardObj
   - CollectionBackGround
-  - 
+  - Discovery
   - 
   - 
   - 
@@ -62,6 +62,9 @@ TagManager:
     locked: 0
   - name: NewDeckSelcetClassCanvas
     uniqueID: 1685646667
+    locked: 0
+  - name: DiscoveryCanvas
+    uniqueID: 1208613769
     locked: 0
   - name: Front
     uniqueID: 3714888267
