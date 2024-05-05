@@ -16,7 +16,9 @@ public enum ESoundBGM
 
 public enum ESoundSFM
 {
-
+    TurnStart = 0,
+    PutDownTurnEndButton = 1,
+    MulliganCoin = 2
 }
 public enum EAudioMixerGroup
 {
@@ -44,7 +46,22 @@ public class AudioManager : MonoBehaviour
     public List<AudioPool> keepingAudioList = null;     // 잠시멈추고 플레이 시킬 개체들의 리스트    
 
     private AudioClip[] bgmClips = null;    // 리소스
+    public AudioClip[] BGMClips
+    {
+        get
+        {
+            return this.bgmClips;
+        }
+    }
+
     private AudioClip[] sfmClips = null;    // 리소스 
+    public AudioClip[] SFMClips
+    {
+        get
+        {
+            return this.sfmClips;
+        }
+    }
     public AudioMixerGroup[] mixerGroup = null; // 오디오 그룹들
 
     private int currentChildCount = default;    // 현재 자식개체의 수
@@ -109,6 +126,11 @@ public class AudioManager : MonoBehaviour
         bgmClips[(int)ESoundBGM.Duel001] = Resources.Load<AudioClip>(bgmPath + "Duel001");
 
         // Sfm 관련
+        string sfmPath = "SFMClips/";
+        sfmClips[(int)ESoundSFM.TurnStart] = Resources.Load<AudioClip>(sfmPath + "TurnStart");
+        sfmClips[(int)ESoundSFM.PutDownTurnEndButton] = Resources.Load<AudioClip>(sfmPath + "PutDownTurnEndButton");
+        sfmClips[(int)ESoundSFM.MulliganCoin] = Resources.Load<AudioClip>(sfmPath + "MulliganCoin");
+
     }       // AudioResourceLoad()
 
 

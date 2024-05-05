@@ -19,16 +19,16 @@ public class DiscoveryCard : MonoBehaviour
             if(this.IsClick != value)
             {
                 this.isClick = value;
-                if (this.isClick == true)
-                {
-                    ScaleSetter(onClickScale);
-                }
-                else
-                {
-                    ScaleSetter(nonClickScale);
-                }
             }
-           
+            if (this.isClick == true)
+            {
+                ScaleSetter(onClickScale);
+            }
+            else
+            {
+                ScaleSetter(nonClickScale);
+            }
+
         }
     }
 

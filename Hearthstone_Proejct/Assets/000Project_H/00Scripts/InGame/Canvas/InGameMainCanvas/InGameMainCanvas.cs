@@ -14,6 +14,7 @@ public class InGameMainCanvas : MonoBehaviour
     public HeroImages heroImagesRoot = null;      // ChildNum 0.6
     public InGameDecks decksRoot = null;    
     public InGameHands handRoot = null;
+    public TurnUis turnUIRoot = null;
     public InGamePlayersCost[] ingameCostRoots = null; // 0.2.0.0
 
     private void Awake()
@@ -27,8 +28,11 @@ public class InGameMainCanvas : MonoBehaviour
     private void GetRoots()
     {
         // 영웅 이미지        
-        heroImagesRoot = this.transform.GetChild(0).GetChild(6).GetComponent<HeroImages>();             
-      
+        heroImagesRoot = this.transform.GetChild(0).GetChild(6).GetComponent<HeroImages>();
+
+        // 턴 UI
+        turnUIRoot = this.transform.GetChild(0).GetChild(8).GetComponent<TurnUis>();
+
         // 코스트
         int costChildCount = this.transform.GetChild(0).GetChild(2).GetChild(0).GetChild(0).childCount;
         ingameCostRoots = new InGamePlayersCost[costChildCount];

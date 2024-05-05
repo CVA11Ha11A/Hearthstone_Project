@@ -80,32 +80,7 @@ public class DiscoveryCanvas : MonoBehaviour, IPointerDownHandler
     {
         #region 멀리건
         if (isMulliganMode == true)
-        {
-            // TEMP
-            //ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            //if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, targetLayer))
-            //{
-            //    if (hitInfo.transform.GetComponent<DiscoveryCard>() == true)
-            //    {
-            //        if (hitInfo.transform.localScale.x == 10)
-            //        {
-            //            hitInfo.transform.localScale = selectScale;
-            //            hitInfo.transform.GetComponent<DiscoveryCard>().IsClick = true;
-            //        }
-            //        else if (hitInfo.transform.localScale.x == 8)
-            //        {
-            //            hitInfo.transform.localScale = nonSelectScale;
-            //            hitInfo.transform.GetComponent<DiscoveryCard>().IsClick = false;
-            //        }
-            //
-            //    }
-            //    else
-            //    {
-            //        DE.Log($"맞은 객체가 DiscovaryCard를 가지고 있지 않음");
-            //    }
-            //}
-
+        {           
 
             // 마우스 스크린 좌표 얻기
             Vector3 mouseScreenPosition = Input.mousePosition;

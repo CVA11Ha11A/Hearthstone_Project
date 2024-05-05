@@ -516,7 +516,15 @@ public class InGameManager : MonoBehaviourPunCallbacks
         {
             yield return null;
         }
+        PV.RPC("StartTurnSet", RpcTarget.All);
         // 여기서 턴 시작하면됨
+    }
+
+    [PunRPC]
+    public void StartTurnSet()
+    {   // 모든 플레이어의 첫 시작 턴을 선공에게 주는 함수
+        this.transform.GetComponent<InGameSycle>().NowTurn = ETurn.GoFirst;
+        this.transform.GetComponent<InGameSycle>().TurnStart();
     }
     
     public void CompleateMulligan()
@@ -527,13 +535,14 @@ public class InGameManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            PV.RPC("CompleateMulliganSetter", RpcTarget.MasterClient, true);
+            this.isCompleateMyMulligan = true;
+            PV.RPC("CompleateMulliganSetter", RpcTarget.MasterClient, this.isCompleateMyMulligan);
         }
     }
     [PunRPC]
-    public void CompleateMulliganSetter(bool compleate = true)
-    {
-        this.isCompleateEnemyMulligan = compleate;
+    public void CompleateMulliganSetter(bool isCompleate_)
+    {        
+        this.isCompleateEnemyMulligan = isCompleate_;
     }
 
     

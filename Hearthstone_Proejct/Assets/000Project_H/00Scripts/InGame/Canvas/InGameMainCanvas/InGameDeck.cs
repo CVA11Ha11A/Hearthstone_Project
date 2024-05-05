@@ -212,26 +212,26 @@ public class InGameDeck : MonoBehaviour
         int objIndex = -1;
 
         // 타겟의 인덱스를 찾는 for
-        DE.Log($"인덱스 찾는 for 순회 시작");
+        //DE.Log($"인덱스 찾는 for 순회 시작");
         for (int i = 0; i < cardObjs.Length; i++)
         {
-            DE.Log($"i : {i}");
+            //DE.Log($"i : {i}");
             if (cardObjs[i] == null)
             {
-                DE.Log($"cardObjs[i] == null 조건으로 Continue");
+                //DE.Log($"cardObjs[i] == null 조건으로 Continue");
                 continue;
             }
             else if (cardObjs[i].activeSelf == false)
             {
-                DE.Log($"cardObjs[i].activeSelf == false Continue");
+                //DE.Log($"cardObjs[i].activeSelf == false Continue");
                 continue;
             }
             else if (cardObjs[i].GetComponent<Card>() == true)
             {
-                DE.Log($"cardObjs[i].GetComponent<Card>() == true조건 맞아서 진입함\n카드가 존재하는 개체의 카드 ID : {(int)cardObjs[i].GetComponent<Card>().cardId}\n 타겟의 ID : {(int)drawCard}");
+                //DE.Log($"cardObjs[i].GetComponent<Card>() == true조건 맞아서 진입함\n카드가 존재하는 개체의 카드 ID : {(int)cardObjs[i].GetComponent<Card>().cardId}\n 타겟의 ID : {(int)drawCard}");
                 if (cardObjs[i].GetComponent<Card>().cardId == drawCard)
                 {
-                    DE.Log($"찾던 카드 찾음\n TargetIndex : {objIndex}");
+                    //DE.Log($"찾던 카드 찾음\n TargetIndex : {objIndex}");
                     objIndex = i;
                     break;
                 }
