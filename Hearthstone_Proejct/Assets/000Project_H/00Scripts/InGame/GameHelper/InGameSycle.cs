@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Pun.Demo.PunBasics;
 
 public class InGameSycle : MonoBehaviourPun
 {       // 게임의 사이클을 관리해줄 Class
@@ -63,14 +64,29 @@ public class InGameSycle : MonoBehaviourPun
     public void TurnStart()
     {
         if(InGameManager.Instance.TurnSystem == this.NowTurn)
-        {   // 자신의 턴이라면
-            InGameManager.Instance.mainCanvasRoot.turnUIRoot.YourTurnAnime();
+        {   // 자신의 턴이라면            
+            StartCoroutine(CTurnSetting());
         }
         else
         {   // 자신의 턴이 아니라면
             // 카드와의 상호작용을 불가능 하도록(카드 내기불가능)
+            // 상대방의 UI를 상대방입장에서 로컬로 증가 감소 시키기
+            InGameManager.Instance.mainCanvasRoot.costRoot.EnemyCost.TurnStartCostSetting();
+
         }
     }       // TurnStart()
+
+    private IEnumerator CTurnSetting()
+    {
+        // 턴시작 UI 애니메이션 실행
+        yield return StartCoroutine(InGameManager.Instance.mainCanvasRoot.turnUIRoot.CYourTurnAnime());
+        InGameManager.Instance.mainCanvasRoot.costRoot.MyCost.TurnStartCostSetting();   // NowMaxCost++후 현재 코스트를 nowMaxCost로 하는 기능
+    }
+
+    public void TurnSetting()
+    {
+        //InGameManager.Instance.InGameMyDeckRoot
+    }
 
 
     public void TurnEnd()

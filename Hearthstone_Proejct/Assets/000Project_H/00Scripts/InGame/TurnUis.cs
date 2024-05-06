@@ -22,12 +22,12 @@ public class TurnUis : MonoBehaviour
     }
 
     public void YourTurnAnime()
-    {
+    {   // 외부 호출용 함수
         coroutine = StartCoroutine(CYourTurnAnime());
     }
 
-    private IEnumerator CYourTurnAnime()
-    {
+    public IEnumerator CYourTurnAnime()
+    {   // 코루틴 yeild return을 위한 public
         float durationTime = 1f;
         float elapsedTime = 0f;
 

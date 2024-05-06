@@ -18,46 +18,25 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Test001 : MonoBehaviour
 {
-        
-    public AudioClip[] emoteClip = null;
-    public AudioClip[] EmoteClip
-    {
-        get
-        {
-            return this.emoteClip;
-        }
-    }
-    private StringBuilder sb = null;
+
+    public bool testBool = default;
+    public List<bool> LBool = null;
+
+
 
     private void Awake()
     {
-       
-        sb = new StringBuilder();
-        emoteClip = new AudioClip[7];
-        HeroSetting();
-
+       LBool = new List<bool>();
+        testBool = true;
+        LBool.Add(testBool);
+        testBool = false;
+        DE.Log($"testBool 의 값은 뭐지? -> true면 값이 복사되어 들어가는것 , false면 값이 참조형태롤 되는것\n값 : {LBool[0]}");
+     
 
 
     }
     
-    public void HeroSetting()
-    {
-
-        string defaultPath = "ClassEmoteClips/VO_HERO_";
-        string heroNum = "09";
-
-        int conversIndex = 0;
-
-        for (int i = 0; i < emoteClip.Length; i++)
-        {
-            sb.Clear();
-            sb.Append(defaultPath).Append(heroNum).Append("_").Append((EEmoteClip)conversIndex);
-            DE.Log(sb.ToString());
-            emoteClip[i] = Resources.Load<AudioClip>(sb.ToString());
-            conversIndex++;
-        }
-        
-    }       // HeroSetting()
+   
 
 
 

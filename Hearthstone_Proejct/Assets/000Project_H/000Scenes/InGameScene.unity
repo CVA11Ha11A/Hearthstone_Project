@@ -1356,7 +1356,7 @@ MonoBehaviour:
   decksRoot: {fileID: 0}
   handRoot: {fileID: 0}
   turnUIRoot: {fileID: 0}
-  ingameCostRoots: []
+  costRoot: {fileID: 0}
 --- !u!1001 &207256742
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3283,7 +3283,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d04e9f478728c39428c653d17395e8ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nowMaxCost: 0
 --- !u!224 &369659536 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6801278738529297557, guid: b28f54f4c8ac4e848a76e35e99fa0838,
@@ -4815,6 +4814,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 591997545}
+  - component: {fileID: 591997546}
   m_Layer: 5
   m_Name: Costs
   m_TagString: Untagged
@@ -4844,6 +4844,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &591997546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591997544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9271d18656fd7440ac7145aaa449659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &599142322 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6801278738529297557, guid: b28f54f4c8ac4e848a76e35e99fa0838,
@@ -4901,7 +4913,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d04e9f478728c39428c653d17395e8ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nowMaxCost: 0
 --- !u!1001 &610364377
 PrefabInstance:
   m_ObjectHideFlags: 0
