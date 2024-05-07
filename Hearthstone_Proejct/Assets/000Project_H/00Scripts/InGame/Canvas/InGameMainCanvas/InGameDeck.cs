@@ -241,7 +241,40 @@ public class InGameDeck : MonoBehaviour
         // 디버깅용
         if (objIndex == -1)
         {
+            bool exception = true;
             DE.Log($"TargetCard를 찾지 못했음");
+            #region 예외처리
+            while (exception == true)
+            {
+                for (int i = 0; i < cardObjs.Length; i++)
+                {
+                    
+                    //DE.Log($"i : {i}");
+                    if (cardObjs[i] == null)
+                    {
+                        //DE.Log($"cardObjs[i] == null 조건으로 Continue");
+                        continue;
+                    }
+                    else if (cardObjs[i].activeSelf == false)
+                    {
+                        //DE.Log($"cardObjs[i].activeSelf == false Continue");
+                        continue;
+                    }
+                    else if (cardObjs[i].GetComponent<Card>() == true)
+                    {
+                        //DE.Log($"cardObjs[i].GetComponent<Card>() == true조건 맞아서 진입함\n카드가 존재하는 개체의 카드 ID : {(int)cardObjs[i].GetComponent<Card>().cardId}\n 타겟의 ID : {(int)drawCard}");
+                        if (cardObjs[i].GetComponent<Card>().cardId == drawCard)
+                        {                            
+                            objIndex = i;
+                            exception = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            #endregion 예외처리
+
+            //return;
         }
 
         InGamePlayerDeck.DrawCardRemoveCard();

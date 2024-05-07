@@ -4,18 +4,20 @@ using System.Text;
 using UnityEngine;
 
 [System.Serializable]
-public class Test002 : MonoBehaviour
+public class Test002 : MouseInteractionObj
 {
     private void Awake()
     {
-        StringBuilder sb = new StringBuilder();
-        sb.Clear();
-        sb.Append("대충Path_").Append("대충영웅번호09_").Append(EEmoteClip.Oops);
-        DE.Log($"어떻게 나올까? : {sb.ToString()}");
+        
         
     }
     private void Start()
     {
-        Debug.Log($"씬 로드는 되나? : Start");
+       
+    }
+
+    public override void ObjFunction()
+    {
+        DE.Log("자식 클래스의 함수가 호출됨");
     }
 }

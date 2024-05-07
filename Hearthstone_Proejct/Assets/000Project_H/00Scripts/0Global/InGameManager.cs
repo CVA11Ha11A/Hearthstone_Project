@@ -100,6 +100,8 @@ public class InGameManager : MonoBehaviourPunCallbacks
     public FrontGroundCanvas frontCanvas = null;
     private PhotonView PV = null;
 
+    public Mouse mouseRoot = null;
+
     #endregion Roots
 
 
@@ -532,11 +534,13 @@ public class InGameManager : MonoBehaviourPunCallbacks
         if(PhotonNetwork.IsMasterClient == true)
         {
             this.isCompleateMyMulligan = true;
+            mouseRoot.isRayCast = true;
         }
         else
         {
             this.isCompleateMyMulligan = true;
             PV.RPC("CompleateMulliganSetter", RpcTarget.MasterClient, this.isCompleateMyMulligan);
+            mouseRoot.isRayCast = true;
         }
     }
     [PunRPC]

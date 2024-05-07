@@ -659,6 +659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5861b06069cd3ae4b9047a8ed6d6fee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInteraction: 0
 --- !u!4 &1923316704
 Transform:
   m_ObjectHideFlags: 0
@@ -703,7 +704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67265d96f1778664ba06055030b062cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emoteClip: []
+  test002obj: {fileID: 1923316702}
 --- !u!4 &2040946136
 Transform:
   m_ObjectHideFlags: 0
