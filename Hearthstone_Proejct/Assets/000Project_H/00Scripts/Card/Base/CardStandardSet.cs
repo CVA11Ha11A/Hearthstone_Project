@@ -18,6 +18,7 @@ public class CardStandardSet : MonoBehaviour
         else if (SceneManager.GetActiveScene().name == "InGameScene")
         {
             this.transform.localScale = new Vector3(10f, 10f, 10f);
+            this.transform.parent.GetComponent<BoxCollider>().size = new Vector3(85f, 85f, 1f);
         }
 
 

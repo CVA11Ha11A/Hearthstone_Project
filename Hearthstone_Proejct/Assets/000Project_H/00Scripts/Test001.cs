@@ -24,10 +24,7 @@ public class Test001 : MonoBehaviour
 
 
     private void Awake()
-    {
-        testList = new List<MouseInteractionObj>();
-        testList.Add(test002obj.GetComponent<MouseInteractionObj>());
-        testList[0].ObjFunction();
+    {        
 
 
     }
