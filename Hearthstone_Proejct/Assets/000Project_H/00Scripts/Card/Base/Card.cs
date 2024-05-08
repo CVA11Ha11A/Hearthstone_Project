@@ -12,8 +12,11 @@ public class Card : MonoBehaviour
 {
     protected StringBuilder sb = default;       // 연산에 필요한 string을 저장해두며 사용할 sb  (!코루틴엔 절대 사용 금지!)
     public TextMeshProUGUI[] cardTexts = default;
+
     public Image cardImage = default;            // 카드의 이미지 -> 주문, 하수인, 무기 공통적으로 필요         Base Awake에서 초기화
     protected AudioClip[] clips = default;       // 카드의 사운드
+    public GameObject ingameUiObj = null;   
+    public CardTextCanvas textCanvas = null;    
     public CardType cardType = default;          // 카드가 주문인지 하수인인지 구별해줄 열거형데이터             Minion, Spell Awake에서 초기화
     public ClassCard classCard = default;     // 카드가 공통카드인지 직업카드인지 구별해줄 열거형데이터        최종 카드 스크립트에서 초기화
     public CardRank cardRank = default;          // 카드의 희소성이 어느정도인지 나타내는 열거형데이터           최종 카드 스크립트에서 초기화
@@ -29,9 +32,12 @@ public class Card : MonoBehaviour
     public string empect = default;             // 카드의 효과                                              최종 카드 스크립트에서 초기화
     public string cardNameEn = default;         // 카드의 영문 이름 (영문이름 == Class이름)                   최종 카드 스크립트에서 초기화
 
+    public bool isPreparation = default;   // 효과 발동의 사전 준비가 필요한가?
+    public GameObject empectTarget = null;  // 효과를 사용할 타겟
     public Card()
     {
         sb = new StringBuilder();
+        this.isPreparation = false;
     }
 
     protected virtual void Awake()
@@ -92,9 +98,14 @@ public class Card : MonoBehaviour
         cardTexts[(int)C_Text.Empect].gameObject.SetActive(true);
         cardTexts[(int)C_Text.Cost].gameObject.SetActive(true);
 
+
+        ingameUiObj = this.transform.GetChild(0).GetChild(3).gameObject;
+        ingameUiObj.SetActive(false);
+
+        textCanvas = this.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<CardTextCanvas>();
         //if (this.cardType == CardType.Minion)
         //{
-  
+
         //}
 
         //else if (this.cardType == CardType.Spell)
@@ -155,6 +166,11 @@ public class Card : MonoBehaviour
     public virtual void NameTextFix()
     {
         
+    }
+
+    public virtual void MinionFieldSpawnSetting()
+    {
+        // 하수인이 스폰되면서 실행되어야 하는것들
     }
 
     #region AudioTestMethod

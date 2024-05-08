@@ -55,8 +55,14 @@ TagManager:
   - name: HeroImage
     uniqueID: 3876559603
     locked: 0
+  - name: InGameField
+    uniqueID: 2736995909
+    locked: 0
   - name: Card
     uniqueID: 3088964997
+    locked: 0
+  - name: CardText
+    uniqueID: 4253344401
     locked: 0
   - name: DeckImage
     uniqueID: 4114403873

@@ -14,6 +14,7 @@ public class MyTurnMouse : MonoBehaviour
     private bool isCardScaleSet = false;
     private bool isMinion = false;
     private bool isSpell = false;
+    private bool isTargetLockOn = false;
 
     private Vector3 mouseScreenPosition = default;
     private Vector3 mouseWorldPosition = default;
@@ -30,6 +31,7 @@ public class MyTurnMouse : MonoBehaviour
         this.isCardScaleSet = false;
         this.isMinion = false;
         this.isSpell = false;
+        this.isTargetLockOn = false;
         this.setScale = Vector3.one;
         this.mouseRoot = this.transform.GetComponent<Mouse>();
 
@@ -42,7 +44,7 @@ public class MyTurnMouse : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && isTargetLockOn == false)
         {   // 클릭 순간
             if (mouseRoot.lastCardRoot != null)
             {
@@ -54,7 +56,7 @@ public class MyTurnMouse : MonoBehaviour
             }
         }
 
-        if (this.isDragToReady == true && this.targetCard != null)
+        if (this.isDragToReady == true && this.targetCard != null && isTargetLockOn == false)
         {   // 드래그
             if(isCardScaleSet == false)
             {
@@ -70,7 +72,7 @@ public class MyTurnMouse : MonoBehaviour
         }
 
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && isTargetLockOn == false)
         {   // 마우스 땔경우
             if (this.targetCard != null)
             {
@@ -81,7 +83,7 @@ public class MyTurnMouse : MonoBehaviour
                     Camera.main.nearClipPlane));
 
 
-                DE.Log($"tarGet의 Y포지션은 어느정도지? : {targetCard.transform.position}");
+                //DE.Log($"tarGet의 Y포지션은 어느정도지? : {targetCard.transform.position}");
                 // 여기서 레이를 쏘고 필드의 타겟인지 체크
                 if(targetCard.transform.position.y > -2f)
                 {   // 필드쪽으로 갔다는 뜻
@@ -89,7 +91,13 @@ public class MyTurnMouse : MonoBehaviour
                     if(CheckIsThrowCard() == true)
                     {
                         // 카드 낼 수 있음
-                    }                    
+                        // 미니언 나가기
+
+                    }
+                    else
+                    {
+                        mouseRoot.LastCardPositionRollBack();
+                    }
                 }
                 else
                 {
@@ -157,8 +165,24 @@ public class MyTurnMouse : MonoBehaviour
         }
 
         // 3 미니언이라면 필드의 수가 가득 찼는지 체크
-        
-        return true;    // temp 
+        if(isMinion == true)
+        {
+            if(InGameManager.Instance.mainCanvasRoot.fieldRoot.MyField.NowMinionCount >= InGameField.MAX_MINON_COUNT)
+            {
+                return false;
+            }
+            else { /*PASS*/ }
+            
+            // 전투의 함성 효과 여기서 발동 해야할 수도
+            if(targetCard.GetComponent<Card>().isPreparation == true)
+            {
+                isTargetLockOn = true;
+                // 여기서 나가고 지정 파트로 넘겨야겠음 
+            }
+            // 하수인 나가기
+            return true;
+        }
+        return false;    // temp 
     }
 
 

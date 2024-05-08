@@ -11,7 +11,7 @@ public class Minion : Card
 {
     protected M_Ability ability =  default;
     protected int damageDefault = default;
-    protected int heathDefault = default;
+    protected int heathDefault = default;    
     public int damage = default;
     public int heath = default;
 

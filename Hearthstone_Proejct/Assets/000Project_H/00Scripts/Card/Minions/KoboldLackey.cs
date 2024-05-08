@@ -12,6 +12,7 @@ public class KoboldLackey : Minion
         SetClassCard(ClassCard.Common);
         SetCardRank(CardRank.M_Rare);
         StatSetting(1, 1, 1);
+        this.isPreparation = true;
         cardName = "코볼트 졸개";
         empect = "전투의 함성: 피해를 2줍니다.";
         cardNameEn = "KoboldLackey";

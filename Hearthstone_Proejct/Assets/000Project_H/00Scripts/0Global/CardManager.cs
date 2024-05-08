@@ -93,7 +93,9 @@ public enum C_Material
     M_Rare = 0,
     M_Epic = 1,
     M_Legendry = 2,
-    S_Epic = 3
+    S_Epic = 3,
+    M_InGameLine = 4
+
 }
 public enum C_MaskImage
 {
@@ -170,7 +172,7 @@ public class CardManager : MonoBehaviour
     private void ManagerInIt()
     {
         const int CARD_MASK_SPRITE_COUNT = 2;
-        const int CARD_OUTLINE_MATERIAL_COUNT = 4;
+        const int CARD_OUTLINE_MATERIAL_COUNT = 5;
 
         instance = this;
         cardMaskSprites = new Sprite[CARD_MASK_SPRITE_COUNT];
@@ -286,6 +288,7 @@ public class CardManager : MonoBehaviour
         cardOutLineMaterials[(int)C_Material.M_Epic] = Resources.Load<Material>("CardManager/Card_Epic");
         cardOutLineMaterials[(int)C_Material.M_Legendry] = Resources.Load<Material>("CardManager/Card_Legendry");
         cardOutLineMaterials[(int)C_Material.S_Epic] = Resources.Load<Material>("CardManager/Card_Spell");
+        cardOutLineMaterials[(int)C_Material.M_InGameLine] = Resources.Load<Material>("CardManager/Card_InGameLine");
 
         cardPrefab = Resources.Load<GameObject>("Card");
 

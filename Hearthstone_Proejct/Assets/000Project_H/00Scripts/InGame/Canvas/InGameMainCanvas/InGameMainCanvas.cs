@@ -16,6 +16,7 @@ public class InGameMainCanvas : MonoBehaviour
     public InGameHands handRoot = null;
     public TurnUis turnUIRoot = null;
     public InGamePlayersCosts costRoot = null;
+    public InGameFields fieldRoot = null;
 
     private void Awake()
     {
