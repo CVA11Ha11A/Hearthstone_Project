@@ -40,6 +40,7 @@ public class DiscoveryCard : MonoBehaviour
         isClick = false;
         nonClickScale = new Vector3(15f, 15f, 15f);
         onClickScale = new Vector3(12f, 12f, 12f);
+        this.transform.GetChild(0).localPosition = nonClickScale;
     }
 
     private void ScaleSetter(Vector3 scale_)

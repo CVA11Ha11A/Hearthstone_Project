@@ -116,7 +116,7 @@ public class Mouse : MonoBehaviour
         }
         else
         {
-            DE.Log($"MOuse : IsDraging -0> {isDraging}");
+            //DE.Log($"MOuse : IsDraging -0> {isDraging}");
             if (lastCardRoot != null && isDraging == false)
             {
                 LastCardPositionRollBack();

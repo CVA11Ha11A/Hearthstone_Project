@@ -13,8 +13,7 @@ public class MyTurnMouse : MonoBehaviour
     private bool isDragToReady = false;
     private bool isCardScaleSet = false;
     private bool isMinion = false;
-    private bool isSpell = false;
-    private bool isTargetLockOn = false;
+    private bool isSpell = false;    
 
     private Vector3 mouseScreenPosition = default;
     private Vector3 mouseWorldPosition = default;
@@ -30,8 +29,7 @@ public class MyTurnMouse : MonoBehaviour
         this.isDragToReady = false;
         this.isCardScaleSet = false;
         this.isMinion = false;
-        this.isSpell = false;
-        this.isTargetLockOn = false;
+        this.isSpell = false;        
         this.setScale = Vector3.one;
         this.mouseRoot = this.transform.GetComponent<Mouse>();
 
@@ -44,7 +42,7 @@ public class MyTurnMouse : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && isTargetLockOn == false)
+        if (Input.GetMouseButtonDown(0))
         {   // 클릭 순간
             if (mouseRoot.lastCardRoot != null)
             {
@@ -56,7 +54,7 @@ public class MyTurnMouse : MonoBehaviour
             }
         }
 
-        if (this.isDragToReady == true && this.targetCard != null && isTargetLockOn == false)
+        if (this.isDragToReady == true && this.targetCard != null)
         {   // 드래그
             if(isCardScaleSet == false)
             {
@@ -72,7 +70,7 @@ public class MyTurnMouse : MonoBehaviour
         }
 
 
-        if (Input.GetMouseButtonUp(0) && isTargetLockOn == false)
+        if (Input.GetMouseButtonUp(0))
         {   // 마우스 땔경우
             if (this.targetCard != null)
             {
@@ -88,16 +86,7 @@ public class MyTurnMouse : MonoBehaviour
                 if(targetCard.transform.position.y > -2f)
                 {   // 필드쪽으로 갔다는 뜻
                     // 1. 내코스트가 카드를 사용할 만큼의 코스트가 되는지 확인
-                    if(CheckIsThrowCard() == true)
-                    {
-                        // 카드 낼 수 있음
-                        // 미니언 나가기
-
-                    }
-                    else
-                    {
-                        mouseRoot.LastCardPositionRollBack();
-                    }
+                    CheckIsThrowCard();
                 }
                 else
                 {
@@ -142,18 +131,19 @@ public class MyTurnMouse : MonoBehaviour
 
     public bool CheckIsThrowCard()
     {
-        // 코스트 조건 확인
-        if (targetCard.GetComponent<Card>().cost <= InGameManager.Instance.mainCanvasRoot.costRoot.MyCost.NowCost)
-        {
-            //PASS
-        }
-        else
-        {
-            return false;
-        }
+        // 테스트를위해 임시 주석 
+        //// 코스트 조건 확인
+        //if (targetCard.GetComponent<Card>().cost <= InGameManager.Instance.mainCanvasRoot.costRoot.MyCost.NowCost)
+        //{
+        //    //PASS
+        //}
+        //else
+        //{
+        //    return false;
+        //}
 
         // 어떤 카드인지 체크
-        if(targetCard.GetComponent<Card>() is Minion)
+        if (targetCard.GetComponent<Card>() is Minion)
         {
             isMinion = true;
             isSpell = false;
@@ -171,15 +161,14 @@ public class MyTurnMouse : MonoBehaviour
             {
                 return false;
             }
-            else { /*PASS*/ }
-            
-            // 전투의 함성 효과 여기서 발동 해야할 수도
-            if(targetCard.GetComponent<Card>().isPreparation == true)
+            else 
             {
-                isTargetLockOn = true;
-                // 여기서 나가고 지정 파트로 넘겨야겠음 
+                InGameManager.Instance.mainCanvasRoot.handRoot.MyHand.RemoveCardInHand(targetCard);
+                InGameManager.Instance.mainCanvasRoot.fieldRoot.MyField.SpawnMinion();
+                targetCard.GetComponent<Card>().MinionFieldSpawn(InGameManager.Instance.mainCanvasRoot.fieldRoot.MyField.RecentFieldObjRoot);
             }
-            // 하수인 나가기
+            
+                        
             return true;
         }
         return false;    // temp 

@@ -18,9 +18,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Test001 : MonoBehaviour
 {
-    List<MouseInteractionObj> testList = null;
-    public GameObject test002obj;
-
+    public GameObject testObj;
 
 
     private void Awake()
@@ -29,7 +27,16 @@ public class Test001 : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        StartCoroutine(CTest());
+    }
 
+    IEnumerator CTest()
+    {
+        yield return new WaitForSeconds(2f);
+        this.transform.GetComponent<Card>().MinionFieldSpawn(testObj);
+    }
 
 
 

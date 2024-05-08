@@ -223,6 +223,23 @@ public class InGameHand : MonoBehaviour
         NowHandCount++;
     }
 
+    public void RemoveCardInHand(GameObject targetObj_) 
+    {   // 카드를 지우거나 카드를 내거나 핸드가 소모되었을때 호출되야하는 함수
+        //for(int i = 0; i < handCard.Count; i++)
+        //{
+        //    if(handCard[i].Equals(targetObj_))
+        //    {
+        //        handCard.RemoveAt(i);
+        //        nowHandCount--;
+        //        break;
+        //    }
+
+        //}
+        handCard.Remove(targetObj_);
+        NowHandCount--;
+
+    }
+
 
     private void DisPlayHandCardLEGACY()
     {

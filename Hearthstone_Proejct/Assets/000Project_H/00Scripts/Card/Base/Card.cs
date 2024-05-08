@@ -103,15 +103,7 @@ public class Card : MonoBehaviour
         ingameUiObj.SetActive(false);
 
         textCanvas = this.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<CardTextCanvas>();
-        //if (this.cardType == CardType.Minion)
-        //{
-
-        //}
-
-        //else if (this.cardType == CardType.Spell)
-        //{
-
-        //}
+ 
     }       // MinionTextSetting()
 
     protected void GetCardSprite(string cardName_)
@@ -168,7 +160,7 @@ public class Card : MonoBehaviour
         
     }
 
-    public virtual void MinionFieldSpawnSetting()
+    public virtual void MinionFieldSpawn(GameObject spawnParentObj_)
     {
         // 하수인이 스폰되면서 실행되어야 하는것들
     }
