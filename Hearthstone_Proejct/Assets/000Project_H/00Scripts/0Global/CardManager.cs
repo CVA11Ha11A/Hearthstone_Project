@@ -68,7 +68,9 @@ public enum M_Ability
     Lifesteal = 1 << 3,
     Discover = 1 << 4,
     Taunt = 1 << 5,
-    Poisonous = 1 << 6
+    Poisonous = 1 << 6,
+    Rush = 1 << 7
+
 }
 
 public enum C_Text

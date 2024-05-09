@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 [Serializable]
 public class Minion : Card
 {
-    protected M_Ability ability = default;
+    public M_Ability ability = default;
     protected int damageDefault = default;
     protected int heathDefault = default;
     protected bool isSpawnEmpect = false;
@@ -129,6 +130,7 @@ public class Minion : Card
         this.cardTexts[(int)C_Text.Name].transform.localRotation = Quaternion.Euler(0f, 0f, 6f);
     }
 
+
     public override void MinionFieldSpawn(GameObject spawnParentObj_)
     {
         this.gameObject.layer = LayerMask.NameToLayer("Minion");
@@ -145,6 +147,8 @@ public class Minion : Card
 
     }       // MinionSpawn()
 
+
+    // 하수인 소환 코루틴
     IEnumerator CSpawnMove(GameObject spawnParentObj_)
     {
         
@@ -196,8 +200,16 @@ public class Minion : Card
         }
 
         // 
-
+        this.transform.rotation = Quaternion.Euler(0,0,0);
+        this.transform.AddComponent<FieldMinion>();
     }       // CSpawnMove()
+
+    // 하수인이 필드에 깔렸을때 FieldMinion컴포넌트에서 호출해줄것임
+    public void FieldMinionTextUpdate(int hp_, int damage_)
+    {
+        cardTexts[(int)C_Text.Hp].text = hp_.ToString();
+        cardTexts[(int)C_Text.Damage].text = damage_.ToString();
+    }
 
 
 }       // Minion ClassEnd

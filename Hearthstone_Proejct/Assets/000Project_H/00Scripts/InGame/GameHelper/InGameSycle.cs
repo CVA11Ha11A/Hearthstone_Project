@@ -32,15 +32,17 @@ public class InGameSycle : MonoBehaviourPun
         }
     }
 
+    public event Action<bool> MinionAttackPossibleEvent;    // 소환되는 하수인은 해당 이벤트를 구독하며 자신의 턴 시작시 해당 이벤트가 호출 될것임
+
     private void Awake()
-    {
+    {        
         this.PV = GetComponent<PhotonView>();
         isEnemyMulliganCompleat = false;
         isMyMulliganCompleat = false;
     }
     void Start()
     {
-
+        InGameManager.Instance.gameSycleRoot = this;   
     }
     private void OnDestroy()
     {
@@ -74,6 +76,7 @@ public class InGameSycle : MonoBehaviourPun
             InGameManager.Instance.mainCanvasRoot.costRoot.EnemyCost.TurnStartCostSetting();
             //InGameManager.Instance.mouseRoot.transform.GetComponent<MyTurnMouse>().enabled = false;
             InGameManager.Instance.mouseRoot.transform.GetComponent<MyTurnMouse>().enabled = true;  // Test
+            
 
         }
     }       // TurnStart()
@@ -84,7 +87,8 @@ public class InGameSycle : MonoBehaviourPun
         yield return StartCoroutine(InGameManager.Instance.mainCanvasRoot.turnUIRoot.CYourTurnAnime());
         InGameManager.Instance.mainCanvasRoot.costRoot.MyCost.TurnStartCostSetting();   // NowMaxCost++후 현재 코스트를 nowMaxCost로 하는 기능
         InGameManager.Instance.mouseRoot.transform.GetComponent<MyTurnMouse>().enabled = true;
-    }
+        InGameManager.Instance.InGameMyDeckRoot.DrawCard(); // 드로우  [드로우 내부에서 동기화 함]
+    }       // CTurnSetting()
 
     public void TurnSetting()
     {

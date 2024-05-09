@@ -97,6 +97,8 @@ public class InGameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    public InGameSycle gameSycleRoot = null;
+
     public FrontGroundCanvas frontCanvas = null;
     private PhotonView PV = null;
 
@@ -549,7 +551,43 @@ public class InGameManager : MonoBehaviourPunCallbacks
         this.isCompleateEnemyMulligan = isCompleate_;
     }
 
-    
+
+
     #endregion 멀리건
+    #region 동기화 함수
+    public void DrawSync()
+    {   // 플레이어가 드로우 할떄 상대입장에서도 상대드로우 똑같이 기능 실행해주는 함수
+        PV.RPC("DrawSyncRPC", RpcTarget.Others, null);
+    }
+    [PunRPC]
+    public void DrawSyncRPC()
+    {
+        InGameEnemyDeckRoot.DrawCardCallRPC();
+    }
+
+    public void ThrowMinionSync(int targetHandCardIndex_)
+    {
+        PV.RPC("ThrowMinionSyncRPC", RpcTarget.Others, targetHandCardIndex_);
+    }
+
+    [PunRPC]
+    public void ThrowMinionSyncRPC(int targetHandCardIndex_)
+    {       // 적입장에서 카드를 내는것이기 떄문에 적핸드의 타겟카드가 적의 필드로 소환되어야함
+        mainCanvasRoot.fieldRoot.EnemyField.SpawnMinion();
+
+        mainCanvasRoot.handRoot.EnemyHand.RemoveCardInHand(mainCanvasRoot.handRoot.EnemyHand.transform.
+            GetChild(0).GetChild(targetHandCardIndex_).gameObject);
+
+        mainCanvasRoot.handRoot.EnemyHand.transform.GetChild(0).GetChild(targetHandCardIndex_).transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        mainCanvasRoot.handRoot.EnemyHand.transform.GetChild(0).GetChild(targetHandCardIndex_).GetComponent<Card>().
+            MinionFieldSpawn(mainCanvasRoot.fieldRoot.EnemyField.RecentFieldObjRoot);
+
+
+
+
+    }
+    #endregion 동기화 함수
+
 
 }       // ClassEnd

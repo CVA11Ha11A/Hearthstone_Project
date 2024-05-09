@@ -19,24 +19,42 @@ using UnityEngine.UI;
 public class Test001 : MonoBehaviour
 {
     public GameObject testObj;
-
-
+    public GameObject hitObj;
+    LayerMask layerMask;
+    RaycastHit hitInfo;
     private void Awake()
-    {        
-
+    {
+        layerMask = LayerMask.GetMask("Card");
 
     }
 
     private void Start()
     {
-        StartCoroutine(CTest());
+       
     }
 
-    IEnumerator CTest()
-    {
-        yield return new WaitForSeconds(2f);
-        this.transform.GetComponent<Card>().MinionFieldSpawn(testObj);
+    private void Update()
+    { 
+        // 마우스 스크린 좌표 얻기
+       Vector3 mouseScreenPosition = UnityEngine.Input.mousePosition;
+        // 마우스 스크린 좌표를 월드 좌표로 변환
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y,
+            Camera.main.nearClipPlane));
+        if (Physics.Raycast(mouseWorldPosition,Vector3.forward,out hitInfo,Mathf.Infinity,layerMask))
+        {
+            hitObj = hitInfo.transform.gameObject;
+            if(hitObj.Equals(testObj))
+            {
+                DE.Log("같은 개체");
+            }
+            
+        }
+        else
+        {
+            hitObj = null;
+        }
     }
+
 
 
 

@@ -13,7 +13,7 @@ public class MyTurnMouse : MonoBehaviour
     private bool isDragToReady = false;
     private bool isCardScaleSet = false;
     private bool isMinion = false;
-    private bool isSpell = false;    
+    private bool isSpell = false;
 
     private Vector3 mouseScreenPosition = default;
     private Vector3 mouseWorldPosition = default;
@@ -29,7 +29,7 @@ public class MyTurnMouse : MonoBehaviour
         this.isDragToReady = false;
         this.isCardScaleSet = false;
         this.isMinion = false;
-        this.isSpell = false;        
+        this.isSpell = false;
         this.setScale = Vector3.one;
         this.mouseRoot = this.transform.GetComponent<Mouse>();
 
@@ -56,7 +56,7 @@ public class MyTurnMouse : MonoBehaviour
 
         if (this.isDragToReady == true && this.targetCard != null)
         {   // 드래그
-            if(isCardScaleSet == false)
+            if (isCardScaleSet == false)
             {
                 StartCoroutine(CTargetCardSclaeSet());
             }
@@ -83,7 +83,7 @@ public class MyTurnMouse : MonoBehaviour
 
                 //DE.Log($"tarGet의 Y포지션은 어느정도지? : {targetCard.transform.position}");
                 // 여기서 레이를 쏘고 필드의 타겟인지 체크
-                if(targetCard.transform.position.y > -2f)
+                if (targetCard.transform.position.y > -2f)
                 {   // 필드쪽으로 갔다는 뜻
                     // 1. 내코스트가 카드를 사용할 만큼의 코스트가 되는지 확인
                     CheckIsThrowCard();
@@ -155,24 +155,38 @@ public class MyTurnMouse : MonoBehaviour
         }
 
         // 3 미니언이라면 필드의 수가 가득 찼는지 체크
-        if(isMinion == true)
+        if (isMinion == true)
         {
-            if(InGameManager.Instance.mainCanvasRoot.fieldRoot.MyField.NowMinionCount >= InGameField.MAX_MINON_COUNT)
+            if (InGameManager.Instance.mainCanvasRoot.fieldRoot.MyField.NowMinionCount >= InGameField.MAX_MINON_COUNT)
             {
                 return false;
             }
-            else 
+            else
             {
+                // 여기서 target카드가 핸드의 몇번째 카드인지 알아내고 쏴주어야 할거같음
+                int cardHandIndex = default;
+                for (int i = 0; i < InGameManager.Instance.mainCanvasRoot.handRoot.MyHand.transform.GetChild(0).childCount; i++)
+                {   // 핸드의 몇번째 존재하는 카드를 내려고 시도하는지 찾는 for문
+                    if(targetCard.Equals(InGameManager.Instance.mainCanvasRoot.handRoot.MyHand.transform.GetChild(0).GetChild(i).gameObject))
+                    {   // 현재 들고있는 카드와 같은 개체라면 들어올 if문
+                        cardHandIndex = i;
+                        break;
+                    }
+                }
+
+
+                targetCard.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                 InGameManager.Instance.mainCanvasRoot.handRoot.MyHand.RemoveCardInHand(targetCard);
                 InGameManager.Instance.mainCanvasRoot.fieldRoot.MyField.SpawnMinion();
                 targetCard.GetComponent<Card>().MinionFieldSpawn(InGameManager.Instance.mainCanvasRoot.fieldRoot.MyField.RecentFieldObjRoot);
+                InGameManager.Instance.ThrowMinionSync(cardHandIndex);
             }
-            
-                        
+
+
             return true;
         }
         return false;    // temp 
-    }
+    }       // CheckIsThrowCard()
 
 
 }       // ClassEnd

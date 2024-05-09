@@ -197,8 +197,9 @@ public class InGameDeck : MonoBehaviour
         InGamePlayerDeck.DrawCardRemoveCard();
         cardObjs[objIndex].transform.rotation = Quaternion.Euler(0,0,0);
         TargetHand.AddCardInHand(cardObjs[objIndex]);
-        cardObjs[objIndex] = null;        
-        
+        DE.Log($"내가 뽑은 카드 ID : {(int)cardObjs[objIndex].GetComponent<Card>().cardId}");
+        InGameManager.Instance.DrawSync();
+        cardObjs[objIndex] = null;
         // 상대에게 지워야될 카드를 보내줌 -> 상대의 덱을 업데이트 (로컬로 하는게 빠를듯)
         //RPC로 DrawCardRemove? 아니면 DrawEnemy를 실행 시킬까?
 
@@ -240,40 +241,8 @@ public class InGameDeck : MonoBehaviour
 
         // 디버깅용
         if (objIndex == -1)
-        {
-            bool exception = true;
-            DE.Log($"TargetCard를 찾지 못했음");
-            #region 예외처리
-            while (exception == true)
-            {
-                for (int i = 0; i < cardObjs.Length; i++)
-                {
-                    
-                    //DE.Log($"i : {i}");
-                    if (cardObjs[i] == null)
-                    {
-                        //DE.Log($"cardObjs[i] == null 조건으로 Continue");
-                        continue;
-                    }
-                    else if (cardObjs[i].activeSelf == false)
-                    {
-                        //DE.Log($"cardObjs[i].activeSelf == false Continue");
-                        continue;
-                    }
-                    else if (cardObjs[i].GetComponent<Card>() == true)
-                    {
-                        //DE.Log($"cardObjs[i].GetComponent<Card>() == true조건 맞아서 진입함\n카드가 존재하는 개체의 카드 ID : {(int)cardObjs[i].GetComponent<Card>().cardId}\n 타겟의 ID : {(int)drawCard}");
-                        if (cardObjs[i].GetComponent<Card>().cardId == drawCard)
-                        {                            
-                            objIndex = i;
-                            exception = false;
-                            break;
-                        }
-                    }
-                }
-            }
-            #endregion 예외처리
-
+        {            
+            DE.Log($"TargetCard를 찾지 못했음");                        
             //return;
         }
 
@@ -282,6 +251,70 @@ public class InGameDeck : MonoBehaviour
         TargetHand.AddCardInHand(cardObjs[objIndex]);
         cardObjs[objIndex] = null;
         InGameManager.Instance.CallEnemyMulliganDraw((int)drawCard);
+    }       // DrawCard
+
+    // 동기화용 드로우 IngameManager제외하곤 호출 X
+    public void DrawCardCallRPC()
+    {
+        // 드로우 할떄마다 Deck의 PullDeck을 호출하면 땡겨짐 중간에 카드 드로우라면 인자를 넣어주면됨
+        // 카드를 뽑을경우 
+        int objIndex = -1;
+        int removeCardId = -1;
+        int targetIndex = -1;
+        CardID targetCard = default;
+
+        for (int i = 0; i < InGamePlayerDeck.cardList.Length; i++)
+        {   // 내가 뽑을 카드가 무었인지 찾는 for
+            if (InGamePlayerDeck.cardList[i] == CardID.StartPoint || InGamePlayerDeck.cardList[i] == CardID.EndPoint)
+            {
+                continue;
+            }
+            else
+            {
+                targetCard = InGamePlayerDeck.cardList[i];
+                targetIndex = i;
+                removeCardId = (int)InGamePlayerDeck.cardList[i];
+                //InGamePlayerDeck.RemoveCard(targetCard);  // RPC로 해야하기에 주석
+                break;
+            }
+        }
+
+        // 타겟의 인덱스를 찾는 for
+        for (int i = 0; i < cardObjs.Length; i++)
+        {
+            if (cardObjs[i] == null)
+            {
+                continue;
+            }
+            else if (cardObjs[i].activeSelf == false)
+            {
+                continue;
+            }
+            else if (cardObjs[i].GetComponent<Card>() == true)
+            {
+                if (cardObjs[i].GetComponent<Card>().cardId == targetCard)
+                {
+                    objIndex = i;
+                    break;
+                }
+            }
+        }
+
+
+        // 디버깅용
+        if (objIndex == -1)
+        {
+            DE.Log($"TargetCard를 찾지 못했음");
+        }
+        
+        InGamePlayerDeck.DrawCardRemoveCard();
+        cardObjs[objIndex].transform.rotation = Quaternion.Euler(0, 0, 0);
+        TargetHand.AddCardInHand(cardObjs[objIndex]);
+        DE.Log($"내가 뽑은 카드 ID : {(int)cardObjs[objIndex].GetComponent<Card>().cardId}");        
+        cardObjs[objIndex] = null;
+        
+
+
     }       // DrawCard
 
     public void EnemyDrawCard()

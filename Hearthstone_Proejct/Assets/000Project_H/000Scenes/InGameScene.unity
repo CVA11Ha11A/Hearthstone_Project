@@ -17053,6 +17053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCanvasRoot: {fileID: 0}
+  gameSycleRoot: {fileID: 0}
   frontCanvas: {fileID: 0}
   mouseRoot: {fileID: 0}
   isCompleatMyDeckInit: 0

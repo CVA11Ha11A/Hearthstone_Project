@@ -250,6 +250,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6871506924112038164, guid: b28f54f4c8ac4e848a76e35e99fa0838,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871506924112038164, guid: b28f54f4c8ac4e848a76e35e99fa0838,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 85
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b28f54f4c8ac4e848a76e35e99fa0838, type: 3}
 --- !u!1 &171910659 stripped
@@ -258,19 +268,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 89208359}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &171910660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 171910659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67265d96f1778664ba06055030b062cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  testObj: {fileID: 172916066}
 --- !u!114 &171910661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,6 +294,7 @@ MonoBehaviour:
   cardNameEn: Norgannon
   isPreparation: 0
   empectTarget: {fileID: 0}
+  ability: 0
   damage: 6
   heath: 10
 --- !u!1 &172916066
@@ -805,6 +803,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCanvasRoot: {fileID: 0}
+  gameSycleRoot: {fileID: 0}
   frontCanvas: {fileID: 0}
   mouseRoot: {fileID: 0}
   isCompleatMyDeckInit: 0
@@ -950,6 +949,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1463445853
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1463445855}
+  - component: {fileID: 1463445854}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1463445854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463445853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67265d96f1778664ba06055030b062cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testObj: {fileID: 171910659}
+  hitObj: {fileID: 0}
+--- !u!4 &1463445855
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463445853}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.7446755, y: -0.6919649, z: 16.649546}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1923316702
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,7 +1019,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1923316702}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5861b06069cd3ae4b9047a8ed6d6fee0, type: 3}
   m_Name: 
@@ -1024,6 +1069,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testObj: {fileID: 0}
+  hitObj: {fileID: 0}
 --- !u!4 &2040946136
 Transform:
   m_ObjectHideFlags: 0

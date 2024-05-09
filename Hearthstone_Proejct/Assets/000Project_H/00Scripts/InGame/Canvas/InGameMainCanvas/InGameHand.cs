@@ -36,10 +36,8 @@ public class InGameHand : MonoBehaviour
         {
             this.nowHandCount = value;
 
-            if (this.nowHandCount > 3)
-            {
-                CardHandSorting();      
-            }
+
+            CardHandSorting();
             DisplayHandCards();
         }
     }
@@ -80,9 +78,9 @@ public class InGameHand : MonoBehaviour
         int nowHandCount = handCard.Count;
         int senterIndex = nowHandCount / 2;
 
-        if(this.isEnemyHand == true)
+        if (this.isEnemyHand == true)
         {
-            for(int i =0; i < handCard.Count; i++)
+            for (int i = 0; i < handCard.Count; i++)
             {
                 handCard[i].transform.rotation = Quaternion.Euler(180f, 0, 0);
             }
@@ -154,13 +152,29 @@ public class InGameHand : MonoBehaviour
 
         // 이동 가능한 거리 X -4.5 ~ +4.5
         // 한 카드의 가로 길이를 알아야 할 수도 있을듯
+
+        // 해당함수도 조건을 따지지 말고 호출하고 여기서 3보다 작으면 다 000으로 설정하는 기능을 추가
+        if (handCard.Count <= 3)
+        {
+            foreach (GameObject objRoot in this.handCard)
+            {
+                if(objRoot == null)
+                {
+                    continue;
+                }
+                objRoot.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            }
+            return;
+        }
+        else { /*PASS*/ }
+
         bool allAngleChanger = false; // 모든 카드들을 기울일것인지 
         float afterSenterAngle = -20f / handCard.Count;
         float previousSenterAngle = 20f / handCard.Count;
         float angle = default;
         int senterIndex = -1;
         float xAngle = 0f;
-        if(isEnemyHand == true)
+        if (isEnemyHand == true)
         {
             xAngle = 180f;
         }
@@ -208,13 +222,6 @@ public class InGameHand : MonoBehaviour
     }
 
 
-    public void TESTBUTTON()
-    {
-        GameObject testObj = Instantiate(CardManager.Instance.cardPrefab, this.transform.GetChild(0).transform);
-        handCard.Add(testObj);
-        NowHandCount++;
-
-    }
 
     public void AddCardInHand(GameObject targetObj_)
     {
@@ -223,20 +230,23 @@ public class InGameHand : MonoBehaviour
         NowHandCount++;
     }
 
-    public void RemoveCardInHand(GameObject targetObj_) 
+    public void RemoveCardInHand(GameObject targetObj_)
     {   // 카드를 지우거나 카드를 내거나 핸드가 소모되었을때 호출되야하는 함수
-        //for(int i = 0; i < handCard.Count; i++)
-        //{
-        //    if(handCard[i].Equals(targetObj_))
-        //    {
-        //        handCard.RemoveAt(i);
-        //        nowHandCount--;
-        //        break;
-        //    }
 
-        //}
-        handCard.Remove(targetObj_);
-        NowHandCount--;
+
+        for (int i = 0; i < handCard.Count; i++)
+        {
+            if (handCard[i].Equals(targetObj_))
+            {
+                DE.Log($"카드 낸 이후 카드 제거 성공");
+                handCard.RemoveAt(i);
+                NowHandCount--;
+                break;
+            }
+
+        }
+        //handCard.Remove(targetObj_);
+        //NowHandCount--;
 
     }
 
