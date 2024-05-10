@@ -12,7 +12,7 @@ public class Mouse : MonoBehaviour
 
     private RaycastHit hitInfo = default;
     private Vector3 mouseScreenPosition = default;
-    private Vector3 mouseWorldPosition = default;
+    public Vector3 mouseWorldPosition = default;
     private MouseInteractionObj lastHitObj = null;
 
     private Vector3 highlightCardScale = default;           // standard에 접근한다면 15f 바로 접근한다면 1.5f

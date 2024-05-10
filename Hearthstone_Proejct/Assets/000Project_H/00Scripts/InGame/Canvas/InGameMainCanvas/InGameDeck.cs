@@ -192,6 +192,8 @@ public class InGameDeck : MonoBehaviour
             DE.Log($"TargetCard를 찾지 못했음");
         }
 
+     
+        
         // 해당 게임 오브젝트가 핸드로 가면됨
         // RPC 함수로 호출해서 상대에게 기능 실행 InGamePlayerDeck.cardList[0] = CardID.StartPoint;   // 뽑은카드는 덱의 데이터에서 제외 
         InGamePlayerDeck.DrawCardRemoveCard();
@@ -203,6 +205,15 @@ public class InGameDeck : MonoBehaviour
         // 상대에게 지워야될 카드를 보내줌 -> 상대의 덱을 업데이트 (로컬로 하는게 빠를듯)
         //RPC로 DrawCardRemove? 아니면 DrawEnemy를 실행 시킬까?
 
+        #region TEST
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < InGamePlayerDeck.cardList.Length; i++)
+        {
+            sb.Append($"{(int)InGamePlayerDeck.cardList[i]}");
+            sb.Append(" ");
+        }
+        DE.Log($"드로우한뒤에 나의 덱 상황 : {sb.ToString()}");
+        #endregion TEST
 
     }       // DrawCard
 

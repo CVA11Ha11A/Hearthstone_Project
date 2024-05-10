@@ -584,9 +584,31 @@ public class InGameManager : MonoBehaviourPunCallbacks
             MinionFieldSpawn(mainCanvasRoot.fieldRoot.EnemyField.RecentFieldObjRoot);
 
 
+    }
 
+    public void TurnEndSync()
+    {
+        ETurn turnParam = default;
+        if(this.TurnSystem == ETurn.GoFirst)
+        {
+            turnParam = ETurn.GoSecond;
+        }
+        else
+        {
+            turnParam = ETurn.GoFirst;
+        }
+        PV.RPC("TurnEndSyncRPC", RpcTarget.All, (int)turnParam);
+            
+    }
+    [PunRPC]
+    public void TurnEndSyncRPC(int turnParam_)
+    {
+        gameSycleRoot.NowTurn = (ETurn)turnParam_;
+        gameSycleRoot.TurnStart();
 
     }
+
+
     #endregion 동기화 함수
 
 

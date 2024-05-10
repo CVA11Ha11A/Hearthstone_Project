@@ -81,6 +81,7 @@ public class InGameSycle : MonoBehaviourPun
         }
     }       // TurnStart()
 
+
     private IEnumerator CTurnSetting()
     {
         // 턴시작 UI 애니메이션 실행

@@ -25,8 +25,18 @@ public class TurnEndButton : MonoBehaviour
         
     }
 
-    private void TurnEndButtonMethod()
-    {
-       // TODO : 제작해야함
+    public void TurnEndButtonMethod()
+    {                
+        if(InGameManager.Instance.TurnSystem == InGameManager.Instance.gameSycleRoot.NowTurn)
+        {
+            InGameManager.Instance.TurnEndSync();
+        }
+        else
+        {
+            DE.Log("자신의 턴이 아닌데 클릭되서 Pass");
+        }
+     
+        
+
     }
 }       // ClassEnd

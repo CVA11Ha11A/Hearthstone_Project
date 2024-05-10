@@ -42,8 +42,11 @@ public class MyTurnMouse : MonoBehaviour
 
     private void Update()
     {
+        
+
         if (Input.GetMouseButtonDown(0))
         {   // 클릭 순간
+            
             if (mouseRoot.lastCardRoot != null)
             {
                 this.isDragToReady = true;
