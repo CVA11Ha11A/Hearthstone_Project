@@ -182,9 +182,7 @@ public class Minion : Card
         ingameUiObj.SetActive(true);    // UI 켜기        
         textCanvas.textObjRoots[0].transform.position = ingameUiObj.transform.GetChild(0).transform.position;
         textCanvas.textObjRoots[1].transform.position = ingameUiObj.transform.GetChild(1).transform.position;
-        Vector3 v3 = new Vector3(textCanvas.textObjRoots[1].transform.position.x,
-            textCanvas.textObjRoots[0].transform.position.y, textCanvas.textObjRoots[1].transform.position.z);
-        textCanvas.textObjRoots[1].transform.position = v3;
+
 
         textCanvas.GetComponent<CardTextCanvas>().SetMinionFieldTextPos();  // 불필요한 Text끄기
 

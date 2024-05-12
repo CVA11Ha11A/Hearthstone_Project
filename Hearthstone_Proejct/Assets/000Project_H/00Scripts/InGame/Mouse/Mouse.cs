@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Mouse : MonoBehaviour
@@ -7,6 +8,7 @@ public class Mouse : MonoBehaviour
 
     private LayerMask targetObjLayer = default;
     private LayerMask cardLayer = default;
+    private LayerMask fieldMinionLayer = default;
     public bool isRayCast = false;
     public bool isDraging = false;
 
@@ -22,15 +24,18 @@ public class Mouse : MonoBehaviour
     private Vector3 lastCardPosition = default;
     private Vector3 lastCardScale = default;
     private Quaternion lastCardRoation = default;
-    public Card lastCardRoot = null;
+    public Card lastCardRoot = null;                        // 핸드 카드용
+
+    public GameObject lastMinionRoot = null;                // 필드 미니언 용
 
     private void Awake()
     {
         InGameManager.Instance.mouseRoot = this;
         this.isRayCast = false;
         this.isDraging = false;
-        this.targetObjLayer = 1 << 11;
         this.cardLayer = 1 << 6;
+        this.targetObjLayer = 1 << 11;
+        this.fieldMinionLayer = 1 << 12;
         this.highlightCardYPos = 65f;
         this.highlightCardScale = new Vector3(1.5f, 1.5f, 1.5f);
 
@@ -73,6 +78,7 @@ public class Mouse : MonoBehaviour
         // ----------------------------------------------------------- Card관련 --------------------------------------------
 
 
+        // 핸드 카드
         if (Physics.Raycast(mouseWorldPosition, Vector3.forward, out hitInfo, Mathf.Infinity, cardLayer))
         {
             if (lastCardRoot != null)
@@ -81,7 +87,7 @@ public class Mouse : MonoBehaviour
                 {   // 이미 부각시킨 카드라면
                     return;
                 }
-                else if(isDraging == true)
+                else if (isDraging == true)
                 {
                     return;
                 }
@@ -123,12 +129,32 @@ public class Mouse : MonoBehaviour
             }
         }
 
+        // 필드 미니언
+        if (Physics.Raycast(mouseWorldPosition, Vector3.forward, out hitInfo, Mathf.Infinity, fieldMinionLayer))
+        {
+            if(lastMinionRoot == null)
+            {
+                if(hitInfo.transform.parent.parent.name == "MyField")
+                {
+                    lastMinionRoot = hitInfo.transform.gameObject;
+                }
+                else { /*PASS*/ }   // 적의 하수인이 타겟이 될 경우를 대비
+            }
+            else
+            {   // if : MinionRoot != null
+                if(lastMinionRoot != null && isDraging == false)
+                {
+                    lastMinionRoot = null;
+                }
+            }
+        }
+
     }       // Update()
 
 
     public void LastCardPositionRollBack(bool isTransfromSet_ = true)
     {
-        DE.Log($"언제호출이되는거지?");
+        //DE.Log($"언제호출이되는거지?");
         if (isTransfromSet_ == true)
         {
             lastCardRoot.transform.position = lastCardPosition;

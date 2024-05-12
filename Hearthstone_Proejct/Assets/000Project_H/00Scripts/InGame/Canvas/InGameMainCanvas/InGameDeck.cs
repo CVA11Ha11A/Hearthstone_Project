@@ -143,26 +143,47 @@ public class InGameDeck : MonoBehaviour
     {
         // 드로우 할떄마다 Deck의 PullDeck을 호출하면 땡겨짐 중간에 카드 드로우라면 인자를 넣어주면됨
         // 카드를 뽑을경우 
-        int objIndex = -1;
-        int removeCardId = -1;
-        int targetIndex = -1;
-        CardID targetCard = default;
+        int objIndex = -1;        
+        CardID targetCard = CardID.StartPoint;
 
-        for(int i = 0; i < InGamePlayerDeck.cardList.Length; i++)
-        {   // 내가 뽑을 카드가 무었인지 찾는 for
-            if(InGamePlayerDeck.cardList[i] == CardID.StartPoint || InGamePlayerDeck.cardList[i] == CardID.EndPoint)
+        #region LEGACY
+        //for(int i = 0; i < InGamePlayerDeck.cardList.Length; i++)
+        //{   // 내가 뽑을 카드가 무었인지 찾는 for
+        //    if(InGamePlayerDeck.cardList[i] == CardID.StartPoint || InGamePlayerDeck.cardList[i] == CardID.EndPoint)
+        //    {
+        //        continue;
+        //    }
+        //    else
+        //    {
+        //        targetCard = InGamePlayerDeck.cardList[i];
+        //        targetIndex = i;
+        //        removeCardId = (int)InGamePlayerDeck.cardList[i];
+        //        //InGamePlayerDeck.RemoveCard(targetCard);  // RPC로 해야하기에 주석
+        //        break;
+        //    }
+        //}
+        #endregion LEGACY
+
+        if(InGamePlayerDeck.count == 0)
+        {
+            // 탈진 딜 넣고 해당 함수 탈출
+        }
+        else { /*PASS*/ }
+
+
+
+        while (targetCard == CardID.StartPoint)
+        {
+            if (InGamePlayerDeck.cardList[0] == CardID.StartPoint || InGamePlayerDeck.cardList[0] == CardID.EndPoint)
             {
-                continue;
+                InGamePlayerDeck.PullCardList();
             }
             else
             {
-                targetCard = InGamePlayerDeck.cardList[i];
-                targetIndex = i;
-                removeCardId = (int)InGamePlayerDeck.cardList[i];
-                //InGamePlayerDeck.RemoveCard(targetCard);  // RPC로 해야하기에 주석
-                break;
+                targetCard = InGamePlayerDeck.cardList[0];
             }
         }
+        
 
         // 타겟의 인덱스를 찾는 for
         for (int i = 0; i < cardObjs.Length; i++)

@@ -45,6 +45,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
     }
 
     public InGameMainCanvas mainCanvasRoot = null;
+    public FrontGroundCanvas frontCanvas = null;
 
     private StringBuilder sb = null;
 
@@ -99,10 +100,10 @@ public class InGameManager : MonoBehaviourPunCallbacks
 
     public InGameSycle gameSycleRoot = null;
 
-    public FrontGroundCanvas frontCanvas = null;
     private PhotonView PV = null;
 
     public Mouse mouseRoot = null;
+    
 
     #endregion Roots
 

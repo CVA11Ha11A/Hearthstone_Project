@@ -59,11 +59,11 @@ public class Deck : IDeckFunction
 
     public void PullCardList()
     {   // 첫 번째 인덱스 부터 순회하며 한칸씩 땡김
-        for (int i = 0; i < MAX_CARD_COUNT - 1; i++)
+        for (int i = 0; i < cardList.Length; i++)
         {
-            if (i + 1 >= MAX_CARD_COUNT)
+            if (i + 1 >= cardList.Length)
             {   // IndexOutRange 예외처리
-                continue;
+                break;
             }
             if (cardList[i] == CardID.StartPoint || cardList[i] == CardID.EndPoint)
             {
@@ -101,7 +101,7 @@ public class Deck : IDeckFunction
     #region InterfaceMethod
     public void AddCardInDeck(CardID addCardId_)
     {
-        if (this.currentIndex == MAX_CARD_COUNT - 1)
+        if (this.currentIndex == MAX_CARD_COUNT)
         {
             return;
         }

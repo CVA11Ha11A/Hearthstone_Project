@@ -70,6 +70,9 @@ TagManager:
   - name: NewDeckSelcetClassCanvas
     uniqueID: 1685646667
     locked: 0
+  - name: DrawLine
+    uniqueID: 2367948561
+    locked: 0
   - name: DiscoveryCanvas
     uniqueID: 1208613769
     locked: 0

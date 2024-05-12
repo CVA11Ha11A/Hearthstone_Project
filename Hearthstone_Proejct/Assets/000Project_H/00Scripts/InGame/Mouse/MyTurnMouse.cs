@@ -10,18 +10,24 @@ public class MyTurnMouse : MonoBehaviour
     private Mouse mouseRoot = null;
     private int targetLayer = default;
 
+    // 기능 관련 bool 변수
     private bool isDragToReady = false;
     private bool isCardScaleSet = false;
     private bool isMinion = false;
     private bool isSpell = false;
 
+
     private Vector3 mouseScreenPosition = default;
     private Vector3 mouseWorldPosition = default;
 
+    // 핸드 카드 변수
     public GameObject targetCard = null;
     private GameObject scaleSetObjTarget = null;    // 스케일 조정중 targetCard가 Null이 될경우를 위한 Root
     private Vector3 setScale = default;
 
+    // 미니언 드래그 관련 변수
+    private GameObject selectMinion = null;     // 선택된 대상
+    private GameObject targetObj = null;        // 공격할 타겟
 
     private void Awake()
     {
@@ -55,6 +61,14 @@ public class MyTurnMouse : MonoBehaviour
                 this.targetCard = mouseRoot.lastCardRoot.gameObject;
                 this.scaleSetObjTarget = this.targetCard;
             }
+
+            else if(mouseRoot.lastMinionRoot != null)
+            {
+                this.isDragToReady = true;
+                mouseRoot.isDraging = true;
+                this.selectMinion = mouseRoot.lastMinionRoot.gameObject;
+                // 여기서 하수인 기준으로 그려지는 무언가가 존재해야함
+            }
         }
 
         if (this.isDragToReady == true && this.targetCard != null)
@@ -70,6 +84,11 @@ public class MyTurnMouse : MonoBehaviour
                 distance));
 
             targetCard.transform.position = mouseWorldPosition;
+        }
+
+        else if(this.isDragToReady = true && this.selectMinion != null)
+        {
+            
         }
 
 
