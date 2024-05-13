@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -28,6 +27,8 @@ public class MyTurnMouse : MonoBehaviour
     // 미니언 드래그 관련 변수
     private GameObject selectMinion = null;     // 선택된 대상
     private GameObject targetObj = null;        // 공격할 타겟
+    private LayerMask attackTargetLayer = default;  // 공격가능한 타겟이 될 레이어
+    private RaycastHit hitInfo = default;
 
     private void Awake()
     {
@@ -38,6 +39,8 @@ public class MyTurnMouse : MonoBehaviour
         this.isSpell = false;
         this.setScale = Vector3.one;
         this.mouseRoot = this.transform.GetComponent<Mouse>();
+        this.attackTargetLayer = 1 << 12 | 1 << 13;     // Minion | Hero
+
 
         this.enabled = false;
     }
@@ -48,7 +51,17 @@ public class MyTurnMouse : MonoBehaviour
 
     private void Update()
     {
-        
+#if DEVELOP_TEST
+        // 마우스 포지션을 얻어옴
+        mouseScreenPosition = Input.mousePosition;
+        // 마우스 스크린 좌표를 월드 좌표로 변환
+        mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y,
+            Camera.main.nearClipPlane));
+        if (Physics.Raycast(mouseWorldPosition,Vector3.forward ,out hitInfo))
+        {
+            DE.Log($"테스트 레이 맞은 개체 : {hitInfo.collider.name}");
+        }
+#endif
 
         if (Input.GetMouseButtonDown(0))
         {   // 클릭 순간
@@ -57,7 +70,7 @@ public class MyTurnMouse : MonoBehaviour
             {
                 this.isDragToReady = true;
                 this.mouseRoot.isDraging = true;
-                DE.Log("클릭해서 드래그를 true로 바꿈");
+                //DE.Log("클릭해서 드래그를 true로 바꿈");
                 this.targetCard = mouseRoot.lastCardRoot.gameObject;
                 this.scaleSetObjTarget = this.targetCard;
             }
@@ -67,7 +80,7 @@ public class MyTurnMouse : MonoBehaviour
                 this.isDragToReady = true;
                 mouseRoot.isDraging = true;
                 this.selectMinion = mouseRoot.lastMinionRoot.gameObject;
-                // 여기서 하수인 기준으로 그려지는 무언가가 존재해야함
+                AudioManager.Instance.PlaySFM(false, selectMinion.GetComponent<Minion>().GetAttackClip());
             }
         }
 
@@ -101,16 +114,16 @@ public class MyTurnMouse : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {   // 마우스 땔경우
+
+            // 마우스 포지션을 얻어옴
+            mouseScreenPosition = Input.mousePosition;
+            // 마우스 스크린 좌표를 월드 좌표로 변환
+            mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y,
+                Camera.main.nearClipPlane));
+
             if (this.targetCard != null)
-            {
-                // 마우스 포지션을 얻어옴
-                mouseScreenPosition = Input.mousePosition;
-                // 마우스 스크린 좌표를 월드 좌표로 변환
-                mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y,
-                    Camera.main.nearClipPlane));
-
-
-                //DE.Log($"tarGet의 Y포지션은 어느정도지? : {targetCard.transform.position}");
+            {   // 현재 핸드의 카드를 드래그 중이라면
+                
                 // 여기서 레이를 쏘고 필드의 타겟인지 체크
                 if (targetCard.transform.position.y > -2f)
                 {   // 필드쪽으로 갔다는 뜻
@@ -125,10 +138,30 @@ public class MyTurnMouse : MonoBehaviour
 
             // 레이를 쏘아서 공격가능한 Layer라면 공격을 실행해야함
 
+            if(this.selectMinion != null)
+            {   // 현재 공격시도를 하는 미니언이 존재할 경우
+                if(Physics.Raycast(mouseWorldPosition,Vector3.forward,out hitInfo, Mathf.Infinity,attackTargetLayer))
+                {
+                    DE.Log($"현재 레이에 맞은 목표 타겟 : {hitInfo.collider.name}");
+                    // 미니언이라면 card를 가져와서 데미지 계산 | 영웅이라면 영웅 공격
+                    if(hitInfo.collider.GetComponent<IDamageable>() != null)
+                    {
+                        // 공격가능한지 조건 체크 함수 실행 : 아군공격하는것인지? , 도발하수인 존재하는지?등 체크
+                        if(InGameManager.Instance.mainCanvasRoot.fieldRoot.EnemyField.IsTargetAtteckAble(hitInfo.transform))
+                        {
+                            // Attack실행
+                            StartCoroutine(this.selectMinion.GetComponent<Minion>().CIAttackAnime(hitInfo.transform));
+
+                        }
+                    }
+                }
+            }
+
             InGameManager.Instance.frontCanvas.drawRoot.EndParabola();  // 그려진 LineRenderer를 숨기기
             this.isDragToReady = false;
             this.isCardScaleSet = false;
             mouseRoot.isDraging = false;
+            mouseRoot.lastMinionRoot = null;
             this.targetCard = null;
             this.selectMinion = null;
 

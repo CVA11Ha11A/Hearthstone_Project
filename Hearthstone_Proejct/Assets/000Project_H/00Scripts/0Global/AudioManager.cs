@@ -18,8 +18,15 @@ public enum ESoundSFM
 {
     TurnStart = 0,
     PutDownTurnEndButton = 1,
-    MulliganCoin = 2
+    MulliganCoin = 2,
+    MinionSpawn = 3,
+    SmallDamage = 4,
+    MiddleDamage = 5,
+    LargeDamage = 6,
+    MinionDeath = 7
 }
+
+
 public enum EAudioMixerGroup
 {
     Master = 0,
@@ -130,6 +137,11 @@ public class AudioManager : MonoBehaviour
         sfmClips[(int)ESoundSFM.TurnStart] = Resources.Load<AudioClip>(sfmPath + "TurnStart");
         sfmClips[(int)ESoundSFM.PutDownTurnEndButton] = Resources.Load<AudioClip>(sfmPath + "PutDownTurnEndButton");
         sfmClips[(int)ESoundSFM.MulliganCoin] = Resources.Load<AudioClip>(sfmPath + "MulliganCoin");
+        sfmClips[(int)ESoundSFM.MinionSpawn] = Resources.Load<AudioClip>(sfmPath + "MinionSpawn");
+        sfmClips[(int)ESoundSFM.SmallDamage] = Resources.Load<AudioClip>(sfmPath + "SmallDamage");
+        sfmClips[(int)ESoundSFM.MiddleDamage] = Resources.Load<AudioClip>(sfmPath + "MiddleDamage");
+        sfmClips[(int)ESoundSFM.LargeDamage] = Resources.Load<AudioClip>(sfmPath + "LargeDamage");
+        sfmClips[(int)ESoundSFM.MinionDeath] = Resources.Load<AudioClip>(sfmPath + "MinionDeath");
 
     }       // AudioResourceLoad()
 
@@ -294,7 +306,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFM(bool isLoop_, AudioClip clip_)
     {
-       
+
         int playObjIndex = -1;
 
         for (int i = 0; i < this.audioObjList.Count; i++)

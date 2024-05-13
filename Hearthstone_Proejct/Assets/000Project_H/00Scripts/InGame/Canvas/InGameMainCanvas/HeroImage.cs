@@ -15,8 +15,33 @@ public enum EEmoteClip
     Concede = 5,
     Death = 6
 }
-public class HeroImage : MonoBehaviour
+public class HeroImage : MonoBehaviour, IDamageable
 {
+    private int maxHeroHp = 30;
+    private int heroHp = 30;
+    public int HeroHp
+    {
+        get
+        {
+            return this.heroHp;
+        }
+        set
+        {
+            heroHp = value;
+            if (heroHp > maxHeroHp)
+            {
+                heroHp = maxHeroHp;
+            }
+            else if (heroHp <= 0)
+            {
+                // TODO : 영웅 사망
+            }
+            HeroHPTextUpdate();
+
+        }
+    }
+
+
     public bool isSettingCompleate = default;
     public Image heroImage = null;
     public TextMeshProUGUI hpText = null;
@@ -39,17 +64,21 @@ public class HeroImage : MonoBehaviour
         isSettingCompleate = false;
         sb = new StringBuilder();
         emoteClip = new AudioClip[7];
+        this.maxHeroHp = 30;
+        this.heroHp = 30;
+
+
         heroImage = this.transform.GetChild(0).GetChild(0).GetComponent<Image>();
         hpText = this.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
         hpImageObject = this.transform.GetChild(1).gameObject;
 
-        if(this.transform.name == "MyImage(Frame)")
+        if (this.transform.name == "MyImage(Frame)")
         {
             isMine = true;
             isEnemy = false;
             this.transform.parent.GetComponent<HeroImages>().MyHeroImageRootSetter(this);
         }
-        else if(this.transform.name == "EnemyImage(Frame)")
+        else if (this.transform.name == "EnemyImage(Frame)")
         {
             isMine = false;
             isEnemy = true;
@@ -67,10 +96,10 @@ public class HeroImage : MonoBehaviour
 
     public void HeroSetting()
     {
-        
+
         string defaultPath = "ClassEmoteClips/VO_HERO_";
         string heroNum = string.Empty;
-        if(this.isMine == true)
+        if (this.isMine == true)
         {
             heroNum = ResourceManager.Instance.GetHeroNum(GameManager.Instance.inGamePlayersDeck.MyDeck.deckClass);
         }
@@ -80,7 +109,7 @@ public class HeroImage : MonoBehaviour
         }
         int conversIndex = 0;
 
-        for(int i = 0; i < emoteClip.Length; i++)
+        for (int i = 0; i < emoteClip.Length; i++)
         {
             sb.Clear();
             sb.Append(defaultPath).Append(heroNum).Append("_").Append((EEmoteClip)conversIndex);
@@ -91,7 +120,26 @@ public class HeroImage : MonoBehaviour
         isSettingCompleate = true;
     }       // HeroSetting()
 
+    public void IAttacked(int damage_)
+    {
 
+        this.HeroHp -= damage_;
 
+    }
 
+    public void HeroHPTextUpdate()
+    {
+        if (sb == null)
+        {
+            sb = new StringBuilder();
+        }
+        sb.Clear();
+        sb.Append($"{HeroHp}");
+        hpText.text = sb.ToString();
+    }       // HeroHPTextUpdate()
+
+    public IEnumerator CIAttackAnime(Transform targetTrans_)
+    {   // 영웅의 공격은 아직 구현 X 
+        yield return null;
+    }
 }       // ClassEnd

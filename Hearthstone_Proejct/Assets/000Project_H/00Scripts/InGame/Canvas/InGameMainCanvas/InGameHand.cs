@@ -238,7 +238,7 @@ public class InGameHand : MonoBehaviour
         {
             if (handCard[i].Equals(targetObj_))
             {
-                DE.Log($"카드 낸 이후 카드 제거 성공");
+                //DE.Log($"카드 낸 이후 카드 제거 성공");
                 handCard.RemoveAt(i);
                 NowHandCount--;
                 break;

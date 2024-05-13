@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [Serializable]
-public class Minion : Card
+public class Minion : Card, IDamageable
 {
     public M_Ability ability = default;
     protected int damageDefault = default;
@@ -151,7 +151,7 @@ public class Minion : Card
     // 하수인 소환 코루틴
     IEnumerator CSpawnMove(GameObject spawnParentObj_)
     {
-        
+
 
         // 포지션 파트
         float durationTime = 2f;
@@ -198,7 +198,7 @@ public class Minion : Card
         }
 
         // 
-        this.transform.rotation = Quaternion.Euler(0,0,0);
+        this.transform.rotation = Quaternion.Euler(0, 0, 0);
         this.transform.AddComponent<FieldMinion>();
     }       // CSpawnMove()
 
@@ -209,5 +209,85 @@ public class Minion : Card
         cardTexts[(int)C_Text.Damage].text = damage_.ToString();
     }
 
+    public AudioClip GetAttackClip()
+    {
+        return this.clips[(int)M_Clip.Attack];
+    }
 
+    public void IAttacked(int damage_)
+    {
+        heath -= damage_;        
+    }
+
+    public void MinionDeath()
+    {
+        // TODO : 사망 처리 함수
+        if(this.heath <= 0)
+        {
+            AudioManager.Instance.PlaySFM(false, AudioManager.Instance.SFMClips[(int)ESoundSFM.MinionDeath]);
+            AudioManager.Instance.PlaySFM(false, this.clips[(int)M_Clip.Death]);
+        }
+    }       // MinionDeath()
+
+
+
+    public IEnumerator CIAttackAnime(Transform targetTrans_)
+    {
+        this.transform.GetComponent<FieldMinion>().alreadyAttacked = true;
+        Vector3 originTrans = this.transform.position;
+        Vector3 moveV3 = default;
+        float currentTime = 0f;
+        float durationTime = 2f;
+        float t = 0f;
+        while (currentTime < durationTime)
+        {   // 공격 애니메이션
+            currentTime += Time.deltaTime;
+            t = currentTime / durationTime;
+            if(Vector3.Distance(this.transform.position,targetTrans_.position) < 0.5f)
+            {
+                break;
+            }
+            moveV3 = Vector3.Lerp(this.transform.position, targetTrans_.position, t);
+            this.transform.position = moveV3;
+            yield return null;
+        }
+
+        t = default;
+        currentTime = default;
+        // 여기서 데미지 주는 함수 실행
+        AudioManager.Instance.PlaySFM(false, AudioManager.Instance.SFMClips[(int)ESoundSFM.SmallDamage]);
+
+        if (targetTrans_.GetComponent<Minion>())
+        {
+            targetTrans_.GetComponent<Minion>().IAttacked(this.damage);
+            IAttacked(targetTrans_.GetComponent<Minion>().damage);
+        }
+        else if(targetTrans_.GetComponent<HeroImage>())
+        {
+            targetTrans_.GetComponent<HeroImage>().IAttacked(this.damage);
+        }
+
+        while(currentTime < durationTime)
+        {   // 돌아오기 애니메이션
+
+            if (Vector3.Distance(this.transform.position, targetTrans_.position) < 0.01f)
+            {
+                break;
+            }
+            currentTime += Time.deltaTime;
+            t = currentTime / durationTime;
+            moveV3 = Vector3.Lerp(this.transform.position, originTrans, t);
+            this.transform.position = moveV3;
+            yield return null;
+        }
+        this.transform.position = originTrans;
+
+        if (targetTrans_.GetComponent<Minion>())
+        {   // 하수인 공격시 자신의 HP 체크후 사망판정인지 체크
+            targetTrans_.GetComponent<Minion>().MinionDeath();
+            MinionDeath();
+        }
+
+
+    }
 }       // Minion ClassEnd

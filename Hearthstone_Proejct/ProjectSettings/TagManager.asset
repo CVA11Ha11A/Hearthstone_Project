@@ -6,6 +6,8 @@ TagManager:
   tags:
   - InGameDeck
   - MouseInteractionObj
+  - My
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - Discovery
   - MouseInteraction
   - Minion
-  - 
+  - Hero
   - 
   - 
   - 

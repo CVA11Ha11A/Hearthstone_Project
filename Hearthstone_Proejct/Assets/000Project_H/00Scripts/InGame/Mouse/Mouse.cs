@@ -132,12 +132,13 @@ public class Mouse : MonoBehaviour
         // 필드 미니언
         if (Physics.Raycast(mouseWorldPosition, Vector3.forward, out hitInfo, Mathf.Infinity, fieldMinionLayer))
         {
-            DE.Log($"필드의 미니언 감지");
+            //DE.Log($"필드의 미니언 감지");
             if (lastMinionRoot == null)
             {
                 if (hitInfo.transform.parent.parent.name == "MyField")
                 {
-                    if (hitInfo.transform.GetComponent<FieldMinion>().IsAttack == true)
+                    if (hitInfo.transform.GetComponent<FieldMinion>().IsAttack == true &&
+                        hitInfo.transform.GetComponent<FieldMinion>().alreadyAttacked == false)
                     {
                         lastMinionRoot = hitInfo.transform.gameObject;
                     }

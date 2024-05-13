@@ -1815,6 +1815,7 @@ MonoBehaviour:
   cardNameEn: FriendlyBartender
   isPreparation: 0
   empectTarget: {fileID: 0}
+  ability: 0
   damage: 2
   heath: 3
 --- !u!1 &134058511
@@ -5795,7 +5796,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67265d96f1778664ba06055030b062cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testObj: {fileID: 0}
 --- !u!4 &476857364
 Transform:
   m_ObjectHideFlags: 0
@@ -6804,6 +6804,7 @@ MonoBehaviour:
   cardNameEn: KoboldLackey
   isPreparation: 1
   empectTarget: {fileID: 0}
+  ability: 0
   damage: 1
   heath: 1
 --- !u!1 &561435689
@@ -6996,6 +6997,7 @@ MonoBehaviour:
   cardNameEn: PrincessTalanji
   isPreparation: 0
   empectTarget: {fileID: 0}
+  ability: 0
   damage: 7
   heath: 5
 --- !u!1 &579806988
@@ -7351,6 +7353,7 @@ MonoBehaviour:
   cardNameEn: SaroniteTolvir
   isPreparation: 0
   empectTarget: {fileID: 0}
+  ability: 32
   damage: 3
   heath: 5
 --- !u!1001 &598708137
@@ -10203,6 +10206,7 @@ MonoBehaviour:
   cardNameEn: Norgannon
   isPreparation: 0
   empectTarget: {fileID: 0}
+  ability: 0
   damage: 6
   heath: 10
 --- !u!1 &827420655
@@ -11097,7 +11101,8 @@ MonoBehaviour:
   - PUN_2_OR_NEWER
   - PUN_2_19_OR_NEWER
   - DEVELOP_TIME
-  addSymbolName: DEVELOP_TIME
+  - DEVELOP_TEST
+  addSymbolName: DEVELOP_TEST
   removeSymbolName: DEVELOP_TIME
   isSettingUp: 0
 --- !u!114 &883577246
@@ -13908,6 +13913,7 @@ MonoBehaviour:
   cardNameEn: TortollanShellraiser
   isPreparation: 0
   empectTarget: {fileID: 0}
+  ability: 0
   damage: 2
   heath: 6
 --- !u!224 &1080148658 stripped
@@ -23662,6 +23668,7 @@ MonoBehaviour:
   cardNameEn: MurksparkEel
   isPreparation: 0
   empectTarget: {fileID: 0}
+  ability: 0
   damage: 2
   heath: 3
 --- !u!1 &1789766423
@@ -28474,6 +28481,7 @@ MonoBehaviour:
   cardNameEn: StubbornGastropod
   isPreparation: 0
   empectTarget: {fileID: 0}
+  ability: 0
   damage: 1
   heath: 2
 --- !u!1001 &2145268841
