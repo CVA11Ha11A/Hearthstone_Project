@@ -132,17 +132,21 @@ public class Mouse : MonoBehaviour
         // 필드 미니언
         if (Physics.Raycast(mouseWorldPosition, Vector3.forward, out hitInfo, Mathf.Infinity, fieldMinionLayer))
         {
-            if(lastMinionRoot == null)
+            DE.Log($"필드의 미니언 감지");
+            if (lastMinionRoot == null)
             {
-                if(hitInfo.transform.parent.parent.name == "MyField")
+                if (hitInfo.transform.parent.parent.name == "MyField")
                 {
-                    lastMinionRoot = hitInfo.transform.gameObject;
+                    if (hitInfo.transform.GetComponent<FieldMinion>().IsAttack == true)
+                    {
+                        lastMinionRoot = hitInfo.transform.gameObject;
+                    }
                 }
                 else { /*PASS*/ }   // 적의 하수인이 타겟이 될 경우를 대비
             }
             else
             {   // if : MinionRoot != null
-                if(lastMinionRoot != null && isDraging == false)
+                if (lastMinionRoot != null && isDraging == false)
                 {
                     lastMinionRoot = null;
                 }

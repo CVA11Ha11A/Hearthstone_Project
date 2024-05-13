@@ -6,6 +6,10 @@ public class FieldMinion : MonoBehaviour
 {   // 필드에 소환되었을때 하수인의 기능을 담당하는 컴포넌트
 
     private bool isAttack = false;          // 공격이 가능한 상태인지
+    public bool IsAttack 
+    {
+        get { return isAttack; } 
+    }
     public bool alreadyAttacked = false;    // 해당턴에 이미 공격을 했는지
     private int maxHP = 100;
     private int hp = 100;
@@ -14,6 +18,7 @@ public class FieldMinion : MonoBehaviour
     private void Awake()
     {
         InGameManager.Instance.gameSycleRoot.MinionAttackPossibleEvent += IsAttackTrue;
+        isAttack = true;        // Test
     }
 
     void Start()

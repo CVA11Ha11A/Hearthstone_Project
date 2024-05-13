@@ -30,6 +30,7 @@ public class Test001 : MonoBehaviour
             Camera.main.nearClipPlane));
 
         DrawParabola(startTras.transform.position, mouseWorldPosition);
+        //DrawParabola(startTras.transform.position, endTras.transform.position);
     }
 
 
@@ -38,10 +39,12 @@ public class Test001 : MonoBehaviour
     {
 
         Vector3 pos = default;
-        Vector3 center = (startPos_ + endPos_) * 0.5f;
-        center.z -= 3f;
-        startPos_ = startPos_ - center;
-        endPos_ = endPos_ - center;
+        //Vector3 center = (startPos_ + endPos_) * 0.5f;
+        //center.z -= 3f;
+        //startPos_ = startPos_ - center;
+        //endPos_ = endPos_ - center;
+
+        endPos_.z = startPos_.z;
 
         for (int i = 0; i < lineRenderer.positionCount; i++)
         {

@@ -9,6 +9,8 @@ public class FrontGroundCanvas : MonoBehaviour
     private Image fadeImage = null;
     private float maxTime = 5f;
 
+    public DrawLine drawRoot = null;
+
     private void Awake()
     {        
         fadeImage = this.transform.GetChild(0).GetComponent<Image>();

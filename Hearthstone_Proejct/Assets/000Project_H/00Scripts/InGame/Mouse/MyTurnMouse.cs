@@ -88,7 +88,14 @@ public class MyTurnMouse : MonoBehaviour
 
         else if(this.isDragToReady = true && this.selectMinion != null)
         {
-            
+            // 마우스 포지션을 얻어옴
+            mouseScreenPosition = Input.mousePosition;
+            // 마우스 스크린 좌표를 월드 좌표로 변환
+            mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y,
+                Camera.main.nearClipPlane));
+
+            // 포물선 그리기 목표는 마우스 현재 위치
+            InGameManager.Instance.frontCanvas.drawRoot.DrawParabola(selectMinion.transform.position, mouseWorldPosition);
         }
 
 
@@ -115,10 +122,15 @@ public class MyTurnMouse : MonoBehaviour
                     mouseRoot.LastCardPositionRollBack();
                 }
             }
+
+            // 레이를 쏘아서 공격가능한 Layer라면 공격을 실행해야함
+
+            InGameManager.Instance.frontCanvas.drawRoot.EndParabola();  // 그려진 LineRenderer를 숨기기
             this.isDragToReady = false;
             this.isCardScaleSet = false;
             mouseRoot.isDraging = false;
             this.targetCard = null;
+            this.selectMinion = null;
 
         }
 

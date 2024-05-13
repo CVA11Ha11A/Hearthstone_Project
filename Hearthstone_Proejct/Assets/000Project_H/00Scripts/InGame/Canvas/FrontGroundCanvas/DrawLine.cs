@@ -11,7 +11,8 @@ public class DrawLine : MonoBehaviour
 
     private void Awake()
     {
-        lineRenderer = this.transform.GetComponent<LineRenderer>();        
+        lineRenderer = this.transform.GetComponent<LineRenderer>();
+        GameManager.Instance.GetTopParent(this.transform).GetComponent<FrontGroundCanvas>().drawRoot = this;
     }
 
 
@@ -20,10 +21,11 @@ public class DrawLine : MonoBehaviour
     {
 
         Vector3 pos = default;
-        Vector3 center = (startPos_ + endPos_) * 0.5f;
-        center.z -= 3f;
-        startPos_ = startPos_ - center;
-        endPos_ = endPos_ - center;
+        endPos_.z = startPos_.z;
+        //Vector3 center = (startPos_ + endPos_) * 0.5f;
+        //center.z -= 3f;
+        //startPos_ = startPos_ - center;
+        //endPos_ = endPos_ - center;
 
         for (int i = 0; i < lineRenderer.positionCount; i++)
         {
@@ -33,4 +35,8 @@ public class DrawLine : MonoBehaviour
         }
     }       // DrawParabola()
 
+    public void EndParabola()
+    {
+        DrawParabola(Vector3.zero, Vector3.zero);
+    }
 }       // ClassEnd
