@@ -138,7 +138,7 @@ public class HeroImage : MonoBehaviour, IDamageable
         hpText.text = sb.ToString();
     }       // HeroHPTextUpdate()
 
-    public IEnumerator CIAttackAnime(Transform targetTrans_)
+    public IEnumerator CIAttackAnime(Transform targetTrans_, bool isRPC = false)
     {   // 영웅의 공격은 아직 구현 X 
         yield return null;
     }

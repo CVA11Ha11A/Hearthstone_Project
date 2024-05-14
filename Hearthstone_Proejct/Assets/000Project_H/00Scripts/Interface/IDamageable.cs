@@ -8,6 +8,6 @@ public interface IDamageable
 
     public void IAttacked(int damage_);
 
-    public IEnumerator CIAttackAnime(Transform targetTrans_);
+    public IEnumerator CIAttackAnime(Transform targetTrans_, bool isRPC);
 
 }       // interfaceEnd

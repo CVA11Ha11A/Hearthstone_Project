@@ -103,7 +103,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
     private PhotonView PV = null;
 
     public Mouse mouseRoot = null;
-    
+
 
     #endregion Roots
 
@@ -531,10 +531,10 @@ public class InGameManager : MonoBehaviourPunCallbacks
         this.transform.GetComponent<InGameSycle>().NowTurn = ETurn.GoFirst;
         this.transform.GetComponent<InGameSycle>().TurnStart();
     }
-    
+
     public void CompleateMulligan()
     {
-        if(PhotonNetwork.IsMasterClient == true)
+        if (PhotonNetwork.IsMasterClient == true)
         {
             this.isCompleateMyMulligan = true;
             mouseRoot.isRayCast = true;
@@ -548,7 +548,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
     }
     [PunRPC]
     public void CompleateMulliganSetter(bool isCompleate_)
-    {        
+    {
         this.isCompleateEnemyMulligan = isCompleate_;
     }
 
@@ -590,7 +590,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
     public void TurnEndSync()
     {
         ETurn turnParam = default;
-        if(this.TurnSystem == ETurn.GoFirst)
+        if (this.TurnSystem == ETurn.GoFirst)
         {
             turnParam = ETurn.GoSecond;
         }
@@ -599,7 +599,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
             turnParam = ETurn.GoFirst;
         }
         PV.RPC("TurnEndSyncRPC", RpcTarget.All, (int)turnParam);
-            
+
     }
     [PunRPC]
     public void TurnEndSyncRPC(int turnParam_)
@@ -609,6 +609,37 @@ public class InGameManager : MonoBehaviourPunCallbacks
 
     }
 
+
+    // 하수인 공격 동기화
+    public void MinionAttackSync(int attackObjChildNum_, int attackedObjChildNum_)
+    {
+        PV.RPC("MinionAttackSyncRPC", RpcTarget.Others, attackObjChildNum_, attackedObjChildNum_);
+    }
+
+
+    [PunRPC]
+    public void MinionAttackSyncRPC(int attackObjChildNum_, int attackedObjChildNum_)
+    {
+
+        DE.Log($"인자로 넘어온 수\n공격하는 하수인 : {attackObjChildNum_}, 공격 받는 하수인 : {attackedObjChildNum_}");
+        Transform attackedTrans = null;
+        // 100 이라면 영웅을 때리는것임
+        if (attackedObjChildNum_ == 100)
+        {
+            attackedTrans = mainCanvasRoot.heroImagesRoot.MyHeroImage.transform;
+        }
+        else
+        {
+            attackedTrans = mainCanvasRoot.fieldRoot.MyField.transform.GetChild(attackedObjChildNum_).GetChild(0).transform;
+        }
+
+        // 공격할 하수인 구해야함
+        DE.Log($"공격하는 것의 Name : {mainCanvasRoot.fieldRoot.EnemyField.transform.GetChild(attackObjChildNum_).GetChild(0).name}\n공격 받는것의 이름 : {attackedTrans.name}");
+        StartCoroutine(mainCanvasRoot.fieldRoot.EnemyField.transform.GetChild(attackObjChildNum_).
+            GetChild(0).GetComponent<Minion>().CIAttackAnime(attackedTrans, isRPC: true));
+        
+
+    }
 
     #endregion 동기화 함수
 

@@ -216,13 +216,13 @@ public class Minion : Card, IDamageable
 
     public void IAttacked(int damage_)
     {
-        heath -= damage_;        
+        heath -= damage_;
     }
 
     public void MinionDeath()
     {
         // TODO : 사망 처리 함수
-        if(this.heath <= 0)
+        if (this.heath <= 0)
         {
             AudioManager.Instance.PlaySFM(false, AudioManager.Instance.SFMClips[(int)ESoundSFM.MinionDeath]);
             AudioManager.Instance.PlaySFM(false, this.clips[(int)M_Clip.Death]);
@@ -231,8 +231,25 @@ public class Minion : Card, IDamageable
 
 
 
-    public IEnumerator CIAttackAnime(Transform targetTrans_)
+    public IEnumerator CIAttackAnime(Transform targetTrans_, bool isRPC = false)
     {
+        // isRPC == RPC가 호출한 것인지 체크 false일때 동기화를 실행 isRPC가 true라면 동기화를 위해 실행되는것이기에 동기화 호출 하면 안됨
+
+        if (isRPC == false)
+        {
+            int attackObjChildNum = this.transform.parent.GetSiblingIndex();
+            int attackedObjChildNum = 0;
+            if (targetTrans_.GetComponent<Minion>())
+            {
+                 attackedObjChildNum = targetTrans_.parent.GetSiblingIndex();
+            }
+            else
+            {
+                attackObjChildNum = 100;
+            }
+            InGameManager.Instance.MinionAttackSync(attackObjChildNum, attackedObjChildNum);
+        }
+
         this.transform.GetComponent<FieldMinion>().alreadyAttacked = true;
         Vector3 originTrans = this.transform.position;
         Vector3 moveV3 = default;
@@ -243,7 +260,7 @@ public class Minion : Card, IDamageable
         {   // 공격 애니메이션
             currentTime += Time.deltaTime;
             t = currentTime / durationTime;
-            if(Vector3.Distance(this.transform.position,targetTrans_.position) < 0.5f)
+            if (Vector3.Distance(this.transform.position, targetTrans_.position) < 0.5f)
             {
                 break;
             }
@@ -262,12 +279,12 @@ public class Minion : Card, IDamageable
             targetTrans_.GetComponent<Minion>().IAttacked(this.damage);
             IAttacked(targetTrans_.GetComponent<Minion>().damage);
         }
-        else if(targetTrans_.GetComponent<HeroImage>())
+        else if (targetTrans_.GetComponent<HeroImage>())
         {
             targetTrans_.GetComponent<HeroImage>().IAttacked(this.damage);
         }
 
-        while(currentTime < durationTime)
+        while (currentTime < durationTime)
         {   // 돌아오기 애니메이션
 
             if (Vector3.Distance(this.transform.position, targetTrans_.position) < 0.01f)
