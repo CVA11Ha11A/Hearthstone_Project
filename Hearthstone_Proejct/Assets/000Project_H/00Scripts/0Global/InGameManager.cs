@@ -621,7 +621,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
     public void MinionAttackSyncRPC(int attackObjChildNum_, int attackedObjChildNum_)
     {
 
-        DE.Log($"인자로 넘어온 수\n공격하는 하수인 : {attackObjChildNum_}, 공격 받는 하수인 : {attackedObjChildNum_}");
+        //DE.Log($"인자로 넘어온 수\n공격하는 하수인 : {attackObjChildNum_}, 공격 받는 하수인 : {attackedObjChildNum_}");
         Transform attackedTrans = null;
         // 100 이라면 영웅을 때리는것임
         if (attackedObjChildNum_ == 100)
@@ -634,7 +634,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
         }
 
         // 공격할 하수인 구해야함
-        DE.Log($"공격하는 것의 Name : {mainCanvasRoot.fieldRoot.EnemyField.transform.GetChild(attackObjChildNum_).GetChild(0).name}\n공격 받는것의 이름 : {attackedTrans.name}");
+        //DE.Log($"공격하는 것의 Name : {mainCanvasRoot.fieldRoot.EnemyField.transform.GetChild(attackObjChildNum_).GetChild(0).name}\n공격 받는것의 이름 : {attackedTrans.name}");
         StartCoroutine(mainCanvasRoot.fieldRoot.EnemyField.transform.GetChild(attackObjChildNum_).
             GetChild(0).GetComponent<Minion>().CIAttackAnime(attackedTrans, isRPC: true));
         

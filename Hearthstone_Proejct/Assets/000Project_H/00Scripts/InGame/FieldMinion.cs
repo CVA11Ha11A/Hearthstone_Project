@@ -37,10 +37,10 @@ public class FieldMinion : MonoBehaviour
 
     }
 
-    private void IsAttackTrue(bool attackPossible_)
+    private void IsAttackTrue()
     {
-        this.isAttack = attackPossible_;
-        this.alreadyAttacked = attackPossible_;
+        this.isAttack = true;
+        this.alreadyAttacked = false;
     }
 
     private void OnDestroy()

@@ -32,7 +32,7 @@ public class InGameSycle : MonoBehaviourPun
         }
     }
 
-    public event Action<bool> MinionAttackPossibleEvent;    // 소환되는 하수인은 해당 이벤트를 구독하며 자신의 턴 시작시 해당 이벤트가 호출 될것임
+    public event Action MinionAttackPossibleEvent;    // 소환되는 하수인은 해당 이벤트를 구독하며 자신의 턴 시작시 해당 이벤트가 호출 될것임
 
     private void Awake()
     {        
@@ -73,6 +73,7 @@ public class InGameSycle : MonoBehaviourPun
         if(InGameManager.Instance.TurnSystem == this.NowTurn)
         {   // 자신의 턴이라면            
             StartCoroutine(CTurnSetting());
+            this.MinionAttackPossibleEvent?.Invoke();
         }
         else
         {   // 자신의 턴이 아니라면

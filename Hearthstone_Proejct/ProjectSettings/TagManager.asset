@@ -81,3 +81,12 @@ TagManager:
   - name: Front
     uniqueID: 3714888267
     locked: 0
+  - name: GameEndBack
+    uniqueID: 737699481
+    locked: 0
+  - name: GameEnd
+    uniqueID: 4015157765
+    locked: 0
+  - name: GameEndFront
+    uniqueID: 1241806087
+    locked: 0

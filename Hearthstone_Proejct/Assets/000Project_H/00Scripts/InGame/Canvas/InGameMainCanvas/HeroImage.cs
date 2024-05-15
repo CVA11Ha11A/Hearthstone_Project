@@ -35,6 +35,7 @@ public class HeroImage : MonoBehaviour, IDamageable
             else if (heroHp <= 0)
             {
                 // TODO : 영웅 사망
+                HeroDeath();
             }
             HeroHPTextUpdate();
 
@@ -137,6 +138,52 @@ public class HeroImage : MonoBehaviour, IDamageable
         sb.Append($"{HeroHp}");
         hpText.text = sb.ToString();
     }       // HeroHPTextUpdate()
+
+    public void HeroDeath()
+    {
+        // 1. 영웅 비명 지르기
+        StartCoroutine(CHeroDeathShake());
+        StartCoroutine(CHeroImageColorSet());
+    }
+    private IEnumerator CHeroDeathShake()
+    {
+        // 1 흔들리기
+        float shakeDuration = 0.5f; // 흔들림 지속 시간
+        float shakeMagnitude = 0.1f; // 흔들림 강도
+        float currentTime = 0f;
+
+        Vector3 OriginV3 = this.transform.localPosition;
+
+        while (currentTime < shakeDuration)
+        {
+            float x = UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude;
+            float y = UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude;
+
+            this.transform.localPosition = new Vector3(x, y, OriginV3.z);
+
+            currentTime += Time.deltaTime;
+
+            yield return null;
+        }       // while(ShakeMove)        
+    }       // CHeroDeathShake()
+    private IEnumerator CHeroImageColorSet()
+    {
+        AudioManager.Instance.PlaySFM(false, this.EmoteClip[(int)EEmoteClip.Death]);
+
+        Color32 deathColor = new Color32(145, 145, 145, 255);
+        Image heroImageRoot = heroImage;
+        float currentTime = 0f;
+        float setTime = 1f;
+
+        while (currentTime < setTime)
+        {
+            currentTime += Time.deltaTime;
+            float t = currentTime / setTime;
+            heroImageRoot.color = Color32.Lerp(heroImageRoot.color, deathColor, t);
+            yield return null;
+        }        
+    }
+
 
     public IEnumerator CIAttackAnime(Transform targetTrans_, bool isRPC = false)
     {   // 영웅의 공격은 아직 구현 X 

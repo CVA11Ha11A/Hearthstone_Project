@@ -217,18 +217,66 @@ public class Minion : Card, IDamageable
     public void IAttacked(int damage_)
     {
         heath -= damage_;
+        UpdateUI();
     }
 
     public void MinionDeath()
     {
+        
         // TODO : 사망 처리 함수
         if (this.heath <= 0)
         {
-            AudioManager.Instance.PlaySFM(false, AudioManager.Instance.SFMClips[(int)ESoundSFM.MinionDeath]);
             AudioManager.Instance.PlaySFM(false, this.clips[(int)M_Clip.Death]);
+            StartCoroutine(CMinonDeathShake());
+            StartCoroutine(CMinonDeathColorSet());
         }
     }       // MinionDeath()
 
+    private IEnumerator CMinonDeathShake()
+    {
+        AudioManager.Instance.PlaySFM(false, AudioManager.Instance.SFMClips[(int)ESoundSFM.MinionDeath]);
+
+        // 1 흔들리기
+        float shakeDuration = 0.5f; // 흔들림 지속 시간
+        float shakeMagnitude = 0.1f; // 흔들림 강도
+        float currentTime = 0f;
+        
+        float t = 0f;
+        Vector3 OriginV3 = this.transform.localPosition;
+        Vector3 tempV3 = default;
+
+        tempV3 = OriginV3;
+        while (currentTime < shakeDuration)
+        {
+            float x = UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude;
+            float y = UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude;
+
+            this.transform.localPosition = new Vector3(x, y, OriginV3.z);
+
+            currentTime += Time.deltaTime;            
+
+            yield return null;
+        }       // while(ShakeMove)
+
+        this.transform.localPosition = OriginV3;
+    }       // CMinonDeathShake()
+
+    private IEnumerator CMinonDeathColorSet()
+    {
+        Color32 deathColor = new Color32(145, 145, 145, 255);
+        Image minionImageRoot = cardImage;
+        float currentTime = 0f;
+        float setTime = 1f;
+
+        while(currentTime < setTime)
+        {
+            currentTime += Time.deltaTime;
+            float t = currentTime / setTime;
+            minionImageRoot.color = Color32.Lerp(minionImageRoot.color, deathColor, t);
+            yield return null;
+        }
+        Destroy(this.transform.parent.gameObject);
+    }       // CMinonDeathColorSet()
 
 
     public IEnumerator CIAttackAnime(Transform targetTrans_, bool isRPC = false)
@@ -241,11 +289,11 @@ public class Minion : Card, IDamageable
             int attackedObjChildNum = 0;
             if (targetTrans_.GetComponent<Minion>())
             {
-                 attackedObjChildNum = targetTrans_.parent.GetSiblingIndex();
+                attackedObjChildNum = targetTrans_.parent.GetSiblingIndex();
             }
             else
             {
-                attackObjChildNum = 100;
+                attackedObjChildNum = 100;
             }
             InGameManager.Instance.MinionAttackSync(attackObjChildNum, attackedObjChildNum);
         }
@@ -283,11 +331,12 @@ public class Minion : Card, IDamageable
         {
             targetTrans_.GetComponent<HeroImage>().IAttacked(this.damage);
         }
+        
 
         while (currentTime < durationTime)
         {   // 돌아오기 애니메이션
 
-            if (Vector3.Distance(this.transform.position, targetTrans_.position) < 0.01f)
+            if (Vector3.Distance(this.transform.position, targetTrans_.position) < 0.5f)
             {
                 break;
             }

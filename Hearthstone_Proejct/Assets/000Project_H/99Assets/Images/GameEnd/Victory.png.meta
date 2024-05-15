@@ -1,0 +1,302 @@
+fileFormatVersion: 2
+guid: b0e401917c576e34d9c32100d84bb8ea
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Victory_Branch
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 118
+        width: 671
+        height: 893
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 295.5, y: -171.5}
+        - {x: 299.5, y: -166.5}
+        - {x: 311.5, y: -181.5}
+        - {x: 327.5, y: -165.5}
+        - {x: 327.5, y: -22.5}
+        - {x: 209.5, y: 366.5}
+        - {x: 124.5, y: 380.5}
+        - {x: 93.5, y: 339.5}
+        - {x: 90.5, y: 292.5}
+        - {x: 85.5, y: 418.5}
+        - {x: 82.5, y: 432.5}
+        - {x: 75.5, y: 439.5}
+        - {x: 35.5, y: 439.5}
+        - {x: 31.5, y: 438.5}
+        - {x: -5.5, y: 351.5}
+        - {x: 10.5, y: 315.5}
+        - {x: 14.5, y: 311.5}
+        - {x: 8.5, y: 316.5}
+        - {x: -9.5, y: 318.5}
+        - {x: -77.5, y: 320.5}
+        - {x: -77.5, y: 301.5}
+        - {x: -57.5, y: 276.5}
+        - {x: -37.5, y: 142.5}
+        - {x: 46.5, y: 60.5}
+        - {x: 23.5, y: 62.5}
+        - {x: 13.5, y: 60.5}
+        - {x: 5.5, y: 52.5}
+        - {x: -72.5, y: -90.5}
+        - {x: -288.5, y: -330.5}
+        - {x: -314.5, y: -382.5}
+        - {x: -314.5, y: -436.5}
+        - {x: 2.5, y: -317.5}
+        - {x: 258.5, y: -279.5}
+        - {x: 269.5, y: -213.5}
+        - {x: 256.5, y: -196.5}
+      physicsShape: []
+      tessellationDetail: 0.01
+      bones: []
+      spriteID: 84b647d80bd5c8245ad704d22c5c65fb
+      internalID: -1498696261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Victory_Flag
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 277
+        height: 676
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 123.5, y: 338}
+        - {x: 77.5, y: 338}
+        - {x: 44.5, y: 261}
+        - {x: -18.5, y: 222}
+        - {x: -115.5, y: 219}
+        - {x: -115.5, y: -291}
+        - {x: 4.5, y: -335}
+        - {x: 117.5, y: -335}
+        - {x: 133.5, y: -323}
+        - {x: 133.5, y: 74}
+        - {x: 131.5, y: 301}
+      - - {x: -82.5, y: 157}
+        - {x: -87.5, y: 160}
+        - {x: -91.5, y: 162}
+        - {x: -91.5, y: 164}
+        - {x: -85.5, y: 158}
+        - {x: -77.5, y: 158}
+        - {x: -76.5, y: 159}
+        - {x: -74.5, y: 159}
+        - {x: -71.5, y: 162}
+        - {x: -70.5, y: 161}
+        - {x: -70.5, y: 156}
+        - {x: -72.5, y: 158}
+        - {x: -73.5, y: 158}
+        - {x: -75.5, y: 156}
+        - {x: -76.5, y: 157}
+      physicsShape: []
+      tessellationDetail: 0.01
+      bones: []
+      spriteID: 5fa861dbf7c17564bbabad4a12b50a2b
+      internalID: 1881729672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Victory_Crown
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 47
+        width: 366
+        height: 202
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -173, y: 92}
+        - {x: -173, y: -86}
+        - {x: 175, y: -86}
+        - {x: 177, y: -83}
+        - {x: 177, y: 59}
+        - {x: 171, y: 92}
+      physicsShape: []
+      tessellationDetail: 0.01
+      bones: []
+      spriteID: ea3c9dbd43270fd499c354c74815e39d
+      internalID: -1688084093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Victory_Trunpet
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 426
+        width: 180
+        height: 409
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ca75b67a52d921478b5b7ae806a823d
+      internalID: -1570182545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: e099d83ceee02f046a689736e678cf97
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Victory_Branch: -1498696261
+      Victory_Crown: -1688084093
+      Victory_Flag: 1881729672
+      Victory_Trunpet: -1570182545
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

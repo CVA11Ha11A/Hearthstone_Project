@@ -1,0 +1,540 @@
+fileFormatVersion: 2
+guid: e82b2c6e7ef308f429b00b23338bf474
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Defeat_Cloud
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 312
+        width: 466
+        height: 221
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6459bd4b3e1389e459fa5b108ee5d287
+      internalID: -2108011260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Defeat_Flag
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 0
+        width: 776
+        height: 155
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 374, y: 77.5}
+        - {x: 353, y: 77.5}
+        - {x: 319, y: 60.5}
+        - {x: 243, y: 51.5}
+        - {x: 45, y: 59.5}
+        - {x: -188, y: 52.5}
+        - {x: -388, y: 4.5}
+        - {x: -388, y: -77.5}
+        - {x: 316, y: -77.5}
+        - {x: 356, y: -75.5}
+        - {x: 358, y: -37.5}
+        - {x: 357, y: -27.5}
+        - {x: 373, y: -21.5}
+      physicsShape: []
+      tessellationDetail: 0.01
+      bones: []
+      spriteID: 9f69eddc14504b54b9b6a94cd8010aa7
+      internalID: 987109454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Defeat_Star
+      rect:
+        serializedVersion: 2
+        x: 634
+        y: 134
+        width: 390
+        height: 159
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -182, y: 79.5}
+        - {x: -195, y: 75.5}
+        - {x: -183, y: -25.5}
+        - {x: -195, y: -71.5}
+        - {x: -3, y: -79.5}
+        - {x: 39, y: -79.5}
+        - {x: 117, y: -79.5}
+        - {x: 161, y: -56.5}
+        - {x: 191, y: -5.5}
+        - {x: 192, y: 65.5}
+        - {x: 177, y: 79.5}
+      physicsShape: []
+      tessellationDetail: 0.01
+      bones: []
+      spriteID: 5d3377a742107d44d87b2b3870ae6b96
+      internalID: 1156295371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Defeat_TextImage
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 844
+        width: 664
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 324, y: -51.222412}
+        - {x: 332, y: -45}
+        - {x: 329, y: -46}
+      - - {x: -82, y: -89}
+        - {x: 27, y: -89}
+        - {x: 28, y: -88}
+        - {x: 263, y: -88}
+        - {x: 267, y: -87}
+        - {x: 276, y: -78}
+        - {x: 285, y: -71}
+        - {x: 290, y: -62}
+        - {x: 296, y: -56}
+        - {x: 306, y: -52}
+        - {x: 310, y: -50}
+        - {x: 318, y: -50}
+        - {x: 321, y: -49}
+        - {x: 332, y: -38}
+        - {x: 332, y: -19}
+        - {x: 331, y: -12}
+        - {x: 330, y: -1}
+        - {x: 331, y: 4}
+        - {x: 331, y: 5}
+        - {x: 328, y: 7}
+        - {x: 328, y: 21}
+        - {x: 329, y: 22}
+        - {x: 330, y: 30}
+        - {x: 332, y: 43}
+        - {x: 332, y: 65}
+        - {x: 331, y: 66}
+        - {x: 326, y: 67}
+        - {x: 316, y: 68}
+        - {x: 306, y: 73}
+        - {x: 303, y: 75}
+        - {x: 299, y: 82}
+        - {x: 298, y: 85}
+        - {x: 296, y: 88}
+        - {x: 295, y: 90}
+        - {x: -289, y: 90}
+        - {x: -292, y: 87}
+        - {x: -295, y: 80}
+        - {x: -303, y: 71}
+        - {x: -309, y: 71}
+        - {x: -317, y: 66}
+        - {x: -331, y: 62}
+        - {x: -332, y: 60}
+        - {x: -332, y: 51}
+        - {x: -331, y: 43}
+        - {x: -329, y: 35}
+        - {x: -328, y: 26}
+        - {x: -327, y: 25}
+        - {x: -329, y: 10}
+        - {x: -331, y: 8}
+        - {x: -329, y: 5}
+        - {x: -327, y: 6}
+        - {x: -328, y: -6}
+        - {x: -331, y: -7}
+        - {x: -331, y: -17}
+        - {x: -329, y: -19}
+        - {x: -332, y: -33}
+        - {x: -332, y: -38}
+        - {x: -330, y: -43}
+        - {x: -326, y: -49}
+        - {x: -322, y: -54}
+        - {x: -318, y: -56}
+        - {x: -312, y: -58}
+        - {x: -311, y: -55}
+        - {x: -310, y: -53}
+        - {x: -302, y: -53}
+        - {x: -297, y: -56}
+        - {x: -284, y: -69}
+        - {x: -282, y: -73}
+        - {x: -274, y: -79}
+        - {x: -263, y: -89}
+        - {x: -137, y: -89}
+        - {x: -136, y: -88}
+        - {x: -83, y: -88}
+      - - {x: -332, y: 27}
+        - {x: -329, y: 28}
+        - {x: -329, y: 34}
+        - {x: -331, y: 36}
+        - {x: -332, y: 36}
+      physicsShape: []
+      tessellationDetail: 0.56
+      bones: []
+      spriteID: 3ca5dfe945583af42a72c47d6beed526
+      internalID: -852013817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Defeat_TextImgeFlag
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 597
+        width: 174
+        height: 427
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 63, y: -59.5}
+        - {x: 51, y: 49.5}
+        - {x: 56, y: 89.5}
+        - {x: 66, y: 124.5}
+        - {x: 86, y: 186.5}
+        - {x: 87, y: 206.5}
+        - {x: 75, y: 213.5}
+        - {x: 6, y: 213.5}
+        - {x: -8, y: 203.5}
+        - {x: -48, y: 87.5}
+        - {x: -64, y: 58.5}
+        - {x: -87, y: 37.5}
+        - {x: -87, y: 8.5}
+        - {x: -75, y: -14.5}
+        - {x: -57, y: -39.5}
+        - {x: -22, y: -49.5}
+        - {x: -17, y: -132.5}
+        - {x: -28, y: -157.5}
+        - {x: -32, y: -209.5}
+        - {x: -26, y: -213.5}
+        - {x: 32, y: -213.5}
+        - {x: 59, y: -195.5}
+        - {x: 79, y: -104.5}
+        - {x: 70, y: -65.5}
+      physicsShape: []
+      tessellationDetail: 0.1
+      bones: []
+      spriteID: 50a33e5ead3758342b3e7706aeb55a34
+      internalID: 1125354211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Defeat_0
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 78
+        width: 416
+        height: 233
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -39, y: 116.5}
+        - {x: -105, y: 116.5}
+        - {x: -102, y: 97.5}
+        - {x: -207, y: 66.5}
+        - {x: -207, y: -52.5}
+        - {x: -128, y: -115.5}
+        - {x: -54, y: -115.5}
+        - {x: 208, y: -29.5}
+        - {x: 208, y: 34.5}
+        - {x: 29, y: 94.5}
+      physicsShape: []
+      tessellationDetail: 0.01
+      bones: []
+      spriteID: 2ff0cee2768a82b47b56bf8ecc1eff35
+      internalID: 1012229290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Defeat_1
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 432
+        width: 229
+        height: 477
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 77.5, y: -170.5}
+        - {x: 79.5, y: -157.5}
+        - {x: 81.5, y: -161.5}
+        - {x: 92.5, y: -162.5}
+        - {x: 96.5, y: -158.5}
+        - {x: 94.5, y: -151.5}
+        - {x: 106.5, y: -138.5}
+        - {x: 107.5, y: -135.5}
+        - {x: 107.5, y: -22.5}
+        - {x: 108.5, y: -22.5}
+        - {x: 111.5, y: -19.5}
+        - {x: 111.5, y: -17.5}
+        - {x: 107.5, y: -14.5}
+        - {x: 107.5, y: 35.5}
+        - {x: 113.5, y: 40.5}
+        - {x: 114.5, y: 42.5}
+        - {x: 114.5, y: 76.5}
+        - {x: 103.5, y: 92.5}
+        - {x: 99.5, y: 93.5}
+        - {x: 91.5, y: 101.5}
+        - {x: 81.5, y: 104.5}
+        - {x: 75.5, y: 102.5}
+        - {x: 55.5, y: 80.5}
+        - {x: 50.5, y: 71.5}
+        - {x: 48.5, y: 62.5}
+        - {x: 48.5, y: 53.5}
+        - {x: 33.5, y: 55.5}
+        - {x: 13.5, y: 64.5}
+        - {x: 3.5, y: 71.5}
+        - {x: -12.5, y: 87.5}
+        - {x: -21.5, y: 101.5}
+        - {x: -27.5, y: 111.5}
+        - {x: -37.5, y: 131.5}
+        - {x: -44.5, y: 146.5}
+        - {x: -51.5, y: 165.5}
+        - {x: -55.5, y: 179.5}
+        - {x: -55.5, y: 185.5}
+        - {x: -49.5, y: 194.5}
+        - {x: -47.5, y: 200.5}
+        - {x: -47.5, y: 211.5}
+        - {x: -49.5, y: 219.5}
+        - {x: -53.5, y: 228.5}
+        - {x: -58.5, y: 232.5}
+        - {x: -68.5, y: 235.5}
+        - {x: -79.5, y: 238.5}
+        - {x: -90.5, y: 238.5}
+        - {x: -93.5, y: 237.5}
+        - {x: -105.5, y: 230.5}
+        - {x: -114.5, y: 218.5}
+        - {x: -114.5, y: 185.5}
+        - {x: -110.5, y: 182.5}
+        - {x: -104.5, y: 174.5}
+        - {x: -104.5, y: 57.5}
+        - {x: -105.5, y: 8.5}
+        - {x: -106.5, y: -51.5}
+        - {x: -106.5, y: -64.5}
+        - {x: -103.5, y: -70.5}
+        - {x: -98.5, y: -102.5}
+        - {x: -95.5, y: -115.5}
+        - {x: -87.5, y: -132.5}
+        - {x: -79.5, y: -150.5}
+        - {x: -75.5, y: -161.5}
+        - {x: -69.5, y: -176.5}
+        - {x: -64.5, y: -184.5}
+        - {x: -60.5, y: -187.5}
+        - {x: -46.5, y: -213.5}
+        - {x: -32.5, y: -228.5}
+        - {x: -20.5, y: -233.5}
+        - {x: -3.5, y: -235.5}
+        - {x: 25.5, y: -231.5}
+        - {x: 29.5, y: -238.5}
+        - {x: 38.5, y: -238.5}
+        - {x: 52.5, y: -209.5}
+        - {x: 67.5, y: -172.5}
+        - {x: 68.5, y: -175.5}
+      - - {x: -86.5, y: 209.5}
+        - {x: -89.5, y: 212.5}
+        - {x: -90.5, y: 212.5}
+        - {x: -93.5, y: 208.5}
+        - {x: -93.5, y: 210.5}
+        - {x: -89.5, y: 214.5}
+        - {x: -87.5, y: 211.5}
+        - {x: -80.5, y: 208.5}
+        - {x: -75.5, y: 209.5}
+        - {x: -72.5, y: 209.5}
+        - {x: -69.5, y: 211.5}
+        - {x: -69.5, y: 214.5}
+        - {x: -69.5, y: 211.5}
+        - {x: -68.5, y: 206.5}
+        - {x: -69.5, y: 206.5}
+        - {x: -73.5, y: 208.5}
+        - {x: -78.5, y: 207.5}
+        - {x: -80.5, y: 205.5}
+        - {x: -85.5, y: 206.5}
+      - - {x: -110.5, y: 231.5}
+        - {x: -108.5, y: 229.5}
+        - {x: -105.5, y: 230.5}
+        - {x: -105.5, y: 234.5}
+        - {x: -107.5, y: 236.5}
+        - {x: -110.5, y: 235.5}
+      physicsShape: []
+      tessellationDetail: 0.32
+      bones: []
+      spriteID: de52b9c9ff370884ea4e8e3307bafc79
+      internalID: 1841326688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5726f99faff38974b9daa0815e2a49ff
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Defeat_0: 1012229290
+      Defeat_1: 1841326688
+      Defeat_Cloud: -2108011260
+      Defeat_Flag: 987109454
+      Defeat_Star: 1156295371
+      Defeat_TextImage: -852013817
+      Defeat_TextImgeFlag: 1125354211
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
