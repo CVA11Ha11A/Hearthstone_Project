@@ -641,6 +641,11 @@ public class InGameManager : MonoBehaviourPunCallbacks
 
     }
 
+    public void GameEnd()
+    {
+        PhotonNetwork.LoadLevel("LobbyScene");
+    }
+
     #endregion 동기화 함수
 
 

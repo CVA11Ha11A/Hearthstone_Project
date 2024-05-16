@@ -50,9 +50,4 @@ public class GameManager : MonoBehaviour
         return target_.gameObject;
     }
 
-    public void InGameStart()
-    {
-
-    }
-
 }       // GameManager Class

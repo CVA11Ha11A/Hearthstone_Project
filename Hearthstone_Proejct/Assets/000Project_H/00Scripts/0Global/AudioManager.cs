@@ -23,7 +23,11 @@ public enum ESoundSFM
     SmallDamage = 4,
     MiddleDamage = 5,
     LargeDamage = 6,
-    MinionDeath = 7
+    MinionDeath = 7,
+    Victory = 8,
+    Defeat = 9,
+    Victory_screen_start = 10,
+    Defeat_screen_start = 11
 }
 
 
@@ -142,6 +146,10 @@ public class AudioManager : MonoBehaviour
         sfmClips[(int)ESoundSFM.MiddleDamage] = Resources.Load<AudioClip>(sfmPath + "MiddleDamage");
         sfmClips[(int)ESoundSFM.LargeDamage] = Resources.Load<AudioClip>(sfmPath + "LargeDamage");
         sfmClips[(int)ESoundSFM.MinionDeath] = Resources.Load<AudioClip>(sfmPath + "MinionDeath");
+        sfmClips[(int)ESoundSFM.Victory] = Resources.Load<AudioClip>(sfmPath + "Victory");
+        sfmClips[(int)ESoundSFM.Defeat] = Resources.Load<AudioClip>(sfmPath + "Defeat");
+        sfmClips[(int)ESoundSFM.Victory_screen_start] = Resources.Load<AudioClip>(sfmPath + "Victory_screen_start");
+        sfmClips[(int)ESoundSFM.Defeat_screen_start] = Resources.Load<AudioClip>(sfmPath + "Defeat_screen_start");
 
     }       // AudioResourceLoad()
 

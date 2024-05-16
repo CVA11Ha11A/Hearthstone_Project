@@ -153,13 +153,14 @@ public class HeroImage : MonoBehaviour, IDamageable
         float currentTime = 0f;
 
         Vector3 OriginV3 = this.transform.localPosition;
+        Vector3 tempV3 = OriginV3;
 
         while (currentTime < shakeDuration)
         {
             float x = UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude;
             float y = UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude;
 
-            this.transform.localPosition = new Vector3(x, y, OriginV3.z);
+            this.transform.localPosition = new Vector3(tempV3.x + x, tempV3.y + y, OriginV3.z);
 
             currentTime += Time.deltaTime;
 
@@ -182,7 +183,16 @@ public class HeroImage : MonoBehaviour, IDamageable
             heroImageRoot.color = Color32.Lerp(heroImageRoot.color, deathColor, t);
             yield return null;
         }        
-    }
+
+        if(isMine == true)
+        {
+            InGameManager.Instance.frontCanvas.gameEndUiRoot.OutPutResult(false);
+        }
+        else
+        {
+            InGameManager.Instance.frontCanvas.gameEndUiRoot.OutPutResult(true);
+        }
+    }       // CHeroImageColorSet()
 
 
     public IEnumerator CIAttackAnime(Transform targetTrans_, bool isRPC = false)

@@ -10,6 +10,7 @@ public class FrontGroundCanvas : MonoBehaviour
     private float maxTime = 5f;
 
     public DrawLine drawRoot = null;
+    public GameEndUI gameEndUiRoot = null;
 
     private void Awake()
     {        
