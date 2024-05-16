@@ -30,7 +30,7 @@ public class DrawLine : MonoBehaviour
         for (int i = 0; i < lineRenderer.positionCount; i++)
         {
             pos = Vector3.Slerp(startPos_, endPos_ , i / (float)(lineRenderer.positionCount - 1));
-
+            pos.z = pos.z - 50f;
             lineRenderer.SetPosition(i, pos);
         }
     }       // DrawParabola()

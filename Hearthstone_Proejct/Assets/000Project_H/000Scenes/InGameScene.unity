@@ -814,7 +814,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 46.52995}
+  m_AnchoredPosition: {x: 0, y: 46.529953}
   m_SizeDelta: {x: 0, y: 93.06009}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &63859931
@@ -2020,6 +2020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawRoot: {fileID: 0}
+  gameEndUiRoot: {fileID: 0}
 --- !u!114 &209923544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4325,7 +4326,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 2.1, y: -30.1}
+  m_AnchoredPosition: {x: 2.0999985, y: -30.1}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &406396665
@@ -5391,7 +5392,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.1, y: 0.66}
+  m_AnchoredPosition: {x: -0.1, y: 0.65999985}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &515919601
@@ -11177,7 +11178,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 2.1, y: -30.1}
+  m_AnchoredPosition: {x: 2.0999985, y: -30.1}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &985910480
@@ -11317,7 +11318,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: -580079029
+  m_SortingLayerID: 1208613769
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &997112353
@@ -11378,7 +11379,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 46.52995}
+  m_AnchoredPosition: {x: 0, y: 46.529953}
   m_SizeDelta: {x: 0, y: 93.06009}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1005403223
@@ -16319,6 +16320,7 @@ GameObject:
   - component: {fileID: 1648673404}
   - component: {fileID: 1648673406}
   - component: {fileID: 1648673405}
+  - component: {fileID: 1648673407}
   m_Layer: 5
   m_Name: YourTurnUI
   m_TagString: Untagged
@@ -16334,7 +16336,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1648673403}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -16385,6 +16387,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1648673403}
   m_CullTransparentMesh: 1
+--- !u!223 &1648673407
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648673403}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_SortingLayerID: -580079029
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1001 &1649796207
 PrefabInstance:
   m_ObjectHideFlags: 0
