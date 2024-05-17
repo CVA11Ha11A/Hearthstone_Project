@@ -31,7 +31,7 @@ public class ResourceManager : MonoBehaviour
             if (instance == null)
             {
                 GameObject obj = new GameObject("ResourceManger");
-                obj.AddComponent<ResourceManager>(); 
+                obj.AddComponent<ResourceManager>();
             }
             return instance;
         }
@@ -57,17 +57,24 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
-    
+    private Sprite[] heroPowerSprites = null;
+    public Sprite[] HeroPowerSprites
+    {
+        get
+        {
+            return this.heroPowerSprites;
+        }
+    }
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
             ManagerInIt();
         }
-        else if(instance != null)
+        else if (instance != null)
         {
             Destroy(this.gameObject);
         }
@@ -79,10 +86,11 @@ public class ResourceManager : MonoBehaviour
         sb = new StringBuilder();
         ClassVerticalSpriteLoad();
         ClassPullSpriteLoad();
+        HeroPowerSpriteLoad();
     }
 
     private void ClassVerticalSpriteLoad()
-    {        
+    {
         classVerticalSprite = new Sprite[(int)RClassVerticalSprite.EndPoint];
         // TODO : 직업이 늘어날경우 추가해야함 일단 사제, 마법사만 가져옴
         classVerticalSprite[0] = Resources.Load<Sprite>("ClassVerticalSprites/Anduin");
@@ -98,23 +106,32 @@ public class ResourceManager : MonoBehaviour
         classPullSprite[1] = Resources.Load<Sprite>("ClassSprites/Jeina");
     }       // ClassPullSpriteLoad()
 
+    private void HeroPowerSpriteLoad()
+    {
+        heroPowerSprites = new Sprite[(int)ClassCard.Common];
+
+        heroPowerSprites[(int)ClassCard.Prist] = Resources.Load<Sprite>("HeroPowerSprites/PriestHeroPower");
+        heroPowerSprites[(int)ClassCard.Mage] = Resources.Load<Sprite>("HeroPowerSprites/JeinaHeroPower_Fix1");
+
+    }
+
     public string GetHeroName(ClassCard heroClass_)
     {   //  영웅의 이름을 리턴해주는 함수
-        if(heroClass_ == ClassCard.Prist)
+        if (heroClass_ == ClassCard.Prist)
         {
             return "Anduin";
         }
         else
         {   // 에외적인 상황
             DE.LogError($"조건에 맞는 것이 없어서 예외적인 상황이 발생\n들어온 인자 : {heroClass_}\n");
-            
+
             return String.Empty;
         }
     }
 
     public string GetHeroNum(ClassCard heroClass_)
     {   // 영웅의 고유 번호를 리턴해주는 함수 (AudioClip에필요함)
-        if(heroClass_ == ClassCard.Prist)
+        if (heroClass_ == ClassCard.Prist)
         {
             return "09";
         }

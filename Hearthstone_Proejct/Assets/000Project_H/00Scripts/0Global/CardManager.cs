@@ -43,6 +43,7 @@ public enum ClassCard
 {
     None = 0,
     Prist = 1,
+    Mage = 2,
     Common,
 }
 
