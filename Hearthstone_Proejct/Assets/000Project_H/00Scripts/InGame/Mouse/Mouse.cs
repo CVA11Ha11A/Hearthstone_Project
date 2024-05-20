@@ -9,6 +9,7 @@ public class Mouse : MonoBehaviour
     private LayerMask targetObjLayer = default;
     private LayerMask cardLayer = default;
     private LayerMask fieldMinionLayer = default;
+    private LayerMask heroPowerLayer = default;
     public bool isRayCast = false;
     public bool isDraging = false;
 
@@ -28,6 +29,8 @@ public class Mouse : MonoBehaviour
 
     public GameObject lastMinionRoot = null;                // 필드 미니언 용
 
+    public HeroPower myHeroPowerRoot = null;
+
     private void Awake()
     {
         InGameManager.Instance.mouseRoot = this;
@@ -36,6 +39,7 @@ public class Mouse : MonoBehaviour
         this.cardLayer = 1 << 6;
         this.targetObjLayer = 1 << 11;
         this.fieldMinionLayer = 1 << 12;
+        this.heroPowerLayer = 1 << 14;
         this.highlightCardYPos = 65f;
         this.highlightCardScale = new Vector3(1.5f, 1.5f, 1.5f);
 
@@ -152,7 +156,28 @@ public class Mouse : MonoBehaviour
                     lastMinionRoot = null;
                 }
             }
-        }
+        }   // if : 필드 미니언 Ray
+
+        if (Physics.Raycast(mouseWorldPosition, Vector3.forward, out hitInfo, Mathf.Infinity, heroPowerLayer))
+        {
+            if (this.myHeroPowerRoot == null)
+            {
+                //DE.Log($"myHeroPowerRoot == Null 조건 충족");
+                if (hitInfo.transform.GetComponent<HeroPower>())
+                {
+                    myHeroPowerRoot = hitInfo.transform.GetComponent<HeroPower>();
+                    //DE.Log($"hitInfo.GetComponent<HeroPower>() 조건 충족\n그거 :{myHeroPowerRoot}");
+                    
+                }
+            }
+            else
+            {
+                if (this.myHeroPowerRoot != null && this.isDraging == false)
+                {
+                    this.myHeroPowerRoot = null;
+                }
+            }
+        }   
 
     }       // Update()
 

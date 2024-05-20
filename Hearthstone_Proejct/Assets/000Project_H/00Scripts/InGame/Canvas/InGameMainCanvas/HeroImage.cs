@@ -42,6 +42,7 @@ public class HeroImage : MonoBehaviour, IDamageable
         }
     }
 
+    public HeroPower heroPower = null;
 
     public bool isSettingCompleate = default;
     public Image heroImage = null;
@@ -62,17 +63,6 @@ public class HeroImage : MonoBehaviour, IDamageable
 
     private void Awake()
     {
-        isSettingCompleate = false;
-        sb = new StringBuilder();
-        emoteClip = new AudioClip[7];
-        this.maxHeroHp = 30;
-        this.heroHp = 30;
-
-
-        heroImage = this.transform.GetChild(0).GetChild(0).GetComponent<Image>();
-        hpText = this.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
-        hpImageObject = this.transform.GetChild(1).gameObject;
-
         if (this.transform.name == "MyImage(Frame)")
         {
             isMine = true;
@@ -84,9 +74,25 @@ public class HeroImage : MonoBehaviour, IDamageable
             isMine = false;
             isEnemy = true;
             this.transform.parent.GetComponent<HeroImages>().EnemyHeroImageRootSetter(this);
-        }
+        }        
+
+        isSettingCompleate = false;
+        sb = new StringBuilder();
+        emoteClip = new AudioClip[7];
+        this.maxHeroHp = 30;
+        this.heroHp = 30;
+
+
+        heroImage = this.transform.GetChild(0).GetChild(0).GetComponent<Image>();
+        hpText = this.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
+        hpImageObject = this.transform.GetChild(1).gameObject;
 
         hpImageObject.SetActive(false);
+    }
+
+    private void Start()
+    {
+       
     }
 
     public void HPImageOn()
@@ -198,5 +204,19 @@ public class HeroImage : MonoBehaviour, IDamageable
     public IEnumerator CIAttackAnime(Transform targetTrans_, bool isRPC = false)
     {   // 영웅의 공격은 아직 구현 X 
         yield return null;
+    }
+
+    public void HeroPowerSetting()
+    {       // 멀리건 직후 호출될 함수
+        if (this.isMine == true)
+        {                    
+            InGameManager.Instance.HeroPowerSet(this.transform.GetChild(2).gameObject,
+            InGameManager.Instance.InGameMyDeckRoot.InGamePlayerDeck.deckClass);
+        }
+        else if (this.isEnemy == true)
+        {                        
+            InGameManager.Instance.HeroPowerSet(this.transform.GetChild(2).gameObject,
+            InGameManager.Instance.InGameEnemyDeckRoot.InGamePlayerDeck.deckClass);
+        }
     }
 }       // ClassEnd

@@ -59,11 +59,15 @@ public class InGameSycle : MonoBehaviourPun
 
         InGameManager.Instance.mainCanvasRoot.heroImagesRoot.MyHeroImage.HPImageOn();
         InGameManager.Instance.mainCanvasRoot.heroImagesRoot.EnemyHeroImage.HPImageOn();
+        InGameManager.Instance.mainCanvasRoot.heroImagesRoot.MyHeroImage.HeroPowerSetting();
+        InGameManager.Instance.mainCanvasRoot.heroImagesRoot.EnemyHeroImage.HeroPowerSetting();
 
         InGameManager managerRoot = InGameManager.Instance;
         managerRoot.mainCanvasRoot.transform.GetChild(0).GetChild(7).GetComponent<DiscoveryCanvas>()
             .Mulligan(managerRoot.InGameMyDeckRoot.InGamePlayerDeck.cardList[0], managerRoot.InGameMyDeckRoot.InGamePlayerDeck.cardList[1],
             managerRoot.InGameMyDeckRoot.InGamePlayerDeck.cardList[2]);
+
+
     }       // StartMulligan()
 
 

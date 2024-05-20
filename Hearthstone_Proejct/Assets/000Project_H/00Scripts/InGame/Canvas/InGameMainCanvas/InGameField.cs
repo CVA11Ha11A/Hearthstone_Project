@@ -34,21 +34,21 @@ public class InGameField : MonoBehaviour
 
     private void Awake()
     {
-        if (this.transform.name == "MyField")
+        if (this.transform.CompareTag("My"))
         {
             this.transform.parent.GetComponent<InGameFields>().MyFieldSetter(this);
         }
-        else if (this.transform.name == "EnemyField")
+        else if (this.transform.CompareTag("Enemy"))
         {
             this.transform.parent.GetComponent<InGameFields>().EnemyFieldSetter(this);
         }
-        
-        
+
+
     }
 
     void Start()
     {
-        
+
 
 
     }
@@ -59,6 +59,7 @@ public class InGameField : MonoBehaviour
         fieldObj.transform.parent = this.transform;
         fieldObj.AddComponent<RectTransform>();
         fieldObj.transform.localPosition = Vector3.zero;
+        fieldObj.transform.tag = this.transform.tag;
         recentFieldObjRoot = fieldObj;
     }       // SpawnMinion()
 
@@ -67,11 +68,11 @@ public class InGameField : MonoBehaviour
         bool isTaunt = false;
         //DE.Log($"타겟오브젝트의 이름이 무었이지? : {attackTarget_.transform.name}");
         // 아군을 공격하는지 확인
-        if(attackTarget_.transform.parent.parent.CompareTag("Enemy"))
+        if (attackTarget_.transform.parent.parent.CompareTag("Enemy"))
         {
             // PASS
         }
-        else if(attackTarget_.transform.CompareTag("Enemy"))
+        else if (attackTarget_.transform.CompareTag("Enemy"))
         {
             // PASS
         }
@@ -79,23 +80,28 @@ public class InGameField : MonoBehaviour
 
 
         // 도발하수인이 존재하는지 확인
-        for(int i = 0; i < this.transform.childCount; i++)
+        for (int i = 0; i < this.transform.childCount; i++)
         {
-            if((this.transform.GetChild(i).GetChild(0).GetComponent<Minion>().ability & M_Ability.Taunt) == M_Ability.Taunt)
+            if ((this.transform.GetChild(i).GetChild(0).GetComponent<Minion>().ability & M_Ability.Taunt) == M_Ability.Taunt)
             {   // 도발의 무언가를 가지고 있다면
+                DE.Log($"공격하려는 필드에 도발하수인 존재함");
                 isTaunt = true;
                 break;
             }
         }
 
         //내가 도발이 존재하면 내가 공격하는 대상이 도발이 달려있는지
-        if(isTaunt == true)
+        if (isTaunt == true)
         {   // if : 도발이 존재
-            if(attackTarget_.transform.GetComponent<Minion>() == false)
+            if (attackTarget_.transform.GetComponent<Minion>() == false)
             {   // 도발이 존재하는데 공격하는대상이 Minion컴포넌트가 없다면 공격 불가
                 return false;
             }
-            if((attackTarget_.transform.GetComponent<Minion>().ability & M_Ability.Taunt) == M_Ability.Taunt)
+            if ((attackTarget_.transform.GetComponent<Minion>().ability & M_Ability.Taunt) != M_Ability.Taunt)
+            {
+                return false;
+            }
+            if ((attackTarget_.transform.GetComponent<Minion>().ability & M_Ability.Taunt) == M_Ability.Taunt)
             {
                 return true;
             }

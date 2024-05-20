@@ -22,11 +22,11 @@ public class HeroPowerUI : MonoBehaviour
         // 덱을 참조해서 현재 Class를 가져오고 이미지 설정 // 자신이 누구인지 알아야함 적, 아군
         if(this.transform.CompareTag("My"))
         {
-            SetHeroPowerSprite(InGameManager.Instance.InGameMyDeckRoot.InGamePlayerDeck.deckClass);
+            SetHeroPowerSprite(InGameManager.Instance.InGameMyDeckRoot.DeckClass);
         }
         else if(this.transform.CompareTag("Enemy"))
-        {
-            SetHeroPowerSprite(InGameManager.Instance.InGameEnemyDeckRoot.InGamePlayerDeck.deckClass);
+        {           
+            SetHeroPowerSprite(InGameManager.Instance.InGameEnemyDeckRoot.DeckClass);
         }
         else { DE.Log($"해당 개체의 Tag가 잘못됨"); }
 

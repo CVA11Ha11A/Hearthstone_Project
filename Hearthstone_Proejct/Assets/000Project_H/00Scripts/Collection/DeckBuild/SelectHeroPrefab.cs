@@ -22,6 +22,9 @@ public class SelectHeroPrefab : MonoBehaviour
             if (thisClass != value)
             {
                 thisClass = value;                
+            }
+            if(thisClass != ClassCard.None && thisClass != ClassCard.Common)
+            {
                 ImageUpdate();
             }
         }

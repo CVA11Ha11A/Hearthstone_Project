@@ -14,8 +14,25 @@ public class Minion : Card, IDamageable
     protected int damageDefault = default;
     protected int heathDefault = default;
     protected bool isSpawnEmpect = false;
+    public int maxHeath = default;      // 소환 되는 순간 결정 -> heath를 따라감
     public int damage = default;
     public int heath = default;
+    public int Heath                // 필드에서 변동 시킬때를 위한 프로퍼티 Setter용
+    {
+        get
+        {
+            return heath;
+        }
+        set
+        {
+            heath = value;
+            if (heath > maxHeath)
+            {
+                heath = maxHeath;
+            }
+            FieldMinionTextUpdate();
+        }
+    }
 
 
     public Minion()
@@ -133,6 +150,7 @@ public class Minion : Card, IDamageable
 
     public override void MinionFieldSpawn(GameObject spawnParentObj_)
     {
+        this.maxHeath = heath;
         this.gameObject.layer = LayerMask.NameToLayer("Minion");
         // 하수인이 소환될 경우 실행되어야 하는것
         // 1. 필드에 이동
@@ -208,6 +226,11 @@ public class Minion : Card, IDamageable
         cardTexts[(int)C_Text.Hp].text = hp_.ToString();
         cardTexts[(int)C_Text.Damage].text = damage_.ToString();
     }
+    public void FieldMinionTextUpdate()
+    {
+        cardTexts[(int)C_Text.Hp].text = this.heath.ToString();
+        cardTexts[(int)C_Text.Damage].text = this.damage.ToString();
+    }
 
     public AudioClip GetAttackClip()
     {
@@ -222,7 +245,7 @@ public class Minion : Card, IDamageable
 
     public void MinionDeath()
     {
-        
+
         // TODO : 사망 처리 함수
         if (this.heath <= 0)
         {
@@ -240,7 +263,7 @@ public class Minion : Card, IDamageable
         float shakeDuration = 0.5f; // 흔들림 지속 시간
         float shakeMagnitude = 0.1f; // 흔들림 강도
         float currentTime = 0f;
-        
+
         float t = 0f;
         Vector3 OriginV3 = this.transform.localPosition;
         Vector3 tempV3 = default;
@@ -253,7 +276,7 @@ public class Minion : Card, IDamageable
 
             this.transform.localPosition = new Vector3(x, y, OriginV3.z);
 
-            currentTime += Time.deltaTime;            
+            currentTime += Time.deltaTime;
 
             yield return null;
         }       // while(ShakeMove)
@@ -268,7 +291,7 @@ public class Minion : Card, IDamageable
         float currentTime = 0f;
         float setTime = 1f;
 
-        while(currentTime < setTime)
+        while (currentTime < setTime)
         {
             currentTime += Time.deltaTime;
             float t = currentTime / setTime;
@@ -331,7 +354,7 @@ public class Minion : Card, IDamageable
         {
             targetTrans_.GetComponent<HeroImage>().IAttacked(this.damage);
         }
-        
+
 
         while (currentTime < durationTime)
         {   // 돌아오기 애니메이션

@@ -81,7 +81,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
         {
             if (this.inGameEnemyDeckRoot == null)
             {
-                this.inGameEnemyDeckRoot = transform.Find("MyDeck").GetComponent<InGameDeck>();
+                this.inGameEnemyDeckRoot = transform.Find("EnemyDeck").GetComponent<InGameDeck>();
                 return this.inGameEnemyDeckRoot;
             }
             else
@@ -503,6 +503,17 @@ public class InGameManager : MonoBehaviourPunCallbacks
         PV.RPC("DrawEnemy", RpcTarget.Others);
     }       // DrawCard
 
+    public void HeroPowerSet(GameObject addTarget_, ClassCard heroClass_)
+    {   // 인게임의 영웅 능력을 부여하는 함수
+        if (heroClass_ == ClassCard.Prist)
+        {
+            addTarget_.AddComponent<PristHeroPower>();
+        }
+        else
+        {
+            DE.Log($"미구현 직업이 보내졌습니다. : {heroClass_}");
+        }
+    }
 
     #endregion 인게임 기능 함수들
 
@@ -522,7 +533,6 @@ public class InGameManager : MonoBehaviourPunCallbacks
             yield return null;
         }
         PV.RPC("StartTurnSet", RpcTarget.All);
-        // 여기서 턴 시작하면됨
     }
 
     [PunRPC]
@@ -616,7 +626,6 @@ public class InGameManager : MonoBehaviourPunCallbacks
         PV.RPC("MinionAttackSyncRPC", RpcTarget.Others, attackObjChildNum_, attackedObjChildNum_);
     }
 
-
     [PunRPC]
     public void MinionAttackSyncRPC(int attackObjChildNum_, int attackedObjChildNum_)
     {
@@ -637,9 +646,44 @@ public class InGameManager : MonoBehaviourPunCallbacks
         //DE.Log($"공격하는 것의 Name : {mainCanvasRoot.fieldRoot.EnemyField.transform.GetChild(attackObjChildNum_).GetChild(0).name}\n공격 받는것의 이름 : {attackedTrans.name}");
         StartCoroutine(mainCanvasRoot.fieldRoot.EnemyField.transform.GetChild(attackObjChildNum_).
             GetChild(0).GetComponent<Minion>().CIAttackAnime(attackedTrans, isRPC: true));
-        
-
     }
+
+    public void HeroPowerOnTargetSync(bool isMy_, int targetIndex_)
+    {
+        PV.RPC("HeroPowerOnTargetSyncRPC", RpcTarget.Others, isMy_, targetIndex_);
+    }
+
+    [PunRPC]
+    public void HeroPowerOnTargetSyncRPC(bool isMy_, int targetIndex_)
+    {   //TargetIndex : 적영웅 = 100, 내영웅 = 200 (상대 기준으로 100 == 적 [곧 100은 나]) // isMy_ 도 보내는사람[적] 기준으로 자신이기에 반대로 실행되어야함
+        DE.Log($"인자\n IsMy_ : {isMy_} , TargetIndex : {targetIndex_}");
+        // 타겟 지정
+        Transform targetTrans = null;
+
+        if (targetIndex_ == 100)
+        {
+            targetTrans = mainCanvasRoot.heroImagesRoot.MyHeroImage.transform;
+        }
+        else if (targetIndex_ == 200)
+        {
+            targetTrans = mainCanvasRoot.heroImagesRoot.EnemyHeroImage.transform;
+        }
+        else
+        {   // 하수인이 타겟
+            if (isMy_ == true)
+            {                
+                targetTrans = mainCanvasRoot.fieldRoot.EnemyField.transform.GetChild(targetIndex_).GetChild(0).transform;  // MinionComponent존재
+            }
+            else
+            {
+                targetTrans = mainCanvasRoot.fieldRoot.MyField.transform.GetChild(targetIndex_).GetChild(0).transform;
+            }
+        }
+
+        
+        // 효과 발동
+        mainCanvasRoot.heroImagesRoot.EnemyHeroImage.heroPower.TargetHeroPowerEmpect(targetTrans, true);
+    }       // HeroPowerSyncRPC()
 
     public void GameEnd()
     {

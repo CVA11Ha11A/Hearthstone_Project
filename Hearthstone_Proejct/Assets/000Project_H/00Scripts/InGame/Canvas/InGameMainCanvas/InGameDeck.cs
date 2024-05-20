@@ -18,6 +18,13 @@ public class InGameDeck : MonoBehaviour
     }
     private GameObject[] cardObjs = null;
     private ClassCard deckClass = default;
+    public ClassCard DeckClass
+    {
+        get
+        {
+            return this.deckClass;
+        }
+    }
 
     private InGameHand targetHand = null;
     public InGameHand TargetHand
@@ -49,11 +56,6 @@ public class InGameDeck : MonoBehaviour
             cardObjs[i] = this.transform.GetChild(0).GetChild(i).gameObject;
         }
 
-
-
-    }
-    void Start()
-    {
         if (this.transform.name == "MyDeck")
         {
             InGameManager.Instance.InGameMyDeckRoot = this;
@@ -66,6 +68,13 @@ public class InGameDeck : MonoBehaviour
             this.deckClass = GameManager.Instance.inGamePlayersDeck.EnemyDeck.deckClass;
             this.transform.parent.GetComponent<InGameDecks>().EnemyDeckSetter(this);
         }
+
+
+
+    }
+    void Start()
+    {
+
     }
     // ------------------------------------------------------- 덱초기화 관련 함수들 -------------------------------------------------------------------------
     public void DeckInit(string[] cardIds_, ETarGet initTarget_)
@@ -203,7 +212,7 @@ public class InGameDeck : MonoBehaviour
                     objIndex = i;
                     break;
                 }
-            }            
+            }
         }
 
 
@@ -211,6 +220,7 @@ public class InGameDeck : MonoBehaviour
         if (objIndex == -1)
         {
             DE.Log($"TargetCard를 찾지 못했음");
+            return;
         }
 
      
