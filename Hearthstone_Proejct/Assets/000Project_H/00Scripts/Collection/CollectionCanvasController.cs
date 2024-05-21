@@ -248,7 +248,7 @@ public class CollectionCanvasController : MonoBehaviour
                 deckCardListRoot.isFixDeck = false;
             }
 
-            //TODO : 여순간에 카드의 빈곳이 존재할 순 있지만 존재하는 카드 ID 앞쪽에 0이 존재하면 안되도록 제작해야함
+            //여순간에 카드의 빈곳이 존재할 순 있지만 존재하는 카드 ID 앞쪽에 0이 존재하면 안되도록 제작해야함
             newDeck.PullCardList();
 
             LobbyManager.Instance.playerDeckRoot.SaveDecks();

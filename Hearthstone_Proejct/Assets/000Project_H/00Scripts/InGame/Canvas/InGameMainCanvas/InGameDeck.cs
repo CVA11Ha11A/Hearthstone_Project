@@ -237,6 +237,7 @@ public class InGameDeck : MonoBehaviour
         //RPC로 DrawCardRemove? 아니면 DrawEnemy를 실행 시킬까?
 
         #region TEST
+#if UNITY_EDITOR
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < InGamePlayerDeck.cardList.Length; i++)
         {
@@ -244,7 +245,8 @@ public class InGameDeck : MonoBehaviour
             sb.Append(" ");
         }
         DE.Log($"드로우한뒤에 나의 덱 상황 : {sb.ToString()}");
-        #endregion TEST
+#endif
+#endregion TEST
 
     }       // DrawCard
 
@@ -352,7 +354,7 @@ public class InGameDeck : MonoBehaviour
         InGamePlayerDeck.DrawCardRemoveCard();
         cardObjs[objIndex].transform.rotation = Quaternion.Euler(0, 0, 0);
         TargetHand.AddCardInHand(cardObjs[objIndex]);
-        DE.Log($"내가 뽑은 카드 ID : {(int)cardObjs[objIndex].GetComponent<Card>().cardId}");        
+        DE.Log($"내가 뽑은 카드 ID : {(int)cardObjs[objIndex].GetComponent<Card>().cardId}");
         cardObjs[objIndex] = null;
         
 

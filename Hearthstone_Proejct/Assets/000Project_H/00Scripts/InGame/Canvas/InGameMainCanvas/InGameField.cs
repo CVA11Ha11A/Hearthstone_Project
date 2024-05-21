@@ -106,7 +106,7 @@ public class InGameField : MonoBehaviour
                 return true;
             }
         }
-        DE.Log($"공격가능? 함수 진입 결과\n 도발하수인 존재하지 않음 공격 대상 정상 판정");
+        //DE.Log($"공격가능? 함수 진입 결과\n 도발하수인 존재하지 않음 공격 대상 정상 판정");
         return true;
 
     }       // IsTargetAtteckAble()

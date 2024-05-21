@@ -60,7 +60,7 @@ public class MyTurnMouse : MonoBehaviour
             Camera.main.nearClipPlane));
         if (Physics.Raycast(mouseWorldPosition, Vector3.forward, out hitInfo))
         {
-            DE.Log($"테스트 레이 맞은 개체 : {hitInfo.collider.name}");
+            //DE.Log($"테스트 레이 맞은 개체 : {hitInfo.collider.name}");
         }
 #endif
 
@@ -151,7 +151,14 @@ public class MyTurnMouse : MonoBehaviour
                 if (targetCard.transform.position.y > -2f)
                 {   // 필드쪽으로 갔다는 뜻
                     // 1. 내코스트가 카드를 사용할 만큼의 코스트가 되는지 확인
-                    CheckIsThrowCard();
+                    if(CheckIsThrowCard() == true)
+                    {
+                        // Pass
+                    }
+                    else
+                    {
+                        mouseRoot.LastCardPositionRollBack();
+                    }
                 }
                 else
                 {
@@ -236,17 +243,16 @@ public class MyTurnMouse : MonoBehaviour
     }       // CTargetCardSclaeSet()
 
     public bool CheckIsThrowCard()
-    {
-        // 테스트를위해 임시 주석 
-        //// 코스트 조건 확인
-        //if (targetCard.GetComponent<Card>().cost <= InGameManager.Instance.mainCanvasRoot.costRoot.MyCost.NowCost)
-        //{
-        //    //PASS
-        //}
-        //else
-        //{
-        //    return false;
-        //}
+    {        
+        // 코스트 조건 확인
+        if (targetCard.GetComponent<Card>().cost <= InGameManager.Instance.mainCanvasRoot.costRoot.MyCost.NowCost)
+        {
+            //PASS
+        }
+        else
+        {
+            return false;
+        }
 
         // 어떤 카드인지 체크
         if (targetCard.GetComponent<Card>() is Minion)
@@ -285,6 +291,8 @@ public class MyTurnMouse : MonoBehaviour
                 InGameManager.Instance.mainCanvasRoot.handRoot.MyHand.RemoveCardInHand(targetCard);
                 InGameManager.Instance.mainCanvasRoot.fieldRoot.MyField.SpawnMinion();
                 targetCard.GetComponent<Card>().MinionFieldSpawn(InGameManager.Instance.mainCanvasRoot.fieldRoot.MyField.RecentFieldObjRoot);
+                InGameManager.Instance.mainCanvasRoot.costRoot.MyCost.NowCost -= targetCard.GetComponent<Card>().cost;
+                InGameManager.Instance.CostSync(InGameManager.Instance.mainCanvasRoot.costRoot.MyCost.NowCost);
                 InGameManager.Instance.ThrowMinionSync(cardHandIndex);
             }
 

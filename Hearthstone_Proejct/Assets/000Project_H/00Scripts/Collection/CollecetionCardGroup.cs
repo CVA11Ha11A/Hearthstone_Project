@@ -58,18 +58,19 @@ public class CollecetionCardGroup : MonoBehaviour
     }       // AwakeInIt()
 
     public void OutPutCard(ClassCard targetClass_)
-    {        
-        MonoBehaviour desRoot = null;
+    {
+        //DE.Log($"OutPutCard 호출 : {targetClass_}");
+        MonoBehaviour cardRoot = null;
         for (int i = 0; i < cardPrefabObj.Length; i++)
         {
             if (cardPrefabObj[i].GetComponent<Card>() == true)
             {
-                desRoot = cardPrefabObj[i].GetComponent<Card>();
-                Destroy(desRoot);
+                cardRoot = cardPrefabObj[i].GetComponent<Card>();
+                Destroy(cardRoot);
             }
 
             CardID addCardId = SelectOutputCard(targetClass_);
-            
+            //DE.Log($"출력할 카드 ID : {addCardId}");
             if (addCardId != CardID.EndPoint)
             {
                 cardPrefabObj[i].SetActive(true);

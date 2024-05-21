@@ -8,16 +8,20 @@ public class CardObject : MonoBehaviour
 
     private void Awake()
     {
-        this.transform.GetComponent<Canvas>().sortingLayerName = "Card";
+        if (this.transform.GetComponent<Canvas>())
+        {
+            this.transform.GetComponent<Canvas>().sortingLayerName = "Card";
+
+        }
 
     }
     private void Start()
     {
-        if(this.transform.parent != null)
+        if (this.transform.parent != null)
         {
             if (this.transform.parent.CompareTag("InGameDeck"))
             {
-                this.transform.rotation = Quaternion.Euler(0f, -90f, 90f);                
+                this.transform.rotation = Quaternion.Euler(0f, -90f, 90f);
             }
         }
     }

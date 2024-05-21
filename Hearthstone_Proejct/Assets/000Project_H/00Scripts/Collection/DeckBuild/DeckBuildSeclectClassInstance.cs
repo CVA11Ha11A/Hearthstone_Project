@@ -24,7 +24,7 @@ public class DeckBuildSeclectClassInstance : MonoBehaviour
     {
         int instanceCount = Enum.GetValues(typeof(ClassCard)).Length;       
         
-        for (int i = 1; i < instanceCount; i++)
+        for (int i = 1; i < instanceCount -1; i++)
         {
             GameObject instance = Instantiate(selectClassPrefab, this.transform);
             SelectHeroPrefab prefabClass = instance.GetComponent<SelectHeroPrefab>();

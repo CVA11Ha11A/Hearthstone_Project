@@ -69,7 +69,7 @@ public class GameStartSelectDeckCanvas : MonoBehaviour
     public void PrintDeckList()
     {   // 플레이어가 가지고 있는 덱 수 만큼 출력시켜주는 함수
         int printCount = LobbyManager.Instance.playerDeckRoot.decks.deckList.Count;
-        for (int i = 0; i < printCount - 1; i++)
+        for (int i = 0; i < printCount; i++)
         {
             printDeckObjs[i].gameObject.SetActive(true);
             printDeckObjs[i].transform.GetComponent<Image>().sprite =

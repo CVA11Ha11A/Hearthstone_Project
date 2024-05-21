@@ -139,7 +139,7 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
             //DE.DrawRay(mouseWorldPosition, Vector3.forward * 300f, Color.red, 5000f);            
             if (Physics.Raycast(mouseWorldPosition, Vector3.forward, rayMaxDistance, deckCardListLayerMask))
             {
-                DE.Log($"DeckCardListLayer 맞음");
+                //DE.Log($"DeckCardListLayer 맞음");
                 if (deckCardListRoot == null)
                 {
                     deckCardListRoot = LobbyManager.Instance.collectionCanvasRoot.deckCardListRoot;

@@ -575,6 +575,15 @@ public class InGameManager : MonoBehaviourPunCallbacks
     {
         InGameEnemyDeckRoot.DrawCardCallRPC();
     }
+    public void CostSync(int nowCost_)
+    {
+        PV.RPC("CostSyncRPC", RpcTarget.Others, nowCost_);
+    }
+    [PunRPC]
+    public void CostSyncRPC(int nowCost_)
+    {
+        mainCanvasRoot.costRoot.EnemyCost.NowCost = nowCost_;
+    }
 
     public void ThrowMinionSync(int targetHandCardIndex_)
     {
@@ -593,8 +602,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
 
         mainCanvasRoot.handRoot.EnemyHand.transform.GetChild(0).GetChild(targetHandCardIndex_).GetComponent<Card>().
             MinionFieldSpawn(mainCanvasRoot.fieldRoot.EnemyField.RecentFieldObjRoot);
-
-
+        
     }
 
     public void TurnEndSync()

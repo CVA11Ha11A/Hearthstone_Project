@@ -84,8 +84,8 @@ public class InGameSycle : MonoBehaviourPun
             // 카드와의 상호작용을 불가능 하도록(카드 내기불가능)
             // 상대방의 UI를 상대방입장에서 로컬로 증가 감소 시키기
             InGameManager.Instance.mainCanvasRoot.costRoot.EnemyCost.TurnStartCostSetting();
-            //InGameManager.Instance.mouseRoot.transform.GetComponent<MyTurnMouse>().enabled = false;
-            InGameManager.Instance.mouseRoot.transform.GetComponent<MyTurnMouse>().enabled = true;  // Test
+            InGameManager.Instance.mouseRoot.transform.GetComponent<MyTurnMouse>().enabled = false;
+            //InGameManager.Instance.mouseRoot.transform.GetComponent<MyTurnMouse>().enabled = true;  // Test
             
 
         }

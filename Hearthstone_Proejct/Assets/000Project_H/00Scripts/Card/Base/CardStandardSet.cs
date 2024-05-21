@@ -10,6 +10,7 @@ public class CardStandardSet : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "LobbyScene")
         {
             this.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            this.transform.parent.GetComponent<BoxCollider>().size = new Vector3(4f, 4.5f, 1f);
         }
         else if(this.gameObject.layer == LayerMask.NameToLayer("Discovery"))
         {
