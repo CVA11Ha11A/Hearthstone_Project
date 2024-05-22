@@ -101,33 +101,6 @@ public class InGameSycle : MonoBehaviourPun
         InGameManager.Instance.InGameMyDeckRoot.DrawCard(); // 드로우  [드로우 내부에서 동기화 함]
     }       // CTurnSetting()
 
-    public void TurnSetting()
-    {
-        //InGameManager.Instance.InGameMyDeckRoot
-    }
-
-
-    public void TurnEnd()
-    {   // 턴 종료시 이 함수가 호출되며 턴이 바뀔것임
-        if(this.NowTurn == ETurn.GoFirst)
-        {
-            this.NowTurn = ETurn.GoSecond;
-        }
-        else if(this.NowTurn == ETurn.GoSecond)
-        {
-            this.NowTurn = ETurn.GoFirst;
-        }        
-    }
 
     
-
-    IEnumerator CTest()
-    {
-        for (int i = 0; i < 6; i++)
-        {
-            InGameManager.Instance.DrawCard();
-            yield return new WaitForSeconds(3f);
-        }
-    }
-
 }       // ClassEnd

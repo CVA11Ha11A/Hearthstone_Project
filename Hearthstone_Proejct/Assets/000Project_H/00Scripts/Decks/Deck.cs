@@ -53,8 +53,21 @@ public class Deck : IDeckFunction
     {
         cardList[0] = CardID.StartPoint;
         this.currentIndex--;
+        this.count--;        
+    }
+
+    public void DrawCardRemoveCard(CardID removeCardId_)
+    {
+        for(int i = 0; i < cardList.Length; i++)
+        {
+            if(cardList[i] == removeCardId_)
+            {
+                cardList[i] = CardID.StartPoint;
+                break;
+            }
+        }
+        this.currentIndex--;
         this.count--;
-        PullCardList();
     }
 
     public void PullCardList()
@@ -66,10 +79,9 @@ public class Deck : IDeckFunction
                 break;
             }
             if (cardList[i] == CardID.StartPoint || cardList[i] == CardID.EndPoint)
-            {
-                
+            {                
                 cardList[i] = cardList[i + 1];
-
+                cardList[i + 1] = CardID.StartPoint;
             }
         }
     }       // PullCardList()

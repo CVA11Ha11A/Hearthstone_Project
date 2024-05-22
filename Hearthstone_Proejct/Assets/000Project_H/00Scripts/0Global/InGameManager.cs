@@ -425,23 +425,6 @@ public class InGameManager : MonoBehaviourPunCallbacks
     }
     #region 테스트 함수
 
-    private IEnumerator Tess()
-    {
-        yield return new WaitForSeconds(5f);
-        Debug.Log("적의 덱을 출력");
-        this.InGameEnemyDeckRoot.TestOutPut();
-        Debug.Log("나의 덱을 출력");
-        this.InGameMyDeckRoot.TestOutPut();
-        ShuffleCards(this.InGameMyDeckRoot, ETarGet.My);
-        yield return new WaitForSeconds(5f);
-        Debug.Log($"새로 덱을 섞은후");
-        Debug.Log("적의 덱을 출력");
-        this.InGameEnemyDeckRoot.TestOutPut();
-        Debug.Log("나의 덱을 출력");
-        this.InGameMyDeckRoot.TestOutPut();
-
-    }
-
     #endregion  테스트 함수
 
     [PunRPC]
@@ -494,14 +477,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
         this.turnSystem = (ETurn)turn_;
     }
 
-    public void DrawCard()
-    {   // 상대 기준으로 드로우 시키는 함수
-        // 드로우 시키는 함수를 만들어서 여기서 Call해야할거같음
-        // 누가 함수를 가져야하지? 덱? 카드? 메니저? 핸드?    : 덱
-
-        this.InGameMyDeckRoot.DrawCard();
-        PV.RPC("DrawEnemy", RpcTarget.Others);
-    }       // DrawCard
+ 
 
     public void HeroPowerSet(GameObject addTarget_, ClassCard heroClass_)
     {   // 인게임의 영웅 능력을 부여하는 함수
@@ -664,7 +640,7 @@ public class InGameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void HeroPowerOnTargetSyncRPC(bool isMy_, int targetIndex_)
     {   //TargetIndex : 적영웅 = 100, 내영웅 = 200 (상대 기준으로 100 == 적 [곧 100은 나]) // isMy_ 도 보내는사람[적] 기준으로 자신이기에 반대로 실행되어야함
-        DE.Log($"인자\n IsMy_ : {isMy_} , TargetIndex : {targetIndex_}");
+        //DE.Log($"인자\n IsMy_ : {isMy_} , TargetIndex : {targetIndex_}");
         // 타겟 지정
         Transform targetTrans = null;
 

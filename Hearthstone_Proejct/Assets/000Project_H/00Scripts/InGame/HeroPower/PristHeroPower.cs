@@ -17,6 +17,15 @@ public class PristHeroPower : HeroPower
 
     public override void TargetHeroPowerEmpect(Transform target_, bool isRPC = false)
     {
+        bool isAvailable = CostCheck();
+
+        if(isAvailable == false)
+        {
+            return;
+        }
+        else { /*PASS*/ }
+
+
         if (target_.GetComponent<HeroImage>())
         {
             target_.GetComponent<HeroImage>().HeroHp += healValue;

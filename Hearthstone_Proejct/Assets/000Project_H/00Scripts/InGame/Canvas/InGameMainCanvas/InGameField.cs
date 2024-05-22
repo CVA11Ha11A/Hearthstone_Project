@@ -96,18 +96,25 @@ public class InGameField : MonoBehaviour
             if (attackTarget_.transform.GetComponent<Minion>() == false)
             {   // 도발이 존재하는데 공격하는대상이 Minion컴포넌트가 없다면 공격 불가
                 return false;
-            }
-            if ((attackTarget_.transform.GetComponent<Minion>().ability & M_Ability.Taunt) != M_Ability.Taunt)
-            {
-                return false;
-            }
+            }            
             if ((attackTarget_.transform.GetComponent<Minion>().ability & M_Ability.Taunt) == M_Ability.Taunt)
             {
                 return true;
             }
         }
+        else
+        {
+            if(attackTarget_.transform.GetComponent<Minion>() == true)
+            {
+                return true;
+            }
+            else if(attackTarget_.transform.GetComponent<HeroImage>() == true)
+            {
+                return true;
+            }
+        }
         //DE.Log($"공격가능? 함수 진입 결과\n 도발하수인 존재하지 않음 공격 대상 정상 판정");
-        return true;
+        return false;
 
     }       // IsTargetAtteckAble()
 

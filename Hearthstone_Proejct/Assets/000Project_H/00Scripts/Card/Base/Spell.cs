@@ -23,10 +23,17 @@ public class Spell : Card
         base.Start();
         GetAudioClip();
         UpdateUI();        
-
+        NameTextFix();
     }       // Start()
 
-  
+    public override void NameTextFix()
+    {
+        Vector3 v3 = this.cardTexts[(int)C_Text.Name].transform.localPosition;
+        v3.z = -0.1f;
+        this.cardTexts[(int)C_Text.Name].transform.localPosition = v3;
+        this.cardTexts[(int)C_Text.Name].transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+    }
+
     protected override void UpdateUI()
     {
         base.UpdateUI();

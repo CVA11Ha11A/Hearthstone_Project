@@ -181,7 +181,6 @@ public class MyTurnMouse : MonoBehaviour
                         {
                             // Attack실행
                             StartCoroutine(this.selectMinion.GetComponent<Minion>().CIAttackAnime(hitInfo.transform));
-
                         }
                     }
                 }

@@ -30,10 +30,23 @@ public class HeroPower : MonoBehaviour
         this.targetIsMy = false;
     }
 
+    protected bool CostCheck()
+    {
+        if(InGameManager.Instance.mainCanvasRoot.costRoot.MyCost.NowCost >= heroPowerEmpectCost)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }       // CostCheck()
+
     public virtual void TargetHeroPowerEmpect(Transform target_, bool isRPC = false)
     {
-        // 타겟을 요구하는 영웅능력
+        
 
+        // 타겟을 요구하는 영웅능력
         // 여기는 상속받은 곳에서 능력을 실행하고 base를 통해서 호출될것임
         if (isRPC == false)
         {
@@ -85,7 +98,12 @@ public class HeroPower : MonoBehaviour
                     targetIndex = 100;
                 }
             }
+            InGameManager.Instance.mainCanvasRoot.costRoot.MyCost.NowCost -= heroPowerEmpectCost;
             InGameManager.Instance.HeroPowerOnTargetSync(targetIsMy, targetIndex);
+        }
+        else
+        {
+            InGameManager.Instance.mainCanvasRoot.costRoot.EnemyCost.NowCost -= heroPowerEmpectCost;
         }
 
     }

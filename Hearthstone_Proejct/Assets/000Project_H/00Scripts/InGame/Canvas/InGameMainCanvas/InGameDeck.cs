@@ -152,47 +152,38 @@ public class InGameDeck : MonoBehaviour
     {
         // 드로우 할떄마다 Deck의 PullDeck을 호출하면 땡겨짐 중간에 카드 드로우라면 인자를 넣어주면됨
         // 카드를 뽑을경우 
-        int objIndex = -1;        
+        int objIndex = -1;
         CardID targetCard = CardID.StartPoint;
 
-        #region LEGACY
-        //for(int i = 0; i < InGamePlayerDeck.cardList.Length; i++)
-        //{   // 내가 뽑을 카드가 무었인지 찾는 for
-        //    if(InGamePlayerDeck.cardList[i] == CardID.StartPoint || InGamePlayerDeck.cardList[i] == CardID.EndPoint)
-        //    {
-        //        continue;
-        //    }
-        //    else
-        //    {
-        //        targetCard = InGamePlayerDeck.cardList[i];
-        //        targetIndex = i;
-        //        removeCardId = (int)InGamePlayerDeck.cardList[i];
-        //        //InGamePlayerDeck.RemoveCard(targetCard);  // RPC로 해야하기에 주석
-        //        break;
-        //    }
-        //}
-        #endregion LEGACY
 
-        if(InGamePlayerDeck.count == 0)
+        DE.Log($"드로우 진입 직후 드로우전 덱 상황");
+        TestOutputDeck();
+
+
+        if (InGamePlayerDeck.count == 0)
         {
             // 탈진 딜 넣고 해당 함수 탈출
+            DE.Log("현제 덱에 카드가 없습니다.");
+            return;
         }
         else { /*PASS*/ }
 
 
 
-        while (targetCard == CardID.StartPoint)
+        while (targetCard == CardID.StartPoint || targetCard == CardID.EndPoint)
         {
             if (InGamePlayerDeck.cardList[0] == CardID.StartPoint || InGamePlayerDeck.cardList[0] == CardID.EndPoint)
             {
+                //DE.Log($"카드 땡기기조건 실행");
                 InGamePlayerDeck.PullCardList();
+                TestOutputDeck();                
             }
             else
-            {
-                targetCard = InGamePlayerDeck.cardList[0];
+            {                                
+                targetCard = InGamePlayerDeck.cardList[0];                                                
             }
         }
-        
+
 
         // 타겟의 인덱스를 찾는 for
         for (int i = 0; i < cardObjs.Length; i++)
@@ -207,7 +198,7 @@ public class InGameDeck : MonoBehaviour
             }
             else if (cardObjs[i].GetComponent<Card>() == true)
             {
-                if(cardObjs[i].GetComponent<Card>().cardId == targetCard)
+                if (cardObjs[i].GetComponent<Card>().cardId == targetCard)
                 {
                     objIndex = i;
                     break;
@@ -223,12 +214,12 @@ public class InGameDeck : MonoBehaviour
             return;
         }
 
-     
-        
+
+
         // 해당 게임 오브젝트가 핸드로 가면됨
         // RPC 함수로 호출해서 상대에게 기능 실행 InGamePlayerDeck.cardList[0] = CardID.StartPoint;   // 뽑은카드는 덱의 데이터에서 제외 
         InGamePlayerDeck.DrawCardRemoveCard();
-        cardObjs[objIndex].transform.rotation = Quaternion.Euler(0,0,0);
+        cardObjs[objIndex].transform.rotation = Quaternion.Euler(0, 0, 0);
         TargetHand.AddCardInHand(cardObjs[objIndex]);
         DE.Log($"내가 뽑은 카드 ID : {(int)cardObjs[objIndex].GetComponent<Card>().cardId}");
         InGameManager.Instance.DrawSync();
@@ -236,19 +227,15 @@ public class InGameDeck : MonoBehaviour
         // 상대에게 지워야될 카드를 보내줌 -> 상대의 덱을 업데이트 (로컬로 하는게 빠를듯)
         //RPC로 DrawCardRemove? 아니면 DrawEnemy를 실행 시킬까?
 
-        #region TEST
-#if UNITY_EDITOR
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < InGamePlayerDeck.cardList.Length; i++)
-        {
-            sb.Append($"{(int)InGamePlayerDeck.cardList[i]}");
-            sb.Append(" ");
-        }
-        DE.Log($"드로우한뒤에 나의 덱 상황 : {sb.ToString()}");
-#endif
-#endregion TEST
 
-    }       // DrawCard
+        DE.Log($"드로우 후 덱 상황");
+        TestOutputDeck();
+
+        
+
+    }       // DrawCard()
+
+
 
     public void DrawCard(CardID drawCard)
     {
@@ -285,12 +272,12 @@ public class InGameDeck : MonoBehaviour
 
         // 디버깅용
         if (objIndex == -1)
-        {            
-            DE.Log($"TargetCard를 찾지 못했음");                        
+        {
+            DE.Log($"TargetCard를 찾지 못했음");
             //return;
         }
 
-        InGamePlayerDeck.DrawCardRemoveCard();
+        InGamePlayerDeck.DrawCardRemoveCard(drawCard);
         cardObjs[objIndex].transform.rotation = Quaternion.Euler(0, 0, 0);
         TargetHand.AddCardInHand(cardObjs[objIndex]);
         cardObjs[objIndex] = null;
@@ -299,8 +286,7 @@ public class InGameDeck : MonoBehaviour
 
     // 동기화용 드로우 IngameManager제외하곤 호출 X
     public void DrawCardCallRPC()
-    {
-        // 드로우 할떄마다 Deck의 PullDeck을 호출하면 땡겨짐 중간에 카드 드로우라면 인자를 넣어주면됨
+    {        
         // 카드를 뽑을경우 
         int objIndex = -1;
         int removeCardId = -1;
@@ -350,13 +336,12 @@ public class InGameDeck : MonoBehaviour
         {
             DE.Log($"TargetCard를 찾지 못했음");
         }
-        
-        InGamePlayerDeck.DrawCardRemoveCard();
+
+        InGamePlayerDeck.DrawCardRemoveCard((CardID)removeCardId);
         cardObjs[objIndex].transform.rotation = Quaternion.Euler(0, 0, 0);
         TargetHand.AddCardInHand(cardObjs[objIndex]);
-        DE.Log($"내가 뽑은 카드 ID : {(int)cardObjs[objIndex].GetComponent<Card>().cardId}");
         cardObjs[objIndex] = null;
-        
+
 
 
     }       // DrawCard
@@ -415,7 +400,7 @@ public class InGameDeck : MonoBehaviour
 
         // 해당 게임 오브젝트가 핸드로 가면됨
         // RPC 함수로 호출해서 상대에게 기능 실행 InGamePlayerDeck.cardList[0] = CardID.StartPoint;   // 뽑은카드는 덱의 데이터에서 제외 
-        InGameManager.Instance.InGameEnemyDeckRoot.InGamePlayerDeck.DrawCardRemoveCard();
+        InGameManager.Instance.InGameEnemyDeckRoot.InGamePlayerDeck.DrawCardRemoveCard(cardObjs[objIndex].GetComponent<Card>().cardId);
         cardObjs[objIndex].transform.rotation = Quaternion.Euler(0, 0, 0);
         TargetHand.AddCardInHand(cardObjs[objIndex]);
         cardObjs[objIndex] = null;
@@ -471,5 +456,17 @@ public class InGameDeck : MonoBehaviour
         }
         Debug.Log(sb1);
     }
+    private void TestOutputDeck()
+    {
+#if UNITY_EDITOR
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < InGamePlayerDeck.cardList.Length; i++)
+        {
+            sb.Append($"{(int)InGamePlayerDeck.cardList[i]}");
+            sb.Append(" ");
+        }
+        DE.Log($"덱 상황 : {sb.ToString()}");
+#endif
+    }       // TestOutputDeck()
 
 }       // ClassEnd

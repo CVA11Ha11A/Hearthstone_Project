@@ -12,6 +12,7 @@ public class StubbornGastropod : Minion
         SetClassCard(ClassCard.Common);
         SetCardRank(CardRank.M_Rare);
         StatSetting(2, 1, 2);
+        ability = M_Ability.Taunt;
         cardName = "완강한 복족이";
         empect = "도발, 독성";
         cardNameEn = "StubbornGastropod";
