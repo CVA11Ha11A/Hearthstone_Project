@@ -77,7 +77,7 @@ public class DeckInCard : MonoBehaviour
         }
         else
         {
-            this.Datas.cardSprite = CardManager.cards[this.Datas.cardId].GetCardSprite();
+            this.Datas.cardSprite = CardManager.Instance.cards[this.Datas.cardId].GetCardSprite();
             this.cardImageRoot.sprite = this.Datas.cardSprite;
         }
     }

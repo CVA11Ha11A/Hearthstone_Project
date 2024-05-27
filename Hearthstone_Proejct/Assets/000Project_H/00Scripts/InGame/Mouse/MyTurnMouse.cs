@@ -285,6 +285,7 @@ public class MyTurnMouse : MonoBehaviour
                     }
                 }
 
+                // 여기서 스폰하기전에 타겟을 받아야할거같은데
 
                 targetCard.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                 InGameManager.Instance.mainCanvasRoot.handRoot.MyHand.RemoveCardInHand(targetCard);
@@ -298,7 +299,7 @@ public class MyTurnMouse : MonoBehaviour
 
             return true;
         }
-        return false;    // temp 
+        return false;    // 여기까지오면 무언가 이상이 있는것
     }       // CheckIsThrowCard()
 
 

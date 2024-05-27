@@ -4,7 +4,7 @@ using UnityEngine;
 
 [System.Serializable]
 public class PlayerDeckData
-{
+{    
     public List<Deck> deckList = null;
 
     private readonly int deckMaxCount = default;

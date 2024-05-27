@@ -167,7 +167,7 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
                     return;
                 }
                 // 1. 실제 덱을 수정한다. 
-                LobbyManager.Instance.playerDeckRoot.decks.deckList[LastRefDeckIndex].RemoveCard(lastChoiceCardID);
+                LobbyManager.Instance.playerDeckRoot.deckClass.deckList[LastRefDeckIndex].RemoveCard(lastChoiceCardID);
 
                 // 2.실제 덱을 토대로 출력을한다.
                 // 새로 생성하는 덱이라면 저장하고 접근해야함
@@ -203,7 +203,7 @@ public class CollectionCanvasCardInteraction : MonoBehaviour, IDragHandler, IPoi
         if (lastChoiceCardID != CardID.StartPoint)
         {
             instanceCard.gameObject.SetActive(true);
-            instanceCard.AddComponent(CardManager.cards[lastChoiceCardID].GetType());
+            instanceCard.AddComponent(CardManager.Instance.cards[lastChoiceCardID].GetType());
         }
 
     }       // OnBeginDrag()

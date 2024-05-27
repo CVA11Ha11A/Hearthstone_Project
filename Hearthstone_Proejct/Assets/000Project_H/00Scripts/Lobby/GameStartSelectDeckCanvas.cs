@@ -31,7 +31,7 @@ public class GameStartSelectDeckCanvas : MonoBehaviour
                 // 참조된 덱의 영웅 이미지로 우측에 띄우기
                 selectDeckPrintImage.gameObject.SetActive(true);
                 selectDeckPrintImage.sprite =
-                ResourceManager.Instance.ClassPullSprite[(int)LobbyManager.Instance.playerDeckRoot.decks.deckList
+                ResourceManager.Instance.ClassPullSprite[(int)LobbyManager.Instance.playerDeckRoot.deckClass.deckList
                 [this.selectDeckIndex].deckClass - 1];
 
             }
@@ -68,12 +68,12 @@ public class GameStartSelectDeckCanvas : MonoBehaviour
 
     public void PrintDeckList()
     {   // 플레이어가 가지고 있는 덱 수 만큼 출력시켜주는 함수
-        int printCount = LobbyManager.Instance.playerDeckRoot.decks.deckList.Count;
+        int printCount = LobbyManager.Instance.playerDeckRoot.deckClass.deckList.Count;
         for (int i = 0; i < printCount; i++)
         {
             printDeckObjs[i].gameObject.SetActive(true);
             printDeckObjs[i].transform.GetComponent<Image>().sprite =
-                ResourceManager.Instance.ClassVerticalSprite[(int)LobbyManager.Instance.playerDeckRoot.decks.deckList[i].deckClass - 1];
+                ResourceManager.Instance.ClassVerticalSprite[(int)LobbyManager.Instance.playerDeckRoot.deckClass.deckList[i].deckClass - 1];
         }
 
     }       // PrintDeckList()

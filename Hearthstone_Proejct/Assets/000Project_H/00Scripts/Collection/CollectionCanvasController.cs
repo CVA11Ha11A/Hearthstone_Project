@@ -238,13 +238,13 @@ public class CollectionCanvasController : MonoBehaviour
             if (deckCardListRoot.isCreatDeck == true && deckCardListRoot.isFixDeck == false)
             {
                 newDeck.SetDeckClass(deckCardListRoot.selectClass);
-                LobbyManager.Instance.playerDeckRoot.decks.deckList.Add(newDeck);
+                LobbyManager.Instance.playerDeckRoot.deckClass.deckList.Add(newDeck);
                 deckCardListRoot.isCreatDeck = false;
             }
             else if (deckCardListRoot.isCreatDeck == false && deckCardListRoot.isFixDeck == true)
             {
-                newDeck.SetDeckClass(LobbyManager.Instance.playerDeckRoot.decks.deckList[deckCardListRoot.fixIndex].deckClass);
-                LobbyManager.Instance.playerDeckRoot.decks.deckList[deckCardListRoot.fixIndex] = newDeck;
+                newDeck.SetDeckClass(LobbyManager.Instance.playerDeckRoot.deckClass.deckList[deckCardListRoot.fixIndex].deckClass);
+                LobbyManager.Instance.playerDeckRoot.deckClass.deckList[deckCardListRoot.fixIndex] = newDeck;
                 deckCardListRoot.isFixDeck = false;
             }
 
@@ -286,10 +286,10 @@ public class CollectionCanvasController : MonoBehaviour
             addCardId = deckCardListRoot.cardList[i].GetComponent<DeckInCard>().Datas.cardId;
             newDeck.AddCardInDeck(addCardId);
         }
-        LobbyManager.Instance.playerDeckRoot.decks.deckList.Add(newDeck);
+        LobbyManager.Instance.playerDeckRoot.deckClass.deckList.Add(newDeck);
         LobbyManager.Instance.playerDeckRoot.SaveDecks();
         // 3
-        deckCardListRoot.fixIndex = LobbyManager.Instance.playerDeckRoot.decks.deckList.Count - 1;  // Count는 갯수로 나오기때문에 -1
+        deckCardListRoot.fixIndex = LobbyManager.Instance.playerDeckRoot.deckClass.deckList.Count - 1;  // Count는 갯수로 나오기때문에 -1
         this.transform.GetComponent<CollectionCanvasCardInteraction>().LastRefDeckIndex = deckCardListRoot.fixIndex;
         deckCardListRoot.isCreatDeck = false;
         deckCardListRoot.isFixDeck = true;

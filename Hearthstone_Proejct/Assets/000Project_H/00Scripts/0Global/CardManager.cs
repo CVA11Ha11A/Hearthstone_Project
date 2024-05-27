@@ -114,7 +114,7 @@ public enum S_Clip
 
 public class CardManager : MonoBehaviour
 {
-    public static Dictionary<CardID, Card> cards = default;
+    public Dictionary<CardID, Card> cards = default;
 
     private static CardManager instance = null;
     public static CardManager Instance
@@ -144,7 +144,7 @@ public class CardManager : MonoBehaviour
     Vector3 minionNameRotation = new Vector3(0f, 0f, 3f);
     Vector3 minionCostPos = new Vector3(0.7f, -0.75f, -0.1f);
     Vector3 minionMaskScale = new Vector3(1.82f, 1.82f, 1.82f);
-    Vector3 minionCardImageSclae = new Vector3(0.5f, 0.5f, 0.5f);
+    Vector3 minionCardImageSclae = new Vector3(0.65f, 0.65f, 0.65f);
     // 주문
     Vector3 spellEmpectPos = new Vector3(0.09f, 1f, -0.1f);
     Vector3 spellNamePos = new Vector3(0.09f, -0.08f, -0.1f);
@@ -322,16 +322,19 @@ public class CardManager : MonoBehaviour
 
     }
 
+
+
+
     public void InItCardComponent(GameObject targetObj_, CardID cardId_)
-    {   // 카드의 프리펩에 카드의 기능을 넣어주는 함수
-        Type cardType = cards[cardId_].GetType();
-        targetObj_.AddComponent(cardType);
+    {   // 카드의 프리펩에 카드의 기능을 넣어주는 함수        
+        targetObj_.AddComponent(cards[cardId_].GetType());
 
     }       // InItCardComponent()
-    public void InItCardComponent(Transform target_, CardID cardId_)
-    {
-        Type cardType = cards[cardId_].GetType();
-        target_.gameObject.AddComponent(cardType);
+
+
+    public void InItCardComponent(Transform targetTrans_, CardID cardId_)
+    {        
+        targetTrans_.gameObject.AddComponent(cards[cardId_].GetType());        
     }
 
 

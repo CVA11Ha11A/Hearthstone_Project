@@ -32,12 +32,12 @@ public class DeckListComponent : MonoBehaviour
 
     public void UpdateOutputDeckList()
     {       // 이함수는 덱이 존재할시 1대1 매핑을 위한 함수        
-        for (int i = 0; i < LobbyManager.Instance.playerDeckRoot.decks.deckList.Count; i++)
+        for (int i = 0; i < LobbyManager.Instance.playerDeckRoot.deckClass.deckList.Count; i++)
         {   // 현재 저장되어있는 덱의 갯수 만큼 순회
 
             decks[i].SetActive(true);        
             decks[i].transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite =
-                CardManager.Instance.classSprites[(int)LobbyManager.Instance.playerDeckRoot.decks.deckList[i].deckClass - 1];
+                CardManager.Instance.classSprites[(int)LobbyManager.Instance.playerDeckRoot.deckClass.deckList[i].deckClass - 1];
         }
         decks[^1].SetActive(true);
 

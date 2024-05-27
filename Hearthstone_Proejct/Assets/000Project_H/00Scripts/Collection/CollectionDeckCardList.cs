@@ -224,14 +224,14 @@ public class CollectionDeckCardList : MonoBehaviour
             this.SetActiveFlaseToChilds();
         }
         // DeckListCompoent.DeckOnClick() 가 호출할거임
-        PlayerDeckData playerDeckRoot = LobbyManager.Instance.playerDeckRoot.decks;
+        PlayerDeckData playerDeckRoot = LobbyManager.Instance.playerDeckRoot.deckClass;
         int deckMaxCard = playerDeckRoot.deckList[targetDeckIndex_].count;
         for (int i = 0; i < deckMaxCard; i++)
         {
             if (playerDeckRoot.deckList[targetDeckIndex_].cardList[i] != CardID.StartPoint &&
                 playerDeckRoot.deckList[targetDeckIndex_].cardList[i] != CardID.EndPoint)
             {
-                AddToCard(CardManager.cards[playerDeckRoot.deckList[targetDeckIndex_].cardList[i]]);
+                AddToCard(CardManager.Instance.cards[playerDeckRoot.deckList[targetDeckIndex_].cardList[i]]);
             }
             else { /*PASS*/ }
         }

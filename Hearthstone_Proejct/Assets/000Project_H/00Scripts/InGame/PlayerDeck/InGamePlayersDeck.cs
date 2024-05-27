@@ -98,7 +98,7 @@ public class InGamePlayersDeck : MonoBehaviour
     public void MyDeckSetting(int deckRefIndex_)
     {
         myDeck = new Deck();
-        Deck tempRoot = LobbyManager.Instance.playerDeckRoot.decks.deckList[deckRefIndex_];
+        Deck tempRoot = LobbyManager.Instance.playerDeckRoot.deckClass.deckList[deckRefIndex_];
 
         this.myDeck.deckClass = tempRoot.deckClass;
         for (int i = 0; i < tempRoot.cardList.Length; i++)

@@ -15,7 +15,7 @@ public class Test001 : Test002
 
     private void Awake()
     {
-        
+        Test("t");
     }
 
     private void Update()
@@ -23,7 +23,10 @@ public class Test001 : Test002
         
     }
 
+    public void Test(string str,params int[] testInt)
+    {
 
+    }
 
 
 

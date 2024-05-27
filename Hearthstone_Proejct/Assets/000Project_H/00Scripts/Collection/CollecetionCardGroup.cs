@@ -98,7 +98,7 @@ public class CollecetionCardGroup : MonoBehaviour
                 return CardID.EndPoint;
             }
 
-            if (CardManager.cards[cardId_].classCard == targetClass_)
+            if (CardManager.Instance.cards[cardId_].classCard == targetClass_)
             {
                 CurrentIndex++;
                 return cardId_;

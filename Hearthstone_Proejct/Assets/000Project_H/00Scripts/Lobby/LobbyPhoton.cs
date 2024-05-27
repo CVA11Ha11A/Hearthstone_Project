@@ -70,7 +70,7 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
     {
         if (isConnectedPhoton == false)
         {
-            DE.LogError("포톤과 연결이 되지 않음!");
+            DE.Log("포톤과 연결이 되지 않음!");
             return;
         }
 
@@ -79,9 +79,14 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
     }   // StartMatching()
 
     #region 방 생성 관련 (마스터 클라이언트)
+
     private void RoomCreate()
     {   // 방을 생성하는 함수
         //DE.Log($"방 생성 함수 진입");
+        if (PhotonNetwork.NetworkClientState == ClientState.Leaving)
+        {
+            PhotonNetwork.ConnectUsingSettings();
+        }
         this.isMasterClient = true;
         StopAllCoroutines();
         PhotonNetwork.CreateRoom(null, this.roomOptions);
@@ -125,10 +130,10 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
 
             if (PhotonNetwork.CurrentRoom != null)
             {
-                PhotonNetwork.CurrentRoom.IsVisible = false; // 방이 리스트에서 더 이상 보이지 않도록 설정합니다.
-                PhotonNetwork.CurrentRoom.IsOpen = false; // 방이 닫히도록 설정합니다.
-                PhotonNetwork.CurrentRoom.EmptyRoomTtl = 1; // 빈 방이 몇 초 후에 삭제되도록 설정합니다.
-                PhotonNetwork.CurrentRoom.PlayerTtl = 1; // 방에 있는 플레이어가 몇 초 후에 삭제될지 설정합니다.
+                PhotonNetwork.CurrentRoom.IsVisible = false;    // 방이 리스트에서 더 이상 보이지 않도록 설정합니다.
+                PhotonNetwork.CurrentRoom.IsOpen = false;       // 방이 닫히도록 설정합니다.
+                PhotonNetwork.CurrentRoom.EmptyRoomTtl = 1;     // 빈 방이 몇 초 후에 삭제되도록 설정합니다.
+                PhotonNetwork.CurrentRoom.PlayerTtl = 1;        // 방에 있는 플레이어가 몇 초 후에 삭제될지 설정합니다.
                 PhotonNetwork.CurrentRoom.RemovedFromList = true; // 방이 방 목록에서 제거되도록 설정합니다.
                 PhotonNetwork.LeaveRoom();  // 현재방 나가기
             }
@@ -235,7 +240,7 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
         #region 클라이언트에게 덱 보내고 초기화시키는 함수 진행
         // sb에 현제 내 정보 넣고 상대에게 해당 인자를 이용해서 적 덱을 셋팅할 수 있도록 실행
         int deckRefIndex = this.gameObject.GetComponent<GameStartSelectDeckCanvas>().SelectDeckIndex;
-        Deck tempDeckRoot = LobbyManager.Instance.playerDeckRoot.decks.deckList[deckRefIndex];
+        Deck tempDeckRoot = LobbyManager.Instance.playerDeckRoot.deckClass.deckList[deckRefIndex];
         sb.Clear();
         sb.Append((int)tempDeckRoot.deckClass);  // class
         sb.Append('-');                          // class
@@ -265,7 +270,7 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
 
         // 마스터클라이언트에게 보낼 클라이언트의 덱을 string으로 압축
         int deckRefIndex = this.gameObject.GetComponent<GameStartSelectDeckCanvas>().SelectDeckIndex;
-        Deck tempDeckRoot = LobbyManager.Instance.playerDeckRoot.decks.deckList[deckRefIndex];
+        Deck tempDeckRoot = LobbyManager.Instance.playerDeckRoot.deckClass.deckList[deckRefIndex];
         sb.Clear();
         sb.Append((int)tempDeckRoot.deckClass);  // class
         sb.Append('-');                          // class
