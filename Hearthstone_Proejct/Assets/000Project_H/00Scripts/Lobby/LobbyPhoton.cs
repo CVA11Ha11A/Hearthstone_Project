@@ -82,13 +82,18 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
 
     private void RoomCreate()
     {   // 방을 생성하는 함수
-        //DE.Log($"방 생성 함수 진입");
-        if (PhotonNetwork.NetworkClientState == ClientState.Leaving)
+
+        DE.Log($"{PhotonNetwork.NetworkingClient.Server}");
+        DE.Log($"방 생성 함수 진입");
+        if (PhotonNetwork.IsConnected == false &&PhotonNetwork.NetworkClientState == ClientState.Leaving &&
+            PhotonNetwork.NetworkingClient.Server != ServerConnection.MasterServer)
         {
             PhotonNetwork.ConnectUsingSettings();
         }
+        //DE.Log($"IsConnected : {PhotonNetwork.IsConnected}");
         this.isMasterClient = true;
         StopAllCoroutines();
+
         PhotonNetwork.CreateRoom(null, this.roomOptions);
     }       // RoomCreate()
 
@@ -152,6 +157,8 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
     #region 방 찾기 및 들어가기 기능 관련 (클라이언트)
     private IEnumerator RoomSerchAndJoin()
     {   // 방을 찾으며 접속하는 함수
+        DE.Log($"방찾기, 방접속 코루틴 진입");
+
         this.currentTime = 0;
         //DE.Log($"방찾기 및 접속 함수 진입\n{PhotonNetwork.CurrentRoom}\n NetworkState : {PhotonNetwork.NetworkClientState}");
         if (PhotonNetwork.NetworkClientState == ClientState.Leaving)
@@ -189,6 +196,12 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
             finally { /*PASS*/ }
             yield return waitForSeconds;
         }
+
+        PhotonNetwork.ConnectUsingSettings();
+        while (PhotonNetwork.NetworkClientState != ClientState.ConnectedToMasterServer)
+        {
+            yield return null;
+        }
         RoomCreate();
 
     }       // RoomSerchAndJoin()
@@ -215,25 +228,26 @@ public class LobbyPhoton : MonoBehaviourPunCallbacks
     {   // 방에 접속 성공 했을경우
         // this.isReadyToStart = true; // 여기에 존재하면 안됨
         StopAllCoroutines();
-        //DE.Log($"방접속 함수 진입");
+        
         if (this.isMasterClient == true)
         {       // 자신이 방을 만들어서 들어온 경우 (마스터 클라이언트)
             //DE.Log($"방접속 함수속 마스터클라이언트 if 진입");
             PhotonNetwork.CurrentRoom.IsVisible = true; // 방이 리스트에서 보이도록 설정합니다.
             PhotonNetwork.CurrentRoom.IsOpen = true; // 방이 열리도록 설정합니다.        
             StartCoroutine(MasterClientWait());
-
+            DE.Log($"방생성후 접속 함수 진입");
         }
         else
         {   // 자신이 만든방이 아닌 타인의 방의 접속한경우 (클라이언트)
             // 클라이언트가 먼저 채팅으로 자신의 덱 리스트를 보내야 할듯
+            DE.Log($"찾은후 접속 함수 진입");
         }
 
     }       // OnJoinedRoom()
 
     private void MyRoomClientIn()
     {   // 마스터 클라이언트 함수
-        //DE.Log($"내방에 누군가 들어옴");
+        DE.Log($"내방에 누군가 들어옴");
         this.transform.GetChild(5).GetComponent<OnMatchingCanvas>().StopMatchingButtonDisable();
         StopAllCoroutines();
         isReadyToStart = true;

@@ -33,7 +33,9 @@ public class Card : MonoBehaviour
     public string cardNameEn = default;         // 카드의 영문 이름 (영문이름 == Class이름)                   최종 카드 스크립트에서 초기화
 
     public bool isPreparation = default;   // 효과 발동의 사전 준비가 필요한가?
-    public GameObject empectTarget = null;  // 효과를 사용할 타겟
+    protected Transform empectTarget = null;  // 효과를 사용할 타겟
+    protected LayerMask empectTargetLayer = default;
+    protected bool isEmpectTargetEnemy = false;
     public Card()
     {
         sb = new StringBuilder();

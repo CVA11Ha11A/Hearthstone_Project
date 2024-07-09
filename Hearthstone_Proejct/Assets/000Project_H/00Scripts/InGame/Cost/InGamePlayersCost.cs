@@ -28,9 +28,9 @@ public class InGamePlayersCost : MonoBehaviour
             this.nowCost = value;
             CostColorSetOffColor();
             CostTextUpdate();
-            
+
             // 코스트 이미지 RGB 145로 변경해야함
-            
+
         }
     }
 
@@ -45,7 +45,7 @@ public class InGamePlayersCost : MonoBehaviour
         {
             if (this.nowCost != value)
             {
-                this.nowMaxCost = value;             
+                this.nowMaxCost = value;
 
             }
 
@@ -96,6 +96,7 @@ public class InGamePlayersCost : MonoBehaviour
     private void Start()
     {
         CostTextUpdate();
+        InGameManager.Instance.transform.GetComponent<InGameSycle>().MyTurnStartEvent += TurnStartCostSetting;
     }
 
     public void MaxCostSetter(int cost_)
@@ -105,11 +106,12 @@ public class InGamePlayersCost : MonoBehaviour
 
     private void CostColorSetOffColor()
     {
-        if(NowMaxCost > NowCost)
+        if (NowMaxCost > NowCost)
         {
-            for(int i = NowMaxCost; i > NowCost; i--)
+            for (int i = NowMaxCost - 1; i > NowCost; i--)
             {   // for : 역순으로 소비된 코스트 만큼 Color조정 
                 costObjs[i].GetComponent<Image>().color = costOffColor;
+                //DE.Log($"Cost의 i 가 어디까지 순회하지? : {i}");
             }
         }
         else { /*PASS*/ }
@@ -128,15 +130,22 @@ public class InGamePlayersCost : MonoBehaviour
     {   // 턴시작시 코스트 변동사항
         this.NowMaxCost++;
         NowCost = this.NowMaxCost;
-        for(int i = 0; i < NowMaxCost; i++)
+        for (int i = 0; i < NowMaxCost; i++)
         {   // 코스트
+            costObjs[i].GetComponent<Image>().color = costOnColor;
+
             if (costObjs[i].gameObject.activeSelf == false)
             {
                 costObjs[i].SetActive(true);
-                costObjs[i].GetComponent<Image>().color = costOnColor;
+
             }
         }
 
     }       // TurnStartCostSetting()
+
+    private void OnDisable()
+    {
+        InGameManager.Instance.transform.GetComponent<InGameSycle>().MyTurnStartEvent -= TurnStartCostSetting;
+    }
 
 }       // ClassEnd

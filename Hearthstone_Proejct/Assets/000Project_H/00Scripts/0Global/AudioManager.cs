@@ -109,10 +109,6 @@ public class AudioManager : MonoBehaviour
         audioObjList = new List<GameObject>(50);
 
         AudioResourceLoad();
-        for (int i = 0; i < 10; i++)
-        {
-            CreatePullObj();
-        }
         for (int i = 0; i < this.transform.childCount; i++)
         {       // 시작시 자식 오브젝트를 리스트에 추가
             this.audioObjList.Add(this.transform.GetChild(i).gameObject);
@@ -184,14 +180,11 @@ public class AudioManager : MonoBehaviour
 
     public void ClearAllAudios()
     {
-        keepingAudioList.Clear();
+        keepingAudioList.Clear();        
         for (int i = 0; i < audioObjList.Count; i++)
         {
             audioObjList[i].GetComponent<AudioSource>().Stop();
-            audioObjList[i].GetComponent<AudioSource>().clip = null;
-            audioObjList[i].GetComponent<AudioPool>().isKeepers = false;
-            audioObjList[i].GetComponent<AudioPool>().isKeeping = false;
-
+            audioObjList[i].GetComponent<AudioPool>().ClearData();            
         }
     }
 
@@ -203,18 +196,19 @@ public class AudioManager : MonoBehaviour
 
         //DE.Log($"Count : {this.audioObjList.Count}");
         // 플레이할 오브젝트지정
+
         for (int i = 0; i < this.audioObjList.Count; i++)
         {
             if (audioObjList[i].gameObject.activeSelf == false)
             {
                 playObjIndex = i;
-                break;
             }
             else
             {
                 // BGM은 한개만 존재해야함
                 tempRoot = audioObjList[i].gameObject.GetComponent<AudioPool>();
-                if (tempRoot.GetNowMixerGroup() == mixerGroup[(int)EAudioMixerGroup.BGM])
+                if (tempRoot.GetNowMixerGroup() ==
+                    mixerGroup[(int)EAudioMixerGroup.BGM])
                 {
                     tempRoot.isKeeping = true;
                     isKeeper = true;
@@ -340,9 +334,20 @@ public class AudioManager : MonoBehaviour
 
     public void KeepSoundPlay()
     {       // 킵된 오디오들의 Pause를 풀어주며 킵된오디오 리스트에 제거해주는 함수
+        int keepAudioPlayIndex = -1;
         for (int i = 0; i < keepingAudioList.Count; i++)
         {
             keepingAudioList[i].KeepAudioPlay();
+            keepAudioPlayIndex = i;
+
+        }
+        for (int i = 0; i < keepingAudioList.Count; i++)
+        {
+            if (i == keepAudioPlayIndex)
+            {
+                continue;
+            }
+            keepingAudioList[i].ClearData();
         }
         keepingAudioList.Clear();
     }       // KeepSoundPlay()

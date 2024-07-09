@@ -20,7 +20,12 @@ public class GameEndUI : MonoBehaviour
     {
         int uiObjsLength = this.transform.childCount;
         this.uiObjs = new GameObject[uiObjsLength];
+
+#if UNITY_EDITOR
+        this.targetScale = new Vector3(0.8f, 0.8f, 0.8f);
+#else
         this.targetScale = new Vector3(1.5f, 1.5f, 1.5f);
+#endif
         this.isNextSceneMove = false;
         this.isReadyToNextSceneMove = false;
 

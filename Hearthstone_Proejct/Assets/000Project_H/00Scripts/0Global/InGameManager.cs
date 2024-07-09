@@ -23,6 +23,8 @@ public enum ETurn
 
 
 
+
+
 public class InGameManager : MonoBehaviourPunCallbacks
 {   // 인게임에서 필요한 사이클 , 덱 초기화 , 랜덤 등 동기화되어야하는 기능들을 담을 것
     // ! 여러 군데에서 IngameManager의 도움을 받아서 기능수행을 할 것이기 때문에 최대한 프로퍼티 활용으로 참조 목록 확인 가능하도록 제작
@@ -668,6 +670,18 @@ public class InGameManager : MonoBehaviourPunCallbacks
         // 효과 발동
         mainCanvasRoot.heroImagesRoot.EnemyHeroImage.heroPower.TargetHeroPowerEmpect(targetTrans, true);
     }       // HeroPowerSyncRPC()
+
+    public void MinionBattlecrySync(int callMinionIdx_,int targetIdx_)
+    {
+        PV.RPC("MinionBattlecrySyncRPC", RpcTarget.Others, callMinionIdx_, targetIdx_);
+    }
+
+    [PunRPC]
+    public void MinionBattlecrySyncRPC(int callMinionIdx_, int targetIdx_)
+    {
+        mainCanvasRoot.fieldRoot.EnemyField.transform.GetChild(callMinionIdx_)
+            .GetChild(0).GetComponent<Minion>().EmpectSync(callMinionIdx_, targetIdx_);
+    }
 
     public void GameEnd()
     {

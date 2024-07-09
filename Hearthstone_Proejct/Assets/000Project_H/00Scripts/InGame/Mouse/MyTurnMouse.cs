@@ -114,8 +114,11 @@ public class MyTurnMouse : MonoBehaviour
             mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y,
                 Camera.main.nearClipPlane));
 
-            // 포물선 그리기 목표는 마우스 현재 위치
-            InGameManager.Instance.frontCanvas.drawRoot.DrawParabola(selectMinion.transform.position, mouseWorldPosition);
+            if (this.selectMinion.GetComponent<FieldMinion>().IsAttack == true)
+            {
+                // 포물선 그리기 목표는 마우스 현재 위치
+                InGameManager.Instance.frontCanvas.drawRoot.DrawParabola(selectMinion.transform.position, mouseWorldPosition);
+            }
         }
 
         else if (this.isDragToReady == true && mouseRoot.myHeroPowerRoot != null)
@@ -127,7 +130,7 @@ public class MyTurnMouse : MonoBehaviour
                 // 마우스 스크린 좌표를 월드 좌표로 변환
                 mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y,
                     Camera.main.nearClipPlane));
-                
+
                 // 포물선 그리기 목표는 마우스 현재 위치
                 InGameManager.Instance.frontCanvas.drawRoot.DrawParabola(mouseRoot.myHeroPowerRoot.transform.position, mouseWorldPosition);
             }
@@ -151,7 +154,7 @@ public class MyTurnMouse : MonoBehaviour
                 if (targetCard.transform.position.y > -2f)
                 {   // 필드쪽으로 갔다는 뜻
                     // 1. 내코스트가 카드를 사용할 만큼의 코스트가 되는지 확인
-                    if(CheckIsThrowCard() == true)
+                    if (CheckIsThrowCard() == true)
                     {
                         // Pass
                     }
@@ -242,7 +245,7 @@ public class MyTurnMouse : MonoBehaviour
     }       // CTargetCardSclaeSet()
 
     public bool CheckIsThrowCard()
-    {        
+    {
         // 코스트 조건 확인
         if (targetCard.GetComponent<Card>().cost <= InGameManager.Instance.mainCanvasRoot.costRoot.MyCost.NowCost)
         {
@@ -285,8 +288,6 @@ public class MyTurnMouse : MonoBehaviour
                     }
                 }
 
-                // 여기서 스폰하기전에 타겟을 받아야할거같은데
-
                 targetCard.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                 InGameManager.Instance.mainCanvasRoot.handRoot.MyHand.RemoveCardInHand(targetCard);
                 InGameManager.Instance.mainCanvasRoot.fieldRoot.MyField.SpawnMinion();
@@ -301,6 +302,7 @@ public class MyTurnMouse : MonoBehaviour
         }
         return false;    // 여기까지오면 무언가 이상이 있는것
     }       // CheckIsThrowCard()
+
 
 
 }       // ClassEnd

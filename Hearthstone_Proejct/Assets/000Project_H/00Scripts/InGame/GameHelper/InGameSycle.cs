@@ -33,6 +33,7 @@ public class InGameSycle : MonoBehaviourPun
     }
 
     public event Action MinionAttackPossibleEvent;    // 소환되는 하수인은 해당 이벤트를 구독하며 자신의 턴 시작시 해당 이벤트가 호출 될것임
+    public event Action MyTurnStartEvent;
 
     private void Awake()
     {        
@@ -78,6 +79,7 @@ public class InGameSycle : MonoBehaviourPun
         {   // 자신의 턴이라면            
             StartCoroutine(CTurnSetting());
             this.MinionAttackPossibleEvent?.Invoke();
+            this.MyTurnStartEvent?.Invoke();
         }
         else
         {   // 자신의 턴이 아니라면
@@ -96,7 +98,7 @@ public class InGameSycle : MonoBehaviourPun
     {
         // 턴시작 UI 애니메이션 실행
         yield return StartCoroutine(InGameManager.Instance.mainCanvasRoot.turnUIRoot.CYourTurnAnime());
-        InGameManager.Instance.mainCanvasRoot.costRoot.MyCost.TurnStartCostSetting();   // NowMaxCost++후 현재 코스트를 nowMaxCost로 하는 기능
+        //InGameManager.Instance.mainCanvasRoot.costRoot.MyCost.TurnStartCostSetting();   // NowMaxCost++후 현재 코스트를 nowMaxCost로 하는 기능
         InGameManager.Instance.mouseRoot.transform.GetComponent<MyTurnMouse>().enabled = true;
         InGameManager.Instance.InGameMyDeckRoot.DrawCard(); // 드로우  [드로우 내부에서 동기화 함]
     }       // CTurnSetting()

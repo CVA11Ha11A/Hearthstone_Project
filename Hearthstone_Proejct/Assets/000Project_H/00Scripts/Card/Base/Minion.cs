@@ -34,6 +34,7 @@ public class Minion : Card, IDamageable
         }
     }
 
+    protected bool isBattleCryTarget = false;     // 전투의 함성 타겟이 필요한가?    
 
     public Minion()
     {
@@ -170,7 +171,7 @@ public class Minion : Card, IDamageable
     IEnumerator CSpawnMove(GameObject spawnParentObj_)
     {
 
-
+        
         // 포지션 파트
         float durationTime = 2f;
         float currentTime = default;
@@ -215,9 +216,15 @@ public class Minion : Card, IDamageable
             AudioManager.Instance.PlaySFM(false, clips[(int)M_Clip.Stinger]);
         }
 
-        // 
         this.transform.rotation = Quaternion.Euler(0, 0, 0);
         this.transform.AddComponent<FieldMinion>();
+
+        // 전함이 여기서 발동해야할거같은데 -> parent.tag == my -> 발동 -> 동기화
+        if (this.transform.parent.tag == "My" && (this.ability & M_Ability.Battlecry) == M_Ability.Battlecry)
+        {   // if : 자신의 필드에 존재해야하며 전투의 함성 효과를 지니고 있을 경우
+            Empect();
+        }
+
     }       // CSpawnMove()
 
     // 하수인이 필드에 깔렸을때 FieldMinion컴포넌트에서 호출해줄것임
@@ -379,4 +386,50 @@ public class Minion : Card, IDamageable
 
 
     }
+
+    protected virtual void BattlecryEmpect()
+    {
+        // 최종 하수인이 구현
+    }
+    protected virtual void BattlecryEmpectOnTarget()
+    {
+        // 최종 하수인이 구현
+    }
+
+
+    protected IEnumerator CBattlecryTargetChoice()
+    {   // 전투의 함성에서 타겟을 선택하게 해주는 코루틴 함수
+        InGameManager.Instance.mouseRoot.myHeroPowerRoot.enabled = false;
+        while (this.empectTarget == null)
+        {
+            InGameManager.Instance.frontCanvas.drawRoot.DrawParabola(this.transform.position, GameManager.Instance.GetMouseWorldPos());
+            RaycastHit hit = default;
+            if (Input.GetMouseButtonDown(0))
+            {
+                hit = GameManager.Instance.RayCastMousePos(this.empectTargetLayer);
+            }
+
+            if(hit.collider != null)
+            {
+                empectTarget = hit.collider.transform;
+            }            
+
+            yield return null;
+        }
+        InGameManager.Instance.mouseRoot.myHeroPowerRoot.enabled = true;
+        InGameManager.Instance.frontCanvas.drawRoot.EndParabola();
+    }
+
+    protected virtual IEnumerator CEmpect()
+    {
+        yield return null;
+    }
+
+    public virtual void EmpectSync(int callMinionIdx_, int targetIndex_)   
+    {
+
+    }
+
+
+
 }       // Minion ClassEnd

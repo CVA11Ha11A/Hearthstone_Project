@@ -22,7 +22,7 @@ public class FieldMinion : MonoBehaviour
     private void Awake()
     {
         InGameManager.Instance.gameSycleRoot.MinionAttackPossibleEvent += IsAttackTrue;
-        isAttack = true;        // Test
+        //isAttack = true;        // Test
     }
 
     void Start()

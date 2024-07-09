@@ -11,8 +11,9 @@ public class AudioPool : MonoBehaviour
         get
         {
             return this.audioSource;
-        }        
+        }
     }
+
     public bool isKeeping = false;      // 잠시 멈추는 것인지?
     public bool isKeepers = false;      // 내가 멈춘개체가 존재하는지?
 
@@ -36,7 +37,7 @@ public class AudioPool : MonoBehaviour
             this.AudioSource.clip = null;
         }
 
-        if(this.isKeepers == true)
+        if (this.isKeepers == true)
         {
             AudioManager.Instance.KeepSoundPlay();
             this.isKeepers = false;
@@ -68,7 +69,7 @@ public class AudioPool : MonoBehaviour
     public void KeepAudioPlay()
     {
         this.isKeeping = false;
-        this.AudioSource.UnPause();        
+        this.AudioSource.UnPause();
     }
 
     public AudioMixerGroup GetNowMixerGroup()
@@ -79,6 +80,13 @@ public class AudioPool : MonoBehaviour
     public void AudioPlayStop()
     {   // 더이상 오디오를 플레이 할 필요가 없을때 플레이
         this.AudioSource.Stop();
+    }
+
+    public void ClearData()
+    {
+        this.isKeepers = false;
+        this.isKeeping = false;
+        //this.audioSource.clip = null;
     }
 
 
