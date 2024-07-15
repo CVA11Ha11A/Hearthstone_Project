@@ -20,9 +20,9 @@
 + 카드관리
   + 카드는 한개의 자료구조(Dictionary)에서 관리가 되며 Card의 고유적인 ID값을 이용해서 관리가 됨
   <p align="center">
-  <img width = "70%" alt="CardCollection" src="[[https://github.com/user-attachments/assets/ec770264-1310-476e-8295-486e543eadcd](https://github.com/user-attachments/assets/17276096-a87c-4e42-84a2-caa11e1bcb8e)](https://github.com/user-attachments/assets/17276096-a87c-4e42-84a2-caa11e1bcb8e)">
+  <img width = "70%" alt="CardCollection" src="https://github.com/user-attachments/assets/17276096-a87c-4e42-84a2-caa11e1bcb8e">
   </p>
-  ![CardCollection]()
+  
 + 플레이어 덱 생성및 저장
 + 게임 사이클
 
