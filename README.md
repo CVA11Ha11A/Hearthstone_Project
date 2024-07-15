@@ -24,5 +24,18 @@
   </p>
   
 + 플레이어 덱 생성및 저장
+  + 유니티의 JsonClass이용하였으며 Application.persistentDataPath을 이용해서 프로젝트의 Path를 지정해줌
+  + 저장하는 것으로는 Deck을 저장하는데  Deck속 카드의 갯수, 덱의 직업, 카드들의 ID가 존재    
 + 게임 사이클
+  + 턴 셋팅, 덱셔플, 멀리건, 턴시작 순으로 진행
+  + 자신의 턴에서 카드를 내거나 하수인의 공격등 액션을 취할수 있음
+  + 조건으로 하수인을 소환한 턴에는 즉시 공격 불가능하도록 설정
++ 멀리건 사진
+  <p align="center">
+  <img width = "70%" alt="Mulligan" src="https://github.com/user-attachments/assets/4be3d982-257e-4019-bdd1-b1c40a02fddd">
+  </p>  
++ 하수인 공격 사진
+  <p align="center">
+  <img width = "70%" alt="MinionAttack" src="https://github.com/user-attachments/assets/e5d99f71-a8a3-4bfb-bc7f-76627bf89482">
+  </p>
 
